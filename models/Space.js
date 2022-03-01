@@ -13,6 +13,11 @@ Space.init({
         defaultValue: Sequelize.UUIDV4,
         primaryKey: true,
     },
+    name: {
+        type: DataTypes.TEXT,
+        defaultValue: "Space",
+        allowNull: false,
+    }
 }, {
     sequelize,
     timestamps: true,
