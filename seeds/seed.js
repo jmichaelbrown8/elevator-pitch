@@ -1,11 +1,13 @@
 const sequelize = require('../config/connection');
 const {
+    Space,
     User,
     Idea,
     Interest,
     Comment,
 } = require('../models');
 
+const spaceData = require('./spaceData.json');
 const userData = require('./userData.json');
 const ideaData = require('./ideaData.json');
 const interestData = require('./interestData.json');
@@ -16,6 +18,7 @@ const seedDatabase = async () => {
         force: true
     });
 
+    const space = await Space.bulkCreate(spaceData);
     const users = await User.bulkCreate(userData, {
         individualHooks: true,
         returning: true,
