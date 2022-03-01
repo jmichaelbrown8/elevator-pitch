@@ -1,6 +1,7 @@
 const {
     Model,
-    DataTypes
+    DataTypes,
+    Sequelize
 } = require('sequelize');
 const sequelize = require('../config/connection');
 
@@ -28,6 +29,14 @@ Idea.init({
     pitch: {
         type: DataTypes.TEXT,
     },
+    space_id: {
+        type: Sequelize.UUID,
+        onDelete: 'SET NULL',
+        references: {
+            model: 'space',
+            key: 'id',
+        }
+    }
 }, {
     sequelize,
     timestamps: true,
