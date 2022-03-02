@@ -12,11 +12,12 @@ const seedDatabase = async () => {
     force: true,
   });
 
-  await Space.bulkCreate(spaceData);
   await User.bulkCreate(userData, {
     individualHooks: true,
     returning: true,
   });
+
+  await Space.bulkCreate(spaceData);
 
   await Idea.bulkCreate(ideaData);
   await Interest.bulkCreate(interestData);

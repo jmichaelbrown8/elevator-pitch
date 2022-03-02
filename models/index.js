@@ -16,6 +16,10 @@ User.hasMany(Comment, {
   foreignKey: 'user_id',
 });
 
+User.hasMany(Space, {
+  foreignKey: 'user_id',
+});
+
 Idea.hasMany(Interest, {
   foreignKey: 'idea_id',
 });
