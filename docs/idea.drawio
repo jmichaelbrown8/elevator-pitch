@@ -1,0 +1,109 @@
+<mxfile host="65bd71144e">
+    <diagram id="uQ3XI5dzIqyW9PwJZxHi" name="Page-1">
+        <mxGraphModel dx="2123" dy="669" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+            <root>
+                <mxCell id="0"/>
+                <mxCell id="1" parent="0"/>
+                <mxCell id="2" value="endpoint: /idea/:idea_id" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
+                    <mxGeometry x="200" y="70" width="150" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="3" value="functionality:&lt;br&gt;- View Idea Details&lt;br&gt;- Comment&lt;br&gt;- Sign up as interested / remove interest" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
+                    <mxGeometry x="200" y="130" width="270" height="70" as="geometry"/>
+                </mxCell>
+                <mxCell id="5" value="" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                    <mxGeometry x="210" y="250" width="230" height="610" as="geometry"/>
+                </mxCell>
+                <mxCell id="31" value="" style="html=1;shadow=0;dashed=0;fillColor=#F8F9FA;strokeColor=none;fontSize=16;fontColor=#7C7C7D;align=right;spacing=15;" parent="1" vertex="1">
+                    <mxGeometry x="210" y="250" width="230" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="32" value="Idea Name" style="strokeColor=none;html=1;whiteSpace=wrap;fillColor=none;fontColor=#181819;align=left;fontSize=16;spacing=10;" parent="31" vertex="1">
+                    <mxGeometry width="130" height="40" relative="1" as="geometry">
+                        <mxPoint x="10" y="10" as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="35" value="log out" style="strokeColor=none;html=1;whiteSpace=wrap;fillColor=none;fontColor=#7C7C7D;align=left;fontSize=14;spacing=10;" parent="31" vertex="1">
+                    <mxGeometry width="70" height="40" relative="1" as="geometry">
+                        <mxPoint x="160" y="10" as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="36" value="endpoint: /space/:space_id/idea" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+                    <mxGeometry x="-150" y="70" width="180" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="37" value="functionality:&lt;br&gt;- Create an idea in a space (requires you are logged in)&lt;br&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+                    <mxGeometry x="-150" y="130" width="300" height="70" as="geometry"/>
+                </mxCell>
+                <mxCell id="38" value="" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                    <mxGeometry x="-140" y="250" width="230" height="430" as="geometry"/>
+                </mxCell>
+                <mxCell id="39" value="" style="html=1;shadow=0;dashed=0;fillColor=#F8F9FA;strokeColor=none;fontSize=16;fontColor=#7C7C7D;align=right;spacing=15;" vertex="1" parent="1">
+                    <mxGeometry x="-140" y="250" width="230" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="40" value="Create Idea" style="strokeColor=none;html=1;whiteSpace=wrap;fillColor=none;fontColor=#181819;align=left;fontSize=16;spacing=10;" vertex="1" parent="39">
+                    <mxGeometry width="130" height="40" relative="1" as="geometry">
+                        <mxPoint x="10" y="10" as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="41" value="log out" style="strokeColor=none;html=1;whiteSpace=wrap;fillColor=none;fontColor=#7C7C7D;align=left;fontSize=14;spacing=10;" vertex="1" parent="39">
+                    <mxGeometry width="70" height="40" relative="1" as="geometry">
+                        <mxPoint x="160" y="10" as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="42" value="Idea Name" style="fillColor=none;strokeColor=none;align=left;fontSize=14;" vertex="1" parent="1">
+                    <mxGeometry width="260" height="40" relative="1" as="geometry">
+                        <mxPoint x="-130" y="330" as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="43" value="" style="html=1;shadow=0;dashed=0;shape=mxgraph.bootstrap.rrect;rSize=5;fillColor=none;strokeColor=#999999;align=left;spacing=15;fontSize=14;fontColor=#6C767D;" vertex="1" parent="1">
+                    <mxGeometry width="200" height="30" relative="1" as="geometry">
+                        <mxPoint x="-130" y="370" as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="45" value="Pitch" style="fillColor=none;strokeColor=none;align=left;fontSize=14;" vertex="1" parent="1">
+                    <mxGeometry width="260" height="40" relative="1" as="geometry">
+                        <mxPoint x="-130" y="405" as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="46" value="" style="html=1;shadow=0;dashed=0;shape=mxgraph.bootstrap.rrect;rSize=5;fillColor=none;strokeColor=#999999;align=left;spacing=15;fontSize=14;fontColor=#6C767D;" vertex="1" parent="1">
+                    <mxGeometry width="200" height="110" relative="1" as="geometry">
+                        <mxPoint x="-130" y="440" as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="48" value="Create" style="html=1;shadow=0;dashed=0;shape=mxgraph.bootstrap.rrect;rSize=5;fillColor=#0085FC;strokeColor=none;align=center;fontSize=14;fontColor=#FFFFFF;" vertex="1" parent="1">
+                    <mxGeometry width="70" height="40" relative="1" as="geometry">
+                        <mxPoint x="-130" y="590" as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="52" value="&lt;h1&gt;Pitch&lt;/h1&gt;&lt;p&gt;Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.&lt;/p&gt;" style="text;html=1;strokeColor=none;fillColor=none;spacing=5;spacingTop=-20;whiteSpace=wrap;overflow=hidden;rounded=0;" vertex="1" parent="1">
+                    <mxGeometry x="230" y="330" width="190" height="120" as="geometry"/>
+                </mxCell>
+                <mxCell id="53" value="&lt;h1&gt;Interested&lt;/h1&gt;&lt;p&gt;John Doe&lt;/p&gt;&lt;p&gt;Jane Smith&lt;/p&gt;" style="text;html=1;strokeColor=none;fillColor=none;spacing=5;spacingTop=-20;whiteSpace=wrap;overflow=hidden;rounded=0;" vertex="1" parent="1">
+                    <mxGeometry x="230" y="450" width="190" height="120" as="geometry"/>
+                </mxCell>
+                <mxCell id="55" value="" style="html=1;shadow=0;dashed=0;shape=mxgraph.atlassian.close;fillColor=#BA3200;strokeColor=none;html=1;sketch=0;" vertex="1" parent="1">
+                    <mxGeometry x="296" y="525" width="14" height="14" as="geometry"/>
+                </mxCell>
+                <mxCell id="56" value="+" style="rounded=1;fillColor=#0057D8;strokeColor=none;html=1;fontColor=#ffffff;align=center;verticalAlign=middle;fontStyle=0;fontSize=12;sketch=0;" vertex="1" parent="1">
+                    <mxGeometry x="391" y="460" width="29" height="23" as="geometry"/>
+                </mxCell>
+                <mxCell id="58" value="Comment" style="html=1;shadow=0;dashed=0;shape=mxgraph.bootstrap.rrect;rSize=5;fillColor=#ffffff;strokeColor=#999999;align=left;spacing=15;fontSize=14;fontColor=#6C767D;" vertex="1" parent="1">
+                    <mxGeometry x="230" y="560" width="200" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="62" value="Submit" style="html=1;shadow=0;dashed=0;shape=mxgraph.bootstrap.rrect;rSize=5;fillColor=#0085FC;strokeColor=none;align=center;spacing=15;fontSize=14;fontColor=#ffffff;" vertex="1" parent="1">
+                    <mxGeometry x="370" y="560" width="60" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="65" value="endpoint: POST /api/idea" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+                    <mxGeometry x="-359" y="600" width="180" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="66" value="endpoint: POST /api/interest adds user to interested list" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+                    <mxGeometry x="460" y="456.5" width="180" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="67" value="endpoint: DELETE /api/interest/:id removes user from interested list" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+                    <mxGeometry x="460" y="520" width="210" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="68" value="endpoint: POST /api/comment adds comment to the idea" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+                    <mxGeometry x="450" y="560" width="210" height="30" as="geometry"/>
+                </mxCell>
+            </root>
+        </mxGraphModel>
+    </diagram>
+</mxfile>
