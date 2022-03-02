@@ -1,0 +1,43 @@
+{
+  "name": "elevator-pitch",
+  "version": "1.0.0",
+  "description": "Like kickstarter, but for open source projects",
+  "main": "server.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "seed": "node seeds/seed.js",
+    "start": "node server.js",
+    "watch": "nodemon server.js",
+    "lint": "npx eslint --ext .js ./"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jmichaelbrown8/elevator-pitch.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jmichaelbrown8/elevator-pitch/issues"
+  },
+  "homepage": "https://github.com/jmichaelbrown8/elevator-pitch#readme",
+  "dependencies": {
+    "bcrypt": "^5.0.1",
+    "connect-session-sequelize": "^7.1.2",
+    "dotenv": "^16.0.0",
+    "express": "^4.17.3",
+    "express-handlebars": "^6.0.2",
+    "express-session": "^1.17.2",
+    "mysql2": "^2.3.3",
+    "nodemon": "^2.0.15",
+    "sequelize": "^6.17.0"
+  },
+  "devDependencies": {
+    "eslint": "8.10.0",
+    "eslint-config-prettier": "8.4.0",
+    "prettier": "2.5.1"
+  }
+}
