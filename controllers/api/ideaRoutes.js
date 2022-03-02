@@ -3,11 +3,11 @@ const { Idea } = require('../../models');
 
 // Input:   id (idea id)
 // Output:  JSON Object containing idea data
-router.get('/', async (req, res) => {
+router.get('/:id', async (req, res) => {
   try {
     const ideaData = await Idea.findOne({
       where: {
-        id: req.body.id,
+        id: req.params.id,
       },
     });
 

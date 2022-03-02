@@ -3,11 +3,11 @@ const { Space } = require('../../models');
 
 // Input:   id (space UUID)
 // Output:  JSON Object => spaceData => list of all ideas within the space
-router.get('/', async (req, res) => {
+router.get('/:id', async (req, res) => {
   try {
     const spaceData = await Space.findAll({
       where: {
-        id: req.body.id,
+        id: req.params.id,
       },
     });
 
