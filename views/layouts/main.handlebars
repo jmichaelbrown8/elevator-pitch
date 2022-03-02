@@ -1,0 +1,64 @@
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Elevator Pitch</title>
+    <link rel="stylesheet" href="/css/jass.css" />
+    <link
+      href="https://cdn.muicss.com/mui-0.10.3/css/mui.min.css"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <link rel="stylesheet" href="/css/style.css" />
+    <script src="https://cdn.muicss.com/mui-0.10.3/js/mui.min.js"></script>
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css"
+    />
+    <script
+      type="text/javascript"
+      src="https://cdn.jsdelivr.net/npm/toastify-js"
+    ></script>
+  </head>
+
+  <body>
+    <div class="flex-column justify-space-around">
+      <header class="align-center p-2 mui-appbar">
+        <h1 class="text-center">
+          <a href="/">Agility Help</a>
+        </h1>
+      </header>
+      <nav class="flex-row justify-space-around mui-panel">
+        <!-- Home -->
+        <a href="/">home</a>
+        <span class="mui--text-dark-hint">|</span>
+
+        <!-- Dashboard -->
+        <a href="/dashboard">dashboard</a>
+        <span class="mui--text-dark-hint">|</span>
+
+        <!-- Conditionally render login or logout links -->
+        {{#if logged_in}}
+          <a href="" id="logout">logout</a>
+        {{else}}
+          <a href="/login">login</a>
+        {{/if}}
+
+      </nav>
+      <main class="container container-fluid mt-5">
+        <!-- Render the sub layout -->
+        {{{body}}}
+      </main>
+    </div>
+
+    <!-- Render script for logged in users only -->
+    {{#if logged_in}}
+      <script src="/js/logout.js"></script>
+    {{/if}}
+  </body>
+
+  <script src="/js/toast.js"></script>
+
+</html>
