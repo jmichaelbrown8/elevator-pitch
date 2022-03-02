@@ -10,7 +10,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "seed": "node seeds/seed.js",
     "start": "node server.js",
-    "watch": "nodemon server.js"
+    "watch": "nodemon server.js",
+    "lint": "npx eslint --ext .js ./"
   },
   "repository": {
     "type": "git",
@@ -33,5 +34,10 @@
     "mysql2": "^2.3.3",
     "nodemon": "^2.0.15",
     "sequelize": "^6.17.0"
+  },
+  "devDependencies": {
+    "eslint": "8.10.0",
+    "eslint-config-prettier": "8.4.0",
+    "prettier": "2.5.1"
   }
 }
