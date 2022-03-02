@@ -1,64 +1,108 @@
-<html lang="en">
+<html lang='en'>
 
   <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset='UTF-8' />
+    <meta name='viewport' content='width=device-width, initial-scale=1.0' />
     <title>Elevator Pitch</title>
-    <link rel="stylesheet" href="/css/jass.css" />
+     <link rel='stylesheet' href='/assets/css/style.css' />
     <link
-      href="https://cdn.muicss.com/mui-0.10.3/css/mui.min.css"
-      rel="stylesheet"
-      type="text/css"
+      rel='stylesheet'
+      href='//cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css'
     />
-    <link rel="stylesheet" href="/css/style.css" />
-    <script src="https://cdn.muicss.com/mui-0.10.3/js/mui.min.js"></script>
+    <link rel='preconnect' href='https://fonts.googleapis.com' />
+    <link rel='preconnect' href='https://fonts.gstatic.com' crossorigin />
     <link
-      rel="stylesheet"
-      type="text/css"
-      href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css"
+      href='https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;700;900&display=swap'
+      rel='stylesheet'
+    />
+   <link href="//cdn.muicss.com/mui-0.10.3/extra/mui-colors.min.css" rel="stylesheet" type="text/css" />
+   <link href="//cdn.muicss.com/mui-0.10.3/css/mui.min.css" rel="stylesheet" type="text/css" />
+   
+    <script src='https://cdn.muicss.com/mui-0.10.3/js/mui.min.js'></script>
+    <link
+      rel='stylesheet'
+      type='text/css'
+      href='https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css'
     />
     <script
-      type="text/javascript"
-      src="https://cdn.jsdelivr.net/npm/toastify-js"
+      type='text/javascript'
+      src='https://cdn.jsdelivr.net/npm/toastify-js'
     ></script>
   </head>
 
   <body>
-    <div class="flex-column justify-space-around">
-      <header class="align-center p-2 mui-appbar">
-        <h1 class="text-center">
-          <a href="/">Agility Help</a>
-        </h1>
-      </header>
-      <nav class="flex-row justify-space-around mui-panel">
-        <!-- Home -->
-        <a href="/">home</a>
-        <span class="mui--text-dark-hint">|</span>
-
-        <!-- Dashboard -->
-        <a href="/dashboard">dashboard</a>
-        <span class="mui--text-dark-hint">|</span>
-
-        <!-- Conditionally render login or logout links -->
-        {{#if logged_in}}
-          <a href="" id="logout">logout</a>
+      <!-- Appbar HTML goes here -->
+   <header class="mui-appbar mui--z1">
+     <div class="mui-container">
+  <table>
+    <tr class="mui--appbar-height">
+    <td class="mui--text-title"style="font-weight:300; color:white">  <a href="/" ><span style="font-weight:300; color:white">elevator</span><span style="font-weight:1000; color:black">pitch</span></td></a>
+      <td class="mui--text-right">
+        <ul class="mui-list--inline mui--text-body2">
+              <!-- Conditionally render login or logout links -->
+          <li>    {{#if loggedIn}}
+          <a href='' style="color:white"id='logout'>logout</a>
         {{else}}
-          <a href="/login">login</a>
-        {{/if}}
+          <a href='/login' style="color:white">login</a>
+        {{/if}}</li>
+          {{!-- activate modal--}}
+          <script>
+          function activateModal() {
+            // initialize modal element
+            var modalEl = document.createElement('div');
+            modalEl.style.width = '100px';
+            modalEl.style.height = '200px';
+            modalEl.style.alignItems = 'center';
+            modalEl.style.margin = '100px auto';
+            modalEl.style.backgroundColor = '#fff';
+          modalEl.innerHTML = `<img src="/assets/images/Pitch-pointers.png" style="height:90vh;width:auto" class="mui--text-center">`
+            // show modal
+            mui.overlay('on', modalEl);
+          }
+        </script>
+        <li><i class="fa fa-user" aria-hidden="true"></i><button class="mui-btn " style="background-color:transparent; color:white" onclick="activateModal()">tips</button></li>
+        </ul>
+      </td>
+    </tr>
+  </table>
+</div>
+</header>
 
+<div id="content-wrapper" style="margin-left:20px; margin-right:20px;">
+  <!-- Content HTML goes here -->
+  <div class="mui--appbar-height"></div>
+<br>
+<br>
+<div class="mui--text-display3 row wow zoomInDown mui-text--center">Space for <span style="font-weight:bolder">ideas</span></div>
+<br>
+<br>
+<i class="fa fa-university fa-5x mui--text-display3 mui--color-pink-A100 row wow zoomIn" aria-hidden="true"></i>
+
+
+
+    
       </nav>
-      <main class="container container-fluid mt-5">
+      <main class='container container-fluid'>
         <!-- Render the sub layout -->
         {{{body}}}
       </main>
     </div>
-
+    </div> 
+  <footer>
+    <div class="mui-container mui--text-center">
+     <img src="/assets/images/GitHub-Emblem.png" style="width:80px;height:40px"> <a href="https://github.com/jmichaelbrown8/elevator-pitch"></a>
+    </div>
+  </footer>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/wow/1.1.2/wow.min.js"></script>
+  <script>
+    new WOW().init();
+  </script>
     <!-- Render script for logged in users only -->
-    {{#if logged_in}}
-      <script src="/js/logout.js"></script>
+    {{#if loggedIn}}
+      <script src='/js/logout.js'></script>
     {{/if}}
   </body>
 
-  <script src="/js/toast.js"></script>
+  <script src='/js/toast.js'></script>
 
 </html>
