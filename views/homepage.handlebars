@@ -1,7 +1,17 @@
-{{#each articles as |article|}}
-  <div>
-    <h3><a href="/article/{{article.id}}">{{article.title}}</a></h3>
-    <p>{{article.user.username}} * {{format_date article.createdAt}}</p>
-    <div class="mui-divider"></div>
-  </div>
-{{/each}}
+
+  <legend class='mui-text--left '>Enter a space:</legend>
+  <form class='mui--align-middle'>
+    <input id = "myspace-id" type='text'style="line-height:1.35"  placeholder='Space ID'>
+  <button class='get-space mui-btn mui-btn--raised' href='#'>enter</button></input>
+</form>
+
+
+<div class="mui-divider" ></div>
+  <legend>Create a space:</legend>
+  <form class='mui--align-middle'>
+    <input id="myspace-name" type='text' style="line-height:1.35" placeholder='Space Name'>
+  <button class='create-space mui-btn mui-btn--raised' href='#' >create</button></input>
+</form>
+
+
+<script src='/js/homepage.js'></script>

@@ -11,7 +11,7 @@ const toastIt = (danger = false) => {
       position: 'right',
       stopOnFocus: true,
       style: {
-        background: danger ? '#F44336' : '#2196F3',
+        background: danger ? '#E5383B' : '#009ecc',
       },
     }).showToast();
 

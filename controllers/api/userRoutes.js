@@ -6,7 +6,7 @@ router.post('/', async (req, res) => {
     const userData = await User.create(req.body);
 
     req.session.user_id = userData.id;
-    req.session.logged_in = true;
+    req.session.loggedIn = true;
 
     req.session.save(() => {
       res.status(200).json({
@@ -25,7 +25,7 @@ router.post('/login', async (req, res) => {
   try {
     const userData = await User.findOne({
       where: {
-        username: req.body.email,
+        email: req.body.email,
       },
     });
 
@@ -44,7 +44,7 @@ router.post('/login', async (req, res) => {
     }
 
     req.session.user_id = userData.id;
-    req.session.logged_in = true;
+    req.session.loggedIn = true;
 
     req.session.save(() => {
       res.json({
