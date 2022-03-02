@@ -1,0 +1,30 @@
+#  Name of workflow
+name: Linting workflow
+# Trigger workflow on all pull requests
+on:
+    pull_request:
+        branches:
+            - main
+# Jobs to carry out
+jobs:
+    test:
+        # Operating system to run job on
+        runs-on: ubuntu-latest
+        # Steps in job
+        steps:
+            # Get code from repo
+            - name: Checkout code
+              uses: actions/checkout@v1
+            # Install NodeJS
+            - name: Use Node.js 16.x
+              uses: actions/setup-node@v1
+              with:
+                  node-version: 16.x
+            # Create cache for node module
+            - name: NPM dependencies cache
+              uses: c-hive/gha-npm-cache@v1
+            # Build the app
+            - name: 🧰 install dev deps
+              run: npm i --only=dev
+            - name: Run test
+              run: npm run lint
