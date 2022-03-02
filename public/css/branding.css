@@ -1,0 +1,12 @@
+/**
+ * Home for Branding CSS, including colors and typography
+ */
+:root {
+    /** Bootstrap Variable Mods **/
+    --bs-primary: #009ECC;
+    --bs-primary-rgb: 0, 156, 204;
+    --bs-secondary: #B8C5D6;
+    --bs-secondary-rgb: 184, 197, 214;
+    --bs-danger: #E5383B;
+    --bs-danger-rgb: 229, 56, 59;
+}

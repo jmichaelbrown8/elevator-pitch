@@ -2,7 +2,9 @@ const router = require('express').Router();
 // const { Space, Idea, Interest, User, Comment } = require('../models');
 const withAuth = require('../utils/auth');
 
-router.get('/');
+router.get('/', (req, res) => {
+  res.render('homepage');
+});
 
 router.get('/login', (req, res) => {
   res.render('login');
