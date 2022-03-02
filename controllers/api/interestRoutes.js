@@ -2,7 +2,7 @@ const router = require('express').Router();
 const { Interest } = require('../../models');
 
 // Input:   idea_id
-// Output:  JSON Object => interestData =>  Array containing every user that is interested in the idea
+// Output:  JSON Object => commentData =>  Array containing every comment about the idea
 router.get('/', async (req, res) => {
   try {
     const interestData = await Interest.findAll({
