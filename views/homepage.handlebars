@@ -1,0 +1,7 @@
+{{#each articles as |article|}}
+  <div>
+    <h3><a href="/article/{{article.id}}">{{article.title}}</a></h3>
+    <p>{{article.user.username}} * {{format_date article.createdAt}}</p>
+    <div class="mui-divider"></div>
+  </div>
+{{/each}}
