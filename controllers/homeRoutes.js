@@ -6,7 +6,7 @@ const withAuth = require('../utils/auth');
 router.get('/', async (req, res) => {
   try {
     res.render('homepage', {
-      loggedIn: req.session.loggedIn,
+      loggedIn: req.session.loggedIn
     });
   } catch (err) {
     console.log(err);
@@ -39,7 +39,7 @@ router.get('/space/:space_id', async (req, res) => {
     const mySpaceData = await Space.findOne({
       where: {
         id: req.params.space_id,
-      }
+      },
       // insert additional model data here
     });
     const mySpaces = mySpaceData.toJSON();
@@ -56,11 +56,11 @@ router.get('/space/:space_id', async (req, res) => {
 
 // Access create-space page if authed, with space_name from homepage prefilled by handlebars
 router.get('/space/:space_name', withAuth, async (req, res) => {
-  try{
+  try {
     const mySpaceName = await Space.findOne({
       where: {
         name: req.params.space_name,
-      }
+      },
     });
     const myNames = mySpaceName.toJSON();
 
@@ -68,7 +68,7 @@ router.get('/space/:space_name', withAuth, async (req, res) => {
       myNames,
       loggedIn: req.session.loggedIn,
     });
-  } catch(err) {
+  } catch (err) {
     console.log(err);
     res.status(500).json(err);
   }
