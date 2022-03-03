@@ -1,0 +1,8 @@
+/**
+ * Home of custom utility type classes
+ */
+
+/** ##### Width/Height **/
+.mh-fold {
+    min-height: calc( 100vh - 56px );
+}
