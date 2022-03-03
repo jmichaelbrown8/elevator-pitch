@@ -18,6 +18,7 @@
     
     {{!-- Local styling --}}
     <link rel="stylesheet" href="/css/bs-overrides.css" />
+    <link rel="stylesheet" href="/css/utils.css" />
     <link rel="stylesheet" href="/css/branding.css" />
 
     {{!-- Bootstrap Script --}}
@@ -51,14 +52,16 @@
       </div>
     </nav>
 
-    <div class="container my-5">
-      <h1 class="fs-1 wow zoomInDown">Space for <span class="fw-bold">ideas</span></h1>
-    </div>
+    <div class="mh-fold">
+      <div class="container my-5">
+        <h1 class="fs-1 wow zoomInDown">Space for <span class="fw-bold">ideas</span></h1>
+      </div>
 
-    <main class="container">
-      <!-- Render the sub layout -->
-      {{{body}}}
-    </main>
+      <main class="container">
+        <!-- Render the sub layout -->
+        {{{body}}}
+      </main>
+    </div>
 
     <footer class="bg-secondary px-3 py-5 mt-5">
       <div class="text-center">
