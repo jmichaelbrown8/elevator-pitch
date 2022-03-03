@@ -36,16 +36,11 @@ router.get('/signup', (req, res) => {
 // View a specific space name and ideas associated.
 router.get('/space/:id', async (req, res) => {
   try {
-    const spaceData = await Space.findByPk(req.params.id);
-    const ideaData = await Idea.findAll({
-      where: {
-        space_id: req.params.id,
-      },
+    const spaceData = await Space.findByPk(req.params.id, {
+      include: [{ model: Idea }]
     });
     const space = spaceData.get({ plain: true });
-    const ideas = ideaData.map((element) => element.get({ plain: true }));
-
-    res.render('space', { space, ideas });
+    res.render('space', { space });
   } catch (err) {
     res.status(400).json(err);
     console.log(err);
