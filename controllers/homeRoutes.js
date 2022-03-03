@@ -5,13 +5,8 @@ const withAuth = require('../utils/auth');
 //Home/Dashboard
 router.get('/', async (req, res) => {
   try {
-    const isBootstrap = req.query.bsLayoutlayout === '1';
-
-    res.render(isBootstrap ? 'homepage-bs' : 'homepage', {
-      loggedIn: req.session.loggedIn,
-      ...(isBootstrap
-        ? { layout: 'main.bs.handlebars' }
-        : {}),
+    res.render('homepage', {
+      loggedIn: req.session.loggedIn
     });
   } catch (err) {
     console.log(err);
