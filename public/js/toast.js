@@ -7,8 +7,8 @@ const toastIt = (danger = false) => {
       text: toast,
       duration: 3000,
       close: true,
-      gravity: 'top',
-      position: 'right',
+      gravity: 'bottom',
+      position: 'center',
       stopOnFocus: true,
       style: {
         background: danger ? '#E5383B' : '#009ecc',

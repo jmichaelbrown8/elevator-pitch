@@ -26,26 +26,29 @@ const createSpace = async (event) => {
 
   const space_name = document.querySelector('#myspace-name').value;
 
+  if (space_name === '') {
+    localStorage.setItem('toast', 'Please include a space name');
+    toastIt(true);
+    return;
+  }
+
   const response = await fetch('api/space/', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({
-      space_name,
+      name: space_name,
     }),
   });
 
   if (response.ok) {
-    localStorage.setItem('toast', 'Tell us more about your new space');
     const mySpaceData = await response.json();
-    const space_id = mySpaceData.id;
-    document.location.href = '/space/' + space_id;
+    localStorage.setItem('toast', `Created new space ${mySpaceData.name}`);
+    document.location.href = `/space/${mySpaceData.id}`;
   } else {
-    localStorage.setItem(
-      'toast',
-      'Please try a different name, that one may be taken.'
-    );
+    const errorObj = await response.json();
+    localStorage.setItem('toast', errorObj.message);
     toastIt(true);
   }
 };

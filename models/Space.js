@@ -12,8 +12,8 @@ Space.init(
     },
     name: {
       type: DataTypes.TEXT,
-      defaultValue: 'Space',
-      allowNull: false,
+      allowNull: true,
+      unique: true,
     },
     user_id: {
       type: DataTypes.INTEGER,

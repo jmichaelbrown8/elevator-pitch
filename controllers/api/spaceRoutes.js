@@ -31,7 +31,7 @@ router.post('/', withAuthJson, async (req, res) => {
     //   check for duplicates
     const mySpaceName = await Space.findOne({
       where: {
-        name: req.body.space_name,
+        name: req.body.name,
       },
     });
 
@@ -43,17 +43,16 @@ router.post('/', withAuthJson, async (req, res) => {
     }
 
     const mySpace = await Space.create({
-      name: req.params.space_name,
+      name: req.body.name,
       user_id: req.session.user_id,
     });
 
     const myNames = mySpace.toJSON();
 
     res.status(200).json(myNames);
-
   } catch (err) {
     console.log(err);
-    res.status(500).json(err);
+    res.status(500).json({ message: 'Something went wrong', err });
   }
 });
 
