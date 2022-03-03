@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { Space, Idea } = require('../models');
+const { Idea, Space } = require('../models');
 const { withAuth } = require('../utils/auth');
 
 //Home/Dashboard
@@ -33,25 +33,19 @@ router.get('/signup', (req, res) => {
 
 //get space
 
-// View a specific space
-router.get('/space/:space_id', async (req, res) => {
-  console.log(req.params.space_id);
+// View a specific space name and ideas associated.
+router.get('/space/:id', async (req, res) => {
   try {
-    const mySpaceData = await Space.findOne({
-      where: {
-        id: req.params.space_id,
-      },
-      includes: [{ model: Idea }],
+    const spaceData = await Space.findByPk(req.params.id, {
+      include: Idea
     });
-    const mySpace = mySpaceData.toJSON();
+    const space = spaceData.toJSON();
 
-    res.render('space', {
-      mySpace,
-      loggedIn: req.session.loggedIn,
-    });
+    res.render('space', { space });
+
   } catch (err) {
+    res.status(400).json(err);
     console.log(err);
-    res.status(500).json(err);
   }
 });
 
