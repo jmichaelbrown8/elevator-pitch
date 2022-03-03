@@ -2,7 +2,7 @@ const getSpace = async (event) => {
   event.preventDefault();
 
   const space_id = document.querySelector('#myspace-id').value;
-  //   Console log is working properly. Route is responding with 500 err. View console for response information.
+  //   Working properly
   console.log(space_id);
 
   const response = await fetch('/space/' + space_id, {
@@ -48,5 +48,6 @@ const createSpace = async (event) => {
   }
 };
 
-document.querySelector('.get-space').addEventListener('click', getSpace);
-document.querySelector('.create-space').addEventListener('click', createSpace);
+
+document.querySelector('.form-enter-space').addEventListener('submit', getSpace);
+document.querySelector('.form-create-space').addEventListener('submit', createSpace);

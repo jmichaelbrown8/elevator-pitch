@@ -6,7 +6,7 @@ const withAuth = require('../utils/auth');
 router.get('/', async (req, res) => {
   try {
     res.render('homepage', {
-      loggedIn: req.session.loggedIn,
+      loggedIn: req.session.loggedIn
     });
   } catch (err) {
     console.log(err);
@@ -52,7 +52,6 @@ router.get('/space/:space_id', withAuth, async (req, res) => {
     res.status(500).json(err);
   }
 });
-
 
 
 // Create idea page
