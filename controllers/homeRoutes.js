@@ -33,19 +33,20 @@ router.get('/signup', (req, res) => {
 
 //get space
 
-// View a specific space
-router.get('/space/:space_id', async (req, res) => {
+// View a specific space name and ideas associated.
+router.get('/space/:id', async (req, res) => {
   try {
+    const spaceData = await Space.findByPk(req.params.id);
     const ideaData = await Idea.findAll({
       where: {
-        space_id: req.params.space_id,
+        space_id: req.params.id,
       },
     });
-    const ideas = ideaData.map((element) =>
-      element.get({ plain: true })
-    );
-    res.render('space', { 'ideas': ideas, loggedIn: req.session.loggedIn });
-    // res.status(200).json(ideaData);
+    const space = spaceData.get({ plain: true });
+    const ideas = ideaData.map((element) => element.get({ plain: true }));
+
+    res.render('space', { space, ideas });
+
   } catch (err) {
     res.status(400).json(err);
     console.log(err);

@@ -2,9 +2,6 @@ const getSpace = async (event) => {
   event.preventDefault();
 
   const space_id = document.querySelector('#myspace-id').value;
-  //   Working properly
-  console.log(space_id);
-
   const response = await fetch('/space/' + space_id, {
     method: 'GET',
     headers: {

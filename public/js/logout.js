@@ -1,5 +1,4 @@
 const logout = async () => {
-  console.log('yes');
   const response = await fetch('/api/user/logout', {
     method: 'POST',
     headers: {
@@ -15,5 +14,4 @@ const logout = async () => {
     toastIt(true);
   }
 };
-console.log('yes 1');
 document.querySelector('#logout').addEventListener('click', logout);
