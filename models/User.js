@@ -28,6 +28,7 @@ User.init(
       validate: {
         isEmail: true,
       },
+      unique: true,
     },
     password: {
       type: DataTypes.STRING,

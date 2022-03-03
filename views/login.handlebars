@@ -1,22 +1,21 @@
-<div class="flex-row justify-center">
-  <div class="col-md-6">
-    <h2>log in</h2>
-
-    <form class="form login-form">
-      <div class="form-group">
-        <label for="username-login">username:</label>
-        <input class="form-input" type="text" id="username-login" />
-      </div>
-      <div class="form-group">
-        <label for="password-login">password:</label>
-        <input class="form-input" type="password" id="password-login" />
-      </div>
-      <div class="form-group">
-        <button class="mui-btn mui-btn--primary" type="submit">log in</button>
-        <a href="/signup">sign up</a>
-      </div>
-    </form>
+<div class='flex-row justify-center'>
+  <div class='col-md-6'>
+    <div class="card card-body">
+      <form class='form login-form'>
+        <legend class='mui-text--left'>Login</legend>
+        <div class="mb-3">
+          <label for="email-login" class="form-label">Email address</label>
+          <input type="email" class="form-control" id="email-login" aria-describedby="emailHelp">
+        </div>
+        <div class="mb-3">
+          <label for="password-login" class="form-label">Password</label>
+          <input type="password" class="form-control" id="password-login">
+        </div>
+        <button type="submit" class="btn btn-primary">Login</button>
+        <a class="btn btn-link" href='/signup'>Sign Up</a>
+      </form>
+    </div>
   </div>
 </div>
 
-<script src="./js/login.js"></script>
+<script src='./js/login.js'></script>

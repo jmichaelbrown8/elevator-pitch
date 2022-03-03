@@ -1,22 +1,26 @@
-<div class="flex-row justify-center">
-  <div class="col-md-6">
-    <h2>sign up</h2>
-
-    <form class="form signup-form">
-      <div class="form-group">
-        <label for="username-signup">username:</label>
-        <input class="form-input" type="text" id="username-signup" />
-      </div>
-      <div class="form-group">
-        <label for="password-signup">password:</label>
-        <input class="form-input" type="password" id="password-signup" />
-      </div>
-      <div class="form-group">
-        <button class="mui-btn mui-btn--primary" type="submit">sign up</button>
-        <a href="/login">log in</a>
-      </div>
-    </form>
+<div class='flex-row justify-center'>
+  <div class='col-md-6'>
+    <div class="card card-body">
+      <form class='form signup-form'>
+        <legend class='mui-text--left'>Sign Up</legend>
+        <div class="mb-3">
+          <label for="name-signup" class="form-label">Name</label>
+          <input type="text" class="form-control" id="name-signup">
+        </div>
+        <div class="mb-3">
+          <label for="email-signup" class="form-label">Email address</label>
+          <input type="email" class="form-control" id="email-signup" aria-describedby="emailHelp">
+          <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+        </div>
+        <div class="mb-3">
+          <label for="password-signup" class="form-label">Password</label>
+          <input type="password" class="form-control" id="password-signup">
+        </div>
+        <button type="submit" class="btn btn-primary">Sign Up</button>
+        <a class="btn btn-link" href='/login'>Login</a>
+      </form>
+    </div>
   </div>
 </div>
 
-<script src="./js/signup.js"></script>
+<script src='./js/signup.js'></script>

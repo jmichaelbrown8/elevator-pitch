@@ -1,17 +1,37 @@
 const router = require('express').Router();
 const { Idea } = require('../models');
-// const { Space, Idea, Interest, User, Comment } = require('../models');
-const withAuth = require('../utils/auth');
+const { withAuth } = require('../utils/auth');
 
-router.get('/');
-
+//Home/Dashboard
+router.get('/', async (req, res) => {
+  try {
+    res.render('homepage', {
+      loggedIn: req.session.loggedIn,
+    });
+  } catch (err) {
+    console.log(err);
+    res.status(500).json(err);
+  }
+});
+//login
 router.get('/login', (req, res) => {
-  res.render('login');
+  if (req.session.loggedIn) {
+    res.redirect('/');
+    return;
+  }
+  res.render('login', {});
 });
 
+//signup
 router.get('/signup', (req, res) => {
+  if (req.session.loggedIn) {
+    res.redirect('/');
+    return;
+  }
   res.render('signup');
 });
+
+//get space
 
 // View a specific space
 router.get('/space/:space_id', async (req, res) => {
@@ -24,7 +44,7 @@ router.get('/space/:space_id', async (req, res) => {
     const ideas = ideaData.map((element) =>
       element.get({ plain: true })
     );
-    res.render('space', { 'ideas': ideas });
+    res.render('space', { 'ideas': ideas, loggedIn: req.session.loggedIn });
     // res.status(200).json(ideaData);
   } catch (err) {
     res.status(400).json(err);
@@ -37,5 +57,14 @@ router.get('/space/:space_id/idea', withAuth);
 
 // View a specific idea
 router.get('/idea/:idea_id', withAuth);
+
+//signup
+router.get('/signup', (req, res) => {
+  if (req.session.loggedIn) {
+    res.redirect('/');
+    return;
+  }
+  res.render('signup');
+});
 
 module.exports = router;
