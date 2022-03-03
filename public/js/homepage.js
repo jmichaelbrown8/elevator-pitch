@@ -49,5 +49,5 @@ const createSpace = async (event) => {
 };
 
 
-document.querySelector('.get-space').addEventListener('click', getSpace);
-document.querySelector('.create-space').addEventListener('click', createSpace);
+document.querySelector('.form-enter-space').addEventListener('submit', getSpace);
+document.querySelector('.form-create-space').addEventListener('submit', createSpace);
