@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { Idea } = require('../models');
+const { Idea, Comment } = require('../models');
 // const { Space, Idea, Interest, User, Comment } = require('../models');
 const withAuth = require('../utils/auth');
 
@@ -36,6 +36,24 @@ router.get('/space/:space_id', async (req, res) => {
 router.get('/space/:space_id/idea', withAuth);
 
 // View a specific idea
-router.get('/idea/:idea_id', withAuth);
+router.get('/idea/:id', withAuth, async (req, res) => {
+  try {
+    const ideaData = await Idea.findByPk(req.params.id);
+    const commentData = await Comment.findAll({
+      where: {
+        idea_id: ideaData.id
+      }
+    });
+
+    const idea = ideaData.get({ plain: true });
+    const comments = commentData.map((element) =>
+      element.get({ plain: true })
+    );
+
+    res.render('idea', {idea, comments});
+  } catch (err) {
+    console.log(err);
+  }
+});
 
 module.exports = router;

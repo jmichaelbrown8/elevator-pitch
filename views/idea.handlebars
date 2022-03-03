@@ -1,0 +1,16 @@
+<br>
+<br>
+Name: {{idea.name}}
+<button>Like</button>
+<button>Interest</button>
+<br>
+<br>
+Creator: {{idea.user_id}}
+<br>
+Pitch: {{idea.pitch}}
+<hr>
+{{#each comments}}
+<br>
+{{> comment }}
+<br>
+{{/each}}
