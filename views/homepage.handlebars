@@ -1,7 +1,35 @@
-{{#each articles as |article|}}
-  <div>
-    <h3><a href="/article/{{article.id}}">{{article.title}}</a></h3>
-    <p>{{article.user.username}} * {{format_date article.createdAt}}</p>
-    <div class="mui-divider"></div>
-  </div>
-{{/each}}
+<div class='card card-body'>
+  <form class='row g-3 align-items-end form-enter-space'>
+    <div class='col-auto'>
+      <label for='myspace-name'>Enter a Space</label>
+      <input
+        type='text'
+        class='form-control'
+        id='myspace-id'
+        placeholder='Space ID'
+      />
+    </div>
+    <div class='col-auto'>
+      <button type='submit' class='btn btn-primary shadow-sm'>Enter</button>
+    </div>
+  </form>
+</div>
+
+<div class='card card-body mt-3'>
+  <form class='row g-3 align-items-end form-create-space'>
+    <div class='col-auto'>
+      <label for='myspace-name'>Create a Space</label>
+      <input
+        type='text'
+        class='form-control'
+        id='myspace-name'
+        placeholder='Space Name'
+      />
+    </div>
+    <div class='col-auto'>
+      <button type='submit' class='btn btn-primary shadow-sm'>Create</button>
+    </div>
+  </form>
+</div>
+
+<script src='/js/homepage.js'></script>
