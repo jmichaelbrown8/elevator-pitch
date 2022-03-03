@@ -1,6 +1,6 @@
 const router = require('express').Router();
 const { Space } = require('../../models');
-const withAuth = require('../../utils/auth');
+const { withAuthJson } = require('../../utils/auth');
 
 // Input:   id (space UUID)
 // Output:  JSON Object => spaceData => list of all ideas within the space
@@ -26,20 +26,19 @@ router.get('/:id', async (req, res) => {
 // Input:   name (Space), user_id (creator)
 // Creates a new space
 
-router.post('/name/:space-name', withAuth, async (req, res) => {
+router.post('/', withAuthJson, async (req, res) => {
   try {
+    //   check for duplicates
     const mySpaceName = await Space.findOne({
       where: {
-        name: req.params.space_name,
+        name: req.body.space_name,
       },
     });
 
     if (mySpaceName) {
-      res
-        .status(400)
-        .json({
-          message: 'This space name is already taken. Please try again.',
-        });
+      res.status(400).json({
+        message: 'This space name is already taken. Please try again.',
+      });
       return;
     }
 
@@ -49,11 +48,9 @@ router.post('/name/:space-name', withAuth, async (req, res) => {
     });
 
     const myNames = mySpace.toJSON();
-    console.log(myNames);
-    res.render('space', {
-      myNames,
-      loggedIn: req.session.loggedIn,
-    });
+
+    res.status(200).json(myNames);
+
   } catch (err) {
     console.log(err);
     res.status(500).json(err);

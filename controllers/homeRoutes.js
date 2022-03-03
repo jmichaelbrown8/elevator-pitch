@@ -1,12 +1,12 @@
 const router = require('express').Router();
-const { Space } = require('../models');
-const withAuth = require('../utils/auth');
+const { Space, Idea } = require('../models');
+const { withAuth } = require('../utils/auth');
 
 //Home/Dashboard
 router.get('/', async (req, res) => {
   try {
     res.render('homepage', {
-      loggedIn: req.session.loggedIn
+      loggedIn: req.session.loggedIn,
     });
   } catch (err) {
     console.log(err);
@@ -31,20 +31,22 @@ router.get('/signup', (req, res) => {
   res.render('signup');
 });
 
+//get space
+
 // View a specific space
-router.get('/space/:space_id', withAuth, async (req, res) => {
+router.get('/space/:space_id', async (req, res) => {
   console.log(req.params.space_id);
   try {
     const mySpaceData = await Space.findOne({
       where: {
         id: req.params.space_id,
       },
-      // insert additional model data here
+      includes: [{ model: Idea }],
     });
-    const mySpaces = mySpaceData.toJSON();
+    const mySpace = mySpaceData.toJSON();
 
     res.render('space', {
-      mySpaces,
+      mySpace,
       loggedIn: req.session.loggedIn,
     });
   } catch (err) {
@@ -52,7 +54,6 @@ router.get('/space/:space_id', withAuth, async (req, res) => {
     res.status(500).json(err);
   }
 });
-
 
 // Create idea page
 router.get('/space/:space_id/idea', withAuth);
