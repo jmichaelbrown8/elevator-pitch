@@ -1,9 +1,13 @@
-{{#each ideas}}
-  <br />
-  <br />
-  <a href='/idea/{{this.id}}'>{{this.name}}</a>
-  <button class='btn-primary'>Like</button>
-  <button class='btn-secondary'>Interest</button>
-  <br />
-  <br />
-{{/each}}
+<div class="card card-body my-3">
+  <div class="row g-3 align-items-center">
+    <div class="col">
+        <h3 class="fs-4 m-0"><a class="text-decoration-none" href='/idea/{{id}}'>{{name}}</a></h3>
+    </div>
+    <div class="col-auto">
+      <button class='btn btn-primary'>Like</button>
+    </div>
+    <div class="col-auto">
+      <button class='btn btn-secondary'>Interest</button>
+    </div>
+  </div>
+</div>

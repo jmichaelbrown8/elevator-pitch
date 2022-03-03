@@ -1,6 +1,10 @@
 
 <h3>{{space.name}}</h3>
-{{> ideaMini }}
+
+
+{{#each space.ideas}}
+  {{> ideaMini }}
+{{/each}}
 
 {{! Create a space form using the space name I entered on home page }}
 
