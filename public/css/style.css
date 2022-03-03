@@ -1,4 +1,4 @@
-:root {
+/* root {
   --primary: black;
   --secondary: #b8c596;
   --tertiary: #009ecc;
@@ -7,9 +7,7 @@
   --light: white;
   --error: #e5383b;
 }
-/**
- * Body CSS
- */
+
 html,
 body {
   height: 100%;
@@ -26,9 +24,6 @@ button {
   text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.004);
 }
 
-/**
- * Header CSS
- */
 header {
   position: fixed;
   top: 0;
@@ -65,25 +60,18 @@ form input {
   padding: 0.5rem;
 }
 
-/**
-   * Content CSS
-   */
+
 #content-wrapper {
   min-height: 100%;
-
-  /* sticky footer */
   box-sizing: border-box;
   margin-bottom: -100px;
   padding-bottom: 100px;
 }
 
-/**
-   * Footer CSS
-   */
 footer {
   box-sizing: border-box;
   height: 100px;
   background-color: #eee;
   border-top: 1px solid #e0e0e0;
   padding-top: 25px;
-}
+} 
