@@ -1,17 +1,17 @@
 const router = require('express').Router();
-const { Space } = require('../../models');
+const { Idea } = require('../../models');
 
-// Input:   id (space UUID)
-// Output:  JSON Object => spaceData => list of all ideas within the space
+// Input:   id (idea id)
+// Output:  JSON Object containing idea data
 router.get('/:id', async (req, res) => {
   try {
-    const spaceData = await Space.findAll({
+    const ideaData = await Idea.findOne({
       where: {
         id: req.params.id,
       },
     });
 
-    res.status(200).json({ spaceData });
+    res.status(200).json({ ideaData });
   } catch (err) {
     let message = 'Something went wrong.';
     console.log(err);
@@ -22,13 +22,13 @@ router.get('/:id', async (req, res) => {
   }
 });
 
-// Input:   name (Space), user_id (creator)
-// Creates a new space
+// Input:   name (creator), user_id, space_id (UUID optional), pitch (text)
+// Creates a new idea
 router.post('/', async (req, res) => {
   try {
-    await Space.create(req.body);
+    await Idea.create(req.body);
     res.status(200).json({
-      message: `Space created`,
+      message: `Idea created`,
     });
   } catch (err) {
     let message = 'Something went wrong.';
