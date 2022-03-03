@@ -14,31 +14,31 @@ const getSpace = async (event) => {
   console.log(response);
   if (response.ok) {
     localStorage.setItem('toast', 'Welcome to your space');
-    document.location.replace('/space');
+    document.location.replace('/space/' + space_id);
   } else {
     localStorage.setItem('toast', 'Your space id could not be found.');
     toastIt(true);
   }
 };
 
-
 const createSpace = async (event) => {
   event.preventDefault();
 
   const space_name = document.querySelector('#myspace-name').value;
   //   value is getting through.
-  console.log(space_name);
   //   Console log is working properly. Sending it through to route iscoming back with a 500 internal server error.
-  const response = await fetch('/space/' +space_name, {
-    method: 'GET',
+  const response = await fetch('api/space/name/' + space_name, {
+    method: 'POST',
     headers: {
       'Content-Type': 'application/json',
     },
+    body: JSON.stringify({
+      space_name,
+    }),
   });
-
+  console.log(response);
   if (response.ok) {
     localStorage.setItem('toast', 'Tell us more about your new space');
-    document.location.replace('/space');
   } else {
     localStorage.setItem(
       'toast',
@@ -47,7 +47,6 @@ const createSpace = async (event) => {
     toastIt(true);
   }
 };
-
 
 document.querySelector('.get-space').addEventListener('click', getSpace);
 document.querySelector('.create-space').addEventListener('click', createSpace);

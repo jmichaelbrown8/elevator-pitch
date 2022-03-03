@@ -32,14 +32,13 @@ router.get('/signup', (req, res) => {
 });
 
 // View a specific space
-// Coming back with 500 error for some reason?
-router.get('/space/:space_id', async (req, res) => {
+router.get('/space/:space_id', withAuth, async (req, res) => {
   console.log(req.params.space_id);
   try {
     const mySpaceData = await Space.findOne({
       where: {
         id: req.params.space_id,
-      }
+      },
       // insert additional model data here
     });
     const mySpaces = mySpaceData.toJSON();
@@ -54,25 +53,7 @@ router.get('/space/:space_id', async (req, res) => {
   }
 });
 
-// Access create-space page if authed, with space_name from homepage prefilled by handlebars
-router.get('/space/:space_name', withAuth, async (req, res) => {
-  try{
-    const mySpaceName = await Space.findOne({
-      where: {
-        name: req.params.space_name,
-      }
-    });
-    const myNames = mySpaceName.toJSON();
 
-    res.render('space', {
-      myNames,
-      loggedIn: req.session.loggedIn,
-    });
-  } catch(err) {
-    console.log(err);
-    res.status(500).json(err);
-  }
-});
 
 // Create idea page
 router.get('/space/:space_id/idea', withAuth);
