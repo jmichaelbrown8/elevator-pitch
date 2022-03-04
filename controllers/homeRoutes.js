@@ -49,10 +49,41 @@ router.get('/space/:id', async (req, res) => {
 });
 
 // Create idea page
-router.get('/space/:space_id/idea', withAuth);
+router.post('/space/:space_id/idea', async (req, res) => {
+  try {
+    const idea = await Idea.create(req.body);
+
+    const myIdea = idea.toJSON();
+
+    res.status(200).json(myIdea);
+  } catch (err) {
+    let message = 'Something went wrong.';
+    console.log(err);
+    res.status(400).json({
+      message,
+      err,
+    });
+  }
+});
 
 // View a specific idea
-router.get('/idea/:idea_id', withAuth);
+router.get('/idea/:id', withAuth, async (req, res) => {
+  try {
+    const ideaData = await Idea.findByPk(req.params.id);
+    const commentData = await Comment.findAll({
+      where: {
+        idea_id: ideaData.id,
+      },
+    });
+
+    const idea = ideaData.get({ plain: true });
+    const comments = commentData.map((element) => element.get({ plain: true }));
+
+    res.render('idea', { idea, comments });
+  } catch (err) {
+    console.log(err);
+  }
+});
 
 //signup
 router.get('/signup', (req, res) => {

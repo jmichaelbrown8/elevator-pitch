@@ -1,5 +1,5 @@
 
-<h3>{{space.name}}</h3>
+<h3 class="space-id" data-id="{{space.id}}">{{space.name}}</h3>
 <br>
 
 {{!-- add idea or hide section --}}
@@ -15,6 +15,7 @@
         type='text'
         class='form-control'
         id='idea-name'
+         name="idea-name"
         placeholder='The greatest idea ever'
       />
     </div>
@@ -32,16 +33,17 @@
 
     <div class='col-auto'>
       <label for='member-validate'>I'd like members to join my idea</label>
-      <input type="checkbox" id="member-validate" name="member-validate" onclick='showNumber()'>
+      <input type="checkbox" id="member-validate"  onclick='showNumber()'>
    
 
         {{!-- Member number entry --}}
         <div class='member-number pt-3' style="display:none">
-        <label for='ideaContent'>Number of members I'd like:</label>
+        <label for='member-number'>Number of members I'd like:</label>
         <input
             type='number'
             class='form-control'
             default='0'
+            name='member-number'
             id='member-number'
             placeholder='1'
         >
@@ -50,7 +52,7 @@
 
     <div class='col-12'>
       <label for='skill-validate'>I'd like to specify certain roles for this idea</label>
-      <input type="checkbox" id="skill-validate" name="skill-validate" onclick='showHelp()'>
+      <input type="checkbox" id="skill-validate" onclick='showHelp()'>
     </div>
         {{!-- Skills entry --}}
         <div class='col-12 skills' style='display:none'>
@@ -66,6 +68,9 @@
     <br> 
     <div class='col-auto'>
       <button type='submit' id="form-create-idea" class='btn btn-primary shadow-sm'>Create</button>
+    </div>
+    <div class='col-auto'>
+      <button type='submit' id="test-idea" class='btn btn-primary shadow-sm'>Test</button>
     </div>
   </form>
 </div>

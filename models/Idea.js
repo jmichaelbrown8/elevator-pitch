@@ -28,9 +28,11 @@ Idea.init(
     },
     members: {
       type: DataTypes.INTEGER,
+      allowNull: true,
     },
     skills: {
       type: DataTypes.STRING,
+      allowNull: true,
     },
     space_id: {
       type: Sequelize.UUID,

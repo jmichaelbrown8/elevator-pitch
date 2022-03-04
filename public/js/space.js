@@ -44,19 +44,17 @@ const showHelp = () => {
 };
 
 const createIdea = async (event) => {
-  alert('Hello Line 47');
-  event.preventDefault();
-  alert('Hello line 4');
 
+  event.preventDefault();
+
+  const space_id = document.querySelector('.space-id').getAttribute('data-id');
   const name = document.querySelector('#idea-name').value;
   const pitch = document.querySelector('#idea-content').value.trim();
   const members = parseInt(document.querySelector('#member-number').value);
   const skills = document.querySelector('#skills').value.trim();
-  //   alert(name, pitch, members, skills)
-  // console.log(name, pitch, members, skills)
-  //   alert('Hello');
-  if (name && pitch) {
-    const response = await fetch('api/idea', {
+
+  if (space_id && name && pitch) {
+    const response = await fetch('${space_id}/idea', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -65,15 +63,17 @@ const createIdea = async (event) => {
         name,
         pitch,
         members,
-        skills
-      })
+        skills,
+        space_id,
+      }),
     });
 
-    console.log(response);
     if (response.ok) {
       const myIdea = await response.json();
+
       localStorage.setItem('toast', `Created new idea - ${myIdea.name}`);
-      document.location.href = `/idea/${myIdea.id}`;
+      //    place to re-route after idea creation
+      document.location.href = `/space/${myIdea.space_id}`;
     } else {
       const errorObj = await response.json();
       localStorage.setItem('toast', errorObj.message);
@@ -84,4 +84,5 @@ const createIdea = async (event) => {
 
 document
   .querySelector('#form-create-idea')
-  .addEventListener('submit', createIdea);
+  .addEventListener('click', createIdea);
+
