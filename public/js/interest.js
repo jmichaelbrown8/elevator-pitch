@@ -1,4 +1,7 @@
 const interestHandler = async (event) => {
+  if (!event.target.classList.contains('interest')) {
+    return;
+  }
   event.preventDefault();
   const idea_id = event.target.value;
 
