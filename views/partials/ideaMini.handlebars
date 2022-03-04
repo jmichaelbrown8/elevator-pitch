@@ -7,7 +7,9 @@
       <button class='btn btn-primary'>Like</button>
     </div>
     <div class="col-auto">
-      <button class='btn btn-secondary interest' value="{{id}}">{{interests.length}} Interested</button>
+      <button class='btn btn-secondary interest-{{is_interested interests logged_in_user_id}}' value="{{id}}">
+        {{interests.length}} Interested
+      </button>
     </div>
   </div>
 </div>

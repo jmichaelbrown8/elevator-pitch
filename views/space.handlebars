@@ -3,7 +3,7 @@
 
 <div id="ideas">
 {{#each space.ideas}}
-  {{> ideaMini }}
+  {{> ideaMini logged_in_user_id=../user_id}}
 {{/each}}
 </div>
 <script src="/js/interest.js"></script>

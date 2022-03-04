@@ -46,7 +46,7 @@ router.get('/space/:id', async (req, res) => {
     });
     const space = spaceData.toJSON();
 
-    res.render('space', { space });
+    res.render('space', { space, user_id: req.session.user_id });
   } catch (err) {
     res.status(400).json(err);
     console.log(err);
@@ -71,7 +71,12 @@ router.get('/idea/:id', withAuth, async (req, res) => {
     const idea = ideaData.get({ plain: true });
     const comments = commentData.map((element) => element.get({ plain: true }));
 
-    res.render('idea', { idea, comments });
+    res.render('idea', {
+      idea,
+      comments,
+      user_id: req.session.user_id,
+      loggedIn: req.session.loggedIn,
+    });
   } catch (err) {
     console.log(err);
   }

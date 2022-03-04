@@ -31,33 +31,31 @@ router.get('/', async (req, res) => {
 // Creates a new interest relation between user and idea
 router.post('/', withAuthJson, async (req, res) => {
   try {
-    // only add interest if it doesn't already exist
-    const existingInterest = await Interest.findAll({
-      where: [
-        {
-          idea_id: req.body.idea_id,
-          user_id: req.session.user_id,
-        },
-      ],
+    // Create interest if it doesn't exist
+    await Interest.create({
+      idea_id: req.body.idea_id,
+      user_id: req.session.user_id,
     });
+    res.status(200).json({ interested: true });
+  } catch (err) {
+    let message = 'Something went wrong.';
 
-    console.log(existingInterest);
-    if (!existingInterest.length) {
-      // Create interest if it doesn't exist
-      await Interest.create({
+    res.status(400).json({
+      message,
+      err,
+    });
+  }
+});
+
+router.delete('/', async (req, res) => {
+  try {
+    await Interest.destroy({
+      where: {
         idea_id: req.body.idea_id,
         user_id: req.session.user_id,
-      });
-      res.status(200).json({ interested: true });
-    } else {
-      // else remove interest
-      await Interest.destroy({
-        where: {
-          id: existingInterest[0].id,
-        },
-      });
-      res.status(200).json({ interested: false });
-    }
+      },
+    });
+    res.status(200).json({ interested: false });
   } catch (err) {
     let message = 'Something went wrong.';
 
