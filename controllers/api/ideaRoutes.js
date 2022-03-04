@@ -25,6 +25,8 @@ router.get('/:id', async (req, res) => {
 // Input:   name (creator), user_id, space_id (UUID optional), pitch (text)
 // Creates a new idea
 router.post('/', async (req, res) => {
+  console.log(req.body);
+
   try {
     await Idea.create(req.body);
     res.status(200).json({

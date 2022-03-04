@@ -37,12 +37,11 @@ router.get('/signup', (req, res) => {
 router.get('/space/:id', async (req, res) => {
   try {
     const spaceData = await Space.findByPk(req.params.id, {
-      include: Idea
+      include: Idea,
     });
     const space = spaceData.toJSON();
 
     res.render('space', { space });
-
   } catch (err) {
     res.status(400).json(err);
     console.log(err);
