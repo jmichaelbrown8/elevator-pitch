@@ -1,6 +1,7 @@
 const router = require('express').Router();
 const { Idea, Space, Comment } = require('../models');
-const { withAuth } = require('../utils/auth');
+// eslint-disable-next-line no-unused-vars
+const { withAuth, withAuthJson } = require('../utils/auth');
 
 //Home/Dashboard
 router.get('/', async (req, res) => {
@@ -48,26 +49,21 @@ router.get('/space/:id', async (req, res) => {
   }
 });
 
-// Create idea page
-router.post('/space/:space_id/idea', async (req, res) => {
+// Get idea create page
+router.get('/space/:id/idea', async (req, res) => {
   try {
-    const idea = await Idea.create(req.body);
+    const spaceData = await Space.findByPk(req.params.id);
+    const space = spaceData.toJSON();
 
-    const myIdea = idea.toJSON();
-
-    res.status(200).json(myIdea);
+    res.render('ideaCreate', { space });
   } catch (err) {
-    let message = 'Something went wrong.';
+    res.status(400).json(err);
     console.log(err);
-    res.status(400).json({
-      message,
-      err,
-    });
   }
 });
 
 // View a specific idea
-router.get('/idea/:id', withAuth, async (req, res) => {
+router.get('space/:space_id/:idea_id', withAuth, async (req, res) => {
   try {
     const ideaData = await Idea.findByPk(req.params.id);
     const commentData = await Comment.findAll({

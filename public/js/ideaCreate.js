@@ -1,25 +1,6 @@
 // Display toggle functions
 
 // eslint-disable-next-line no-unused-vars
-const showIdea = () => {
-  const ideaCard = document.querySelector('.show-idea');
-  ideaCard.style.display = 'block';
-  const hideButton = document.querySelector('.hide-button');
-  hideButton.style.display = 'block';
-  const addButton = document.querySelector('.add-button');
-  addButton.style.display = 'none';
-};
-// eslint-disable-next-line no-unused-vars
-const hideIdea = () => {
-  const ideaCard = document.querySelector('.show-idea');
-  ideaCard.style.display = 'none';
-  const hideButton = document.querySelector('.hide-button');
-  hideButton.style.display = 'none';
-  const addButton = document.querySelector('.add-button');
-  addButton.style.display = 'block';
-};
-
-// eslint-disable-next-line no-unused-vars
 const showNumber = () => {
   const checkbox = document.querySelector('#member-validate');
   const question = document.querySelector('.member-number');
@@ -53,7 +34,7 @@ const createIdea = async (event) => {
   const skills = document.querySelector('#skills').value.trim();
 
   if (space_id && name && pitch) {
-    const response = await fetch('${space_id}/idea', {
+    const response = await fetch('/api/idea', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

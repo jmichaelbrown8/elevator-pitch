@@ -3,82 +3,13 @@
 <br>
 
 {{!-- add idea or hide section --}}
-<h4 class="add-button bi bi-plus-circle" style="color:#009ecc; cursor:pointer" onclick='showIdea()'> Add idea</h4>
-<h4 class="hide-button bi bi-dash-circle" style="color:#E5383B; cursor:pointer; display:none" onclick='hideIdea()'> Hide idea</h4>
-
-<div class='card card-body show-idea' style="display:none">
-  <form class='row g-3 align-items-end'>
-      {{!-- Idea name --}}
-    <div class='col-auto'>
-      <label for='idea-name'>Idea name:</label>
-      <input
-        type='text'
-        class='form-control'
-        id='idea-name'
-         name="idea-name"
-        placeholder='The greatest idea ever'
-      />
-    </div>
-    {{!-- Idea content --}}
-    <div class='col-12'>
-      <label for='idea-content'>My pitch:</label>
-        <textarea
-        maxlength="500"
-        class="form-control"
-        id="idea-content"
-        name="idea-content"
-        placeholder='Have you ever wanted to...?'
-      ></textarea>
-    </div>
-
-    <div class='col-auto'>
-      <label for='member-validate'>I'd like members to join my idea</label>
-      <input type="checkbox" id="member-validate"  onclick='showNumber()'>
-   
-
-        {{!-- Member number entry --}}
-        <div class='member-number pt-3' style="display:none">
-        <label for='member-number'>Number of members I'd like:</label>
-        <input
-            type='number'
-            class='form-control'
-            default='0'
-            name='member-number'
-            id='member-number'
-            placeholder='1'
-        >
-        </div>
-    </div>
-
-    <div class='col-12'>
-      <label for='skill-validate'>I'd like to specify certain roles for this idea</label>
-      <input type="checkbox" id="skill-validate" onclick='showHelp()'>
-    </div>
-        {{!-- Skills entry --}}
-        <div class='col-12 skills' style='display:none'>
-        <label for='skills'>Roles requested:</label>
-        <textarea
-            maxlength="500"
-            class="form-control"
-            id="skills"
-            name="skills"
-            placeholder='UI Designer, UI Developer, DBA'
-        ></textarea>
-        </div>
-    <br> 
-    <div class='col-auto'>
-      <button type='submit' id="form-create-idea" class='btn btn-primary shadow-sm'>Create</button>
-    </div>
-  </form>
-</div>
+<h4 class="bi bi-plus-circle" style="color:#009ecc; cursor:pointer"><a class="text-decoration-none" style="color:#009ecc" href="/space/{{space.id}}/idea"> Add idea</a></h4>
 
 <br>
 {{#each space.ideas}}
   {{> ideaMini }}
 {{/each}}
 
-
-<script src='/js/space.js'></script>
 
 
 
