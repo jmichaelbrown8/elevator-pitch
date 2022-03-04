@@ -44,7 +44,6 @@ const showHelp = () => {
 };
 
 const createIdea = async (event) => {
-
   event.preventDefault();
 
   const space_id = document.querySelector('.space-id').getAttribute('data-id');
@@ -85,4 +84,3 @@ const createIdea = async (event) => {
 document
   .querySelector('#form-create-idea')
   .addEventListener('click', createIdea);
-
