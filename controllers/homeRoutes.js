@@ -59,7 +59,9 @@ router.get('/space/:space_id/idea', withAuth);
 // View a specific idea
 router.get('/idea/:id', withAuth, async (req, res) => {
   try {
-    const ideaData = await Idea.findByPk(req.params.id);
+    const ideaData = await Idea.findByPk(req.params.id, {
+      include: Interest,
+    });
     const commentData = await Comment.findAll({
       where: {
         idea_id: ideaData.id,
