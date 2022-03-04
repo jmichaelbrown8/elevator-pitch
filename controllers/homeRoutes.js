@@ -50,7 +50,13 @@ router.get('/space/:id', async (req, res) => {
 });
 
 // Create idea page
-router.get('/space/:space_id/idea', withAuth);
+router.get('/space/:space_id/idea', withAuth, async (req, res) => {
+  try {
+    res.render('addIdea');
+  } catch (err) {
+    console.log(err);
+  }
+});
 
 // View a specific idea
 router.get('/idea/:idea_id', withAuth);
