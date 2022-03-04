@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { Idea, Space } = require('../models');
+const { Idea, Space, Comment } = require('../models');
 const { withAuth } = require('../utils/auth');
 
 //Home/Dashboard
