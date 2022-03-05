@@ -10,7 +10,8 @@ SpaceMember.init(
       validate: {
         isIn: ['rejected', 'pending', 'approved'],
       },
-    }
+      defaultValue: 'pending',
+    },
   },
   {
     sequelize,
