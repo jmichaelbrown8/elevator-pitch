@@ -25,11 +25,13 @@ User.hasMany(Space, {
 User.belongsToMany(Space, {
   through: SpaceMember,
   as: 'spaces',
+  foreignKey: 'user_id',
 });
 
 Space.belongsToMany(User, {
   through: SpaceMember,
-  as: 'members'
+  as: 'members',
+  foreignKey: 'space_id',
 });
 
 Idea.hasMany(Interest, {
