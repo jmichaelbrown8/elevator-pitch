@@ -5,9 +5,7 @@ const { withAuth } = require('../utils/auth');
 //Home/Dashboard
 router.get('/', async (req, res) => {
   try {
-    res.render('homepage', {
-      loggedIn: req.session.loggedIn,
-    });
+    res.render('homepage');
   } catch (err) {
     console.log(err);
     res.status(500).json(err);
@@ -46,7 +44,7 @@ router.get('/space/:id', async (req, res) => {
     });
     const space = spaceData.toJSON();
 
-    res.render('space', { space, user_id: req.session.user_id });
+    res.render('space', { space });
   } catch (err) {
     res.status(400).json(err);
     console.log(err);
@@ -73,9 +71,7 @@ router.get('/idea/:id', withAuth, async (req, res) => {
 
     res.render('idea', {
       idea,
-      comments,
-      user_id: req.session.user_id,
-      loggedIn: req.session.loggedIn,
+      comments
     });
   } catch (err) {
     console.log(err);
