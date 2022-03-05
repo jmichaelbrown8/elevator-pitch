@@ -6,9 +6,7 @@ const { withAuth, withAuthJson } = require('../utils/auth');
 //Home/Dashboard
 router.get('/', async (req, res) => {
   try {
-    res.render('homepage', {
-      loggedIn: req.session.loggedIn,
-    });
+    res.render('homepage');
   } catch (err) {
     console.log(err);
     res.status(500).json(err);
@@ -38,7 +36,12 @@ router.get('/signup', (req, res) => {
 router.get('/space/:id', async (req, res) => {
   try {
     const spaceData = await Space.findByPk(req.params.id, {
-      include: Idea,
+      include: [
+        {
+          model: Idea,
+          include: Interest,
+        },
+      ],
     });
     const space = spaceData.toJSON();
 
@@ -65,7 +68,9 @@ router.get('/space/:id/idea', async (req, res) => {
 // View a specific idea
 router.get('space/:space_id/:idea_id', withAuth, async (req, res) => {
   try {
-    const ideaData = await Idea.findByPk(req.params.id);
+    const ideaData = await Idea.findByPk(req.params.id, {
+      include: Interest,
+    });
     const commentData = await Comment.findAll({
       where: {
         idea_id: ideaData.id,
@@ -75,7 +80,10 @@ router.get('space/:space_id/:idea_id', withAuth, async (req, res) => {
     const idea = ideaData.get({ plain: true });
     const comments = commentData.map((element) => element.get({ plain: true }));
 
-    res.render('idea', { idea, comments });
+    res.render('idea', {
+      idea,
+      comments
+    });
   } catch (err) {
     console.log(err);
   }
