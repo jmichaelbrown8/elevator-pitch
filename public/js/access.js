@@ -2,7 +2,7 @@
   const joinSpace = async ({ target }) => {
     const space_id = target.dataset.id;
 
-    const response = await fetch(`/api/space/${space_id}/join`, {
+    const response = await fetch(`/api/space/${space_id}/member`, {
       method: 'POST',
       body: JSON.stringify({ space_id }),
       headers: {

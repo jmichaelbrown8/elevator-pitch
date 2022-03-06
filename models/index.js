@@ -52,4 +52,5 @@ module.exports = {
   Idea,
   Interest,
   Comment,
+  SpaceMember
 };
