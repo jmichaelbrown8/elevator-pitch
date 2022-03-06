@@ -9,10 +9,6 @@ User.hasMany(Idea, {
   foreignKey: 'user_id',
 });
 
-User.hasMany(Interest, {
-  foreignKey: 'user_id',
-});
-
 User.hasMany(Comment, {
   foreignKey: 'user_id',
 });
@@ -34,8 +30,20 @@ Space.belongsToMany(User, {
   foreignKey: 'space_id',
 });
 
-Idea.hasMany(Interest, {
+User.belongsToMany(Idea, {
+  through: Interest,
+  as: 'interesting_ideas',
+  foreignKey: 'user_id',
+});
+
+Idea.belongsToMany(User, {
+  through: Interest,
+  as: 'interested_users',
   foreignKey: 'idea_id',
+});
+
+Idea.belongsTo(Space, {
+  foreignKey: 'space_id',
 });
 
 Space.hasMany(Idea, {
