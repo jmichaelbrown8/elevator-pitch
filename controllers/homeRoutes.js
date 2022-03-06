@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { Idea, Space, Comment, User } = require('../models');
+const { Idea, Space, Comment, User, Interest } = require('../models');
 const { withAuth } = require('../utils/auth');
 
 //Home/Dashboard
@@ -58,7 +58,11 @@ router.get('/space/:space_id/idea', withAuth);
 router.get('/idea/:id', withAuth, async (req, res) => {
   try {
     const ideaData = await Idea.findByPk(req.params.id, {
-      include: Interest,
+      include: {
+        model: User,
+        through: Interest,
+        as: 'interested_user',
+      },
     });
     const commentData = await Comment.findAll({
       where: {
