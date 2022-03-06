@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { Idea, Space, Comment, Interest } = require('../models');
+const { Idea, Space, Comment, User, Interest } = require('../models');
 const { withAuth } = require('../utils/auth');
 
 //Home/Dashboard
@@ -38,7 +38,7 @@ router.get('/space/:id', async (req, res) => {
       include: [
         {
           model: Idea,
-          include: Interest,
+          include: { model: User, as: 'interested_users' },
         },
       ],
     });
@@ -74,7 +74,11 @@ router.get('/space/:space_id/idea', withAuth);
 router.get('/idea/:id', withAuth, async (req, res) => {
   try {
     const ideaData = await Idea.findByPk(req.params.id, {
-      include: Interest,
+      include: {
+        model: User,
+        through: Interest,
+        as: 'interested_users',
+      },
     });
     const commentData = await Comment.findAll({
       where: {
@@ -87,7 +91,7 @@ router.get('/idea/:id', withAuth, async (req, res) => {
 
     res.render('idea', {
       idea,
-      comments
+      comments,
     });
   } catch (err) {
     console.log(err);
