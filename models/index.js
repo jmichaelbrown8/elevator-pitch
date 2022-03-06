@@ -32,13 +32,13 @@ Space.belongsToMany(User, {
 
 User.belongsToMany(Idea, {
   through: Interest,
-  as: 'interesting_idea',
+  as: 'interesting_ideas',
   foreignKey: 'user_id',
 });
 
 Idea.belongsToMany(User, {
   through: Interest,
-  as: 'interested_user',
+  as: 'interested_users',
   foreignKey: 'idea_id',
 });
 

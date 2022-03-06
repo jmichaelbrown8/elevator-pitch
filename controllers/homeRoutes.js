@@ -38,7 +38,7 @@ router.get('/space/:id', async (req, res) => {
       include: [
         {
           model: Idea,
-          include: { model: User, as: 'interested_user' },
+          include: { model: User, as: 'interested_users' },
         },
       ],
     });
@@ -61,7 +61,7 @@ router.get('/idea/:id', withAuth, async (req, res) => {
       include: {
         model: User,
         through: Interest,
-        as: 'interested_user',
+        as: 'interested_users',
       },
     });
     const commentData = await Comment.findAll({
