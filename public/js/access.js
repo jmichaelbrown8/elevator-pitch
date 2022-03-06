@@ -12,7 +12,7 @@
 
     if (response.ok) {
       localStorage.setItem('toast', 'Your request for access has been sent.');
-      document.location.replace(`/space/${space_id}`);
+      document.location.replace(`/`);
     } else {
       localStorage.setItem('toast', 'Failed to request access. Are you already a member?');
       toastIt(true);
