@@ -14,7 +14,7 @@
       localStorage.setItem('toast', 'Your request for access has been sent.');
       document.location.replace(`/space/${space_id}`);
     } else {
-      localStorage.setItem('toast', 'Failed to request access.');
+      localStorage.setItem('toast', 'Failed to request access. Are you already a member?');
       toastIt(true);
     }
   };

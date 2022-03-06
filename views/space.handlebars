@@ -1,6 +1,9 @@
 
 <h3>{{space.name}}</h3>
 
+{{! TODO only show this for non members }}
+<a class="btn btn-primary my-3" href="/space/{{space.id}}/access/">Join this space</a>
+
 <div id="ideas">
 {{#each space.ideas}}
   {{> ideaMini logged_in_user_id=../user_id}}
