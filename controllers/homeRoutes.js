@@ -1,11 +1,21 @@
 const router = require('express').Router();
-const { withAuth, withApprovedMembership, withNoMembership } = require('../utils/auth');
+const {
+  withAuth,
+  withApprovedMembership,
+  withNoMembership,
+} = require('../utils/auth');
 const { Idea, Space, Comment, User, Interest } = require('../models');
 
 //Home/Dashboard
 router.get('/', async (req, res) => {
   try {
-    res.render('homepage');
+    const userData = await User.findByPk(req.session.user_id, {
+      include: 'spaces',
+    });
+    const spaces = userData.spaces.map((spaceData) => spaceData.toJSON());
+    res.render('homepage', {
+      spaces,
+    });
   } catch (err) {
     console.log(err);
     res.status(500).json(err);
@@ -32,40 +42,46 @@ router.get('/signup', (req, res) => {
 //get space
 
 // View a specific space name and ideas associated.
-router.get('/space/:space_id', withApprovedMembership, withAuth, async (req, res) => {
-  try {
-    const spaceData = await Space.findByPk(req.params.space_id, {
-      include: [
-        {
-          model: Idea,
-          include: { model: User, as: 'interested_users' },
-        },
-      ],
-    });
-    const space = spaceData.toJSON();
+router.get(
+  '/space/:space_id',
+  withApprovedMembership,
+  withAuth,
+  async (req, res) => {
+    try {
+      const spaceData = await Space.findByPk(req.params.space_id, {
+        include: [
+          {
+            model: Idea,
+            include: { model: User, as: 'interested_users' },
+          },
+        ],
+      });
+      const space = spaceData.toJSON();
 
-    res.render('space', { space });
-  } catch (err) {
-    res.status(400).json(err);
-    console.log(err);
+      res.render('space', { space });
+    } catch (err) {
+      res.status(400).json(err);
+      console.log(err);
+    }
   }
-});
+);
 
 // Create space access page
-router.get('/space/:space_id/access', withNoMembership, withAuth, async (req, res) => {
+router.get(
+  '/space/:space_id/access',
+  withNoMembership,
+  withAuth,
+  async (req, res) => {
+    try {
+      const { space_id } = req.params;
 
-  try {
-
-    const { space_id } = req.params;
-
-    res.render('space-access', { space_id });
-
-  } catch (err) {
-    res.status(400).json(err);
-    console.log(err);
+      res.render('space-access', { space_id });
+    } catch (err) {
+      res.status(400).json(err);
+      console.log(err);
+    }
   }
-
-});
+);
 
 // Create idea page
 router.get('/space/:space_id/idea', withAuth);
