@@ -40,9 +40,6 @@ const { withApprovedMembership, withAuth } = require('../utils/auth');
 // Add the middleware to the route
 router.get('/space/:space_id', withApprovedMembership, withAuth, (req, res) => { });
 ```
-
-
-
 ### withNoMembership
 
 Enforces that a user requesting a route is NOT an already approved member.

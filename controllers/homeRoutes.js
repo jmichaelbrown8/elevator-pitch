@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { withAuth, withApprovedMembership } = require('../utils/auth');
+const { withAuth, withApprovedMembership, withNoMembership } = require('../utils/auth');
 const { Idea, Space, Comment, User, Interest } = require('../models');
 
 //Home/Dashboard
@@ -52,7 +52,7 @@ router.get('/space/:space_id', withApprovedMembership, withAuth, async (req, res
 });
 
 // Create space access page
-router.get('/space/:space_id/access', withAuth, async (req, res) => {
+router.get('/space/:space_id/access', withNoMembership, withAuth, async (req, res) => {
 
   try {
 
