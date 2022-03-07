@@ -51,6 +51,22 @@ router.get('/space/:id', async (req, res) => {
   }
 });
 
+// Create space access page
+router.get('/space/:space_id/access', withAuth, async (req, res) => {
+
+  try {
+
+    const { space_id } = req.params;
+
+    res.render('space-access', { space_id });
+
+  } catch (err) {
+    res.status(400).json(err);
+    console.log(err);
+  }
+
+});
+
 // Create idea page
 router.get('/space/:space_id/idea', withAuth);
 
