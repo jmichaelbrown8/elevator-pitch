@@ -8,7 +8,7 @@ SpaceMember.init(
     status: {
       type: DataTypes.STRING(20),
       validate: {
-        isIn: ['rejected', 'pending', 'approved'],
+        isIn: [['rejected', 'pending', 'approved']],
       },
       defaultValue: 'pending',
     },
