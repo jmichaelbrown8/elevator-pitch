@@ -1,29 +1,3 @@
-// Display toggle functions
-
-// eslint-disable-next-line no-unused-vars
-const showNumber = () => {
-  const checkbox = document.querySelector('#member-validate');
-  const question = document.querySelector('.member-number');
-
-  if (checkbox.checked === true) {
-    question.style.display = 'block';
-  } else {
-    question.style.display = 'none';
-  }
-};
-
-// eslint-disable-next-line no-unused-vars
-const showHelp = () => {
-  const checkbox = document.querySelector('#skill-validate');
-  const question = document.querySelector('.skills');
-
-  if (checkbox.checked === true) {
-    question.style.display = 'block';
-  } else {
-    question.style.display = 'none';
-  }
-};
-
 const createIdea = async (event) => {
   event.preventDefault();
 

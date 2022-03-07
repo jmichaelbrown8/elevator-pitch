@@ -1,10 +1,10 @@
 <h3 class='space-id' data-id='{{space.id}}'>{{space.name}}</h3>
 <br />
 
-<div class='card card-body' style="border:none">
+<div class='card card-body' style='border:none'>
   <form class='row g-3 align-items-end'>
     {{! Idea name }}
-    <div class='col-auto'>
+    <div class='col-6'>
       <label for='idea-name'>Idea name:</label>
       <input
         type='text'
@@ -25,34 +25,30 @@
         placeholder='Have you ever wanted to...?'
       ></textarea>
     </div>
+ 
+<div class="col-6-md">
+  <button type="button" class="btn btn-secondary" data-toggle="collapse" data-target="#collapse-members">I'd like members to join my idea</button>
+  <div id="collapse-members" class="collapse member-number pt-3">
+      <label for='member-number'>Number of members I'd like:</label>
+          <input
+            type='number'
+            class='form-control'
+            default='0'
+            name='member-number'
+            id='member-number'
+            placeholder='1'
+          />
+  </div>
+</div>
 
-    <div class='col-auto'>
-      <label for='member-validate'>I'd like members to join my idea</label>
-      <input type='checkbox' id='member-validate' onclick='showNumber()' />
+<div class='col-6-md'>
+    <button type="button" class="btn btn-secondary" data-toggle="collapse" data-target="#collapse-roles">I'd like to specify certain roles for this
+        idea</button>
 
-      {{! Member number entry }}
-      <div class='member-number pt-3' style='display:none'>
-        <label for='member-number'>Number of members I'd like:</label>
-        <input
-          type='number'
-          class='form-control'
-          default='0'
-          name='member-number'
-          id='member-number'
-          placeholder='1'
-        />
-      </div>
-    </div>
-
-    <div class='col-12'>
-      <label for='skill-validate'>I'd like to specify certain roles for this
-        idea</label>
-      <input type='checkbox' id='skill-validate' onclick='showHelp()' />
-    </div>
     {{! Skills entry }}
-    <div class='col-12 skills' style='display:none'>
+      <div id="collapse-roles" class="collapse col-12 skills pt-3">
       <label for='skills'>Roles requested:</label>
-      <textarea
+        <textarea
         maxlength='500'
         class='form-control'
         id='skills'
@@ -60,6 +56,8 @@
         placeholder='UI Designer, UI Developer, DBA'
       ></textarea>
     </div>
+  </div>
+
     <br />
     <div class='col-auto'>
       <button
@@ -71,4 +69,7 @@
   </form>
 </div>
 
+{{!-- collapsibles not working without this add on in this handlebars page --}}
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
+</head>
 <script src='/js/ideaCreate.js'></script>
