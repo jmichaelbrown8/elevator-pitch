@@ -6,6 +6,7 @@ const routes = require('./controllers');
 const helpers = require('./utils/helpers');
 
 const sequelize = require('./config/connection');
+const { fetchSessionUser } = require('./utils/auth');
 const SequelizeStore = require('connect-session-sequelize')(session.Store);
 
 require('./models');
@@ -45,6 +46,7 @@ app.use(
 );
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.use( fetchSessionUser );
 app.use(routes);
 
 sequelize

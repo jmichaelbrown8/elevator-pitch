@@ -1,14 +1,14 @@
 <div class="card card-body my-3">
   <div class="row g-3 align-items-center">
     <div class="col">
-        <h3 class="fs-4 m-0"><a class="text-decoration-none" href='/idea/{{id}}'>{{name}}</a></h3>
+        <h3 class="fs-4 m-0"><a class="text-decoration-none" href='/space/{{space_id}}/idea/{{id}}'>{{name}}</a></h3>
     </div>
     <div class="col-auto">
       <button class='btn btn-primary'>Like</button>
     </div>
     <div class="col-auto">
-      <button class='btn btn-secondary interest-{{is_interested interests logged_in_user_id}}' value="{{id}}">
-        {{interests.length}} Interested
+      <button class='btn btn-secondary interest-{{is_interested interested_users logged_in_user_id}}' value="{{id}}">
+        {{interested_users.length}} Interested
       </button>
     </div>
   </div>

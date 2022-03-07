@@ -3,12 +3,12 @@
 <br>
 
 {{!-- add idea or hide section --}}
-<h4 class="bi bi-plus-circle" style="color:#009ecc; cursor:pointer"><a class="text-decoration-none" style="color:#009ecc" href="/space/{{space.id}}/idea"> Add idea</a></h4>
+<h4 class="bi bi-plus-circle" style="color:#009ecc; cursor:pointer"><a class="text-decoration-none" style="color:#009ecc" href="/space/{{space.id}}/ideas"> Add idea</a></h4>
 
 <br>
 <div id="ideas">
 {{#each space.ideas}}
-  {{> ideaMini logged_in_user_id=../user_id}}
+  {{> ideaMini  logged_in_user_id=../user_id}}
 {{/each}}
 </div>
 <script src="/js/interest.js"></script>

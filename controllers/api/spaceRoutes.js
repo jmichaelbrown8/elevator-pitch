@@ -9,7 +9,7 @@ router.get('/:id', async (req, res) => {
     const spaceData = await Space.findAll({
       where: {
         id: req.params.id,
-      },
+      }
     });
 
     res.status(200).json({ spaceData });
