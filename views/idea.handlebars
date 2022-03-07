@@ -1,21 +1,76 @@
+<div id="ideas" class="card">
+    <div class=" bg-primary text-white"> 
+        <h3 class='card-header justify-content-start py-3 '>{{idea.name}} <br>
+        <button class='btn btn-light mt-2'>Like</button>
+        <button class= 'btn btn-secondary mt-2 interest-{{is_interested idea.interested_users user_id}}' value="{{idea.id}}">{{idea.interested_users.length}} Interested</button>
+        </h3>
+    </div>
+    
+    <div class="card-body">
+        <h5>Created by:</h5>
+        <p>{{user.name}}</p>
+        <h5>Last updated:</h5>
+        <p>{{format_date idea.updatedAt}}</p>
+        <h5>Elevator Pitch:</h5>
+        <p class="card-text">{{idea.pitch}}</p>
 
-<div id="ideas" class="row g-3 align-items-center">
-    <div class="col">
-        <h3 class="fs-4 m-0">{{idea.name}}</h3>
-    </div>
-    <div class="col-auto">
-        <button class='btn btn-primary'>Like</button>
-    </div>
-    <div class="col-auto">
-        <button class='btn btn-secondary interest-{{is_interested idea.interested_users user_id}}' value="{{idea.id}}">{{idea.interested_users.length}} Interested</button>
-    </div>
-</div>
+        {{#if idea.members}}
+        <h5>Members requested:</h5>
+        <p>{{idea.members}}</p>
+        {{/if}}
 
-<br>
-<br>
-Creator: {{idea.user_id}}
-<br>
-Pitch: {{idea.pitch}}
+        {{#if idea.skills}}
+        <h5>Skills or Roles specific to this idea:</h5>
+        <p>{{idea.skills}}</p>
+        {{/if}}
+    </div>
+
+{{!-- {{#if resources}} --}}
+    <div class=" bg-primary text-white"> 
+        <h3 class='card-header justify-content-start'>Resources </h3>
+    </div>
+    {{!-- Sample card data inserted for aesthetics. No resource table available at this time --}}
+        <div class="row row-cols-1 row-cols-md-3 g-4">
+        <div class="col">
+            <div class="card h-100">
+             <img src="/assets/Elevator-Pitch.PNG" class="card-img-top" alt="...">
+            <div class="card-body">
+                <h5 class="card-title">Image Title</h5>
+                <p class="card-text">Notes</p>
+            </div>
+            <div class="card-footer">
+                <small class="text-muted"><a href="https://github.com/jmichaelbrown8/elevator-pitch">Figma Link</a></small>
+            </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card h-100">
+            <img src="/assets/Elevator-Pitch.PNG" class="card-img-top" alt="...">
+            <div class="card-body">
+                <h5 class="card-title">Image Title</h5>
+                <p class="card-text">Notes</p>
+            </div>
+            <div class="card-footer">
+                <small class="text-muted"><a href="https://github.com/jmichaelbrown8/elevator-pitch">Different Link</a></small>
+            </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card h-100">
+            <img src="/assets/Elevator-Pitch.PNG" class="card-img-top" alt="...">
+            <div class="card-body">
+                <h5 class="card-title">Image Title</h5>
+                <p class="card-text">Notes</p>
+            </div>
+            <div class="card-footer">
+                <small class="text-muted"><a href="https://github.com/jmichaelbrown8/elevator-pitch">GitHub Link</a></small>
+            </div>
+            </div>
+        </div>
+    </div>
+ {{!-- {{/if}} --}}
+
+{{!-- Awaiting comment styling and functionality from pr#50 --}}
 <hr>
 {{#each comments}}
 <br>
