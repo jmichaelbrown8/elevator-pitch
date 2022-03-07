@@ -25,6 +25,27 @@ Space.init(
     },
   },
   {
+    hooks: {
+      afterCreate: async (newSpace) => {
+        const { space_member } = sequelize.models;
+        await space_member.create({
+          user_id: newSpace.user_id,
+          space_id: newSpace.id,
+          status: 'approved',
+        });
+        return newSpace;
+      },
+      afterBulkCreate: async (spaces) => {
+        console.log(spaces);
+        const spaceMembers = spaces.map((newSpace) => ({
+          user_id: newSpace.user_id,
+          space_id: newSpace.id,
+          status: 'approved',
+        }));
+        const { space_member } = sequelize.models;
+        await space_member.bulkCreate(spaceMembers);
+      },
+    },
     sequelize,
     timestamps: true,
     freezeTableName: true,
