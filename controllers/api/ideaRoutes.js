@@ -1,5 +1,6 @@
 const router = require('express').Router();
 const { Idea } = require('../../models');
+const { withApprovedMembership, withAuthJson } = require('../../utils/auth');
 
 // Input:   id (idea id)
 // Output:  JSON Object containing idea data
@@ -24,12 +25,13 @@ router.get('/:id', async (req, res) => {
 
 // Input:   name (creator), user_id, space_id (UUID optional), pitch (text)
 // Creates a new idea
-router.post('/', async (req, res) => {
+router.post('/', withApprovedMembership, withAuthJson, async (req, res) => {
   try {
-    await Idea.create(req.body);
-    res.status(200).json({
-      message: `Idea created`,
-    });
+    const idea = await Idea.create(req.body);
+
+    const myIdea = idea.toJSON();
+
+    res.status(200).json(myIdea);
   } catch (err) {
     let message = 'Something went wrong.';
     console.log(err);

@@ -1,0 +1,80 @@
+<h3 class='space-id' data-id='{{space.id}}'>{{space.name}}</h3>
+<br />
+
+<div class='card card-body border-0 p-0'>
+  <form class='row g-3 align-items-end'>
+    {{! Idea name }}
+    <div class='form-group'>
+      <label for='idea-name'>Idea name:</label>
+      <input
+        type='text'
+        class='form-control'
+        id='idea-name'
+        name='idea-name'
+        placeholder='The greatest idea ever'
+      />
+    </div>
+    {{! Idea content }}
+    <div class='form-group'>
+      <label for='idea-content'>My pitch:</label>
+      <textarea
+        maxlength='500'
+        class='form-control'
+        id='idea-content'
+        name='idea-content'
+        placeholder='Have you ever wanted to...?'
+      ></textarea>
+    </div>
+
+    <div class='form-group'>
+      <button
+        type='button'
+        class='btn btn-secondary'
+        data-toggle='collapse'
+        data-target='#collapse-members'
+      >I'd like members to join my idea</button>
+      <div id='collapse-members' class='collapse member-number pt-3'>
+        <label for='member-number'>Number of members I'd like:</label>
+        <input
+          type='number'
+          class='form-control'
+          default='0'
+          name='member-number'
+          id='member-number'
+          placeholder='1'
+        />
+      </div>
+    </div>
+    <br />
+    <div class='form-group'>
+      <button
+        type='button'
+        class='btn btn-secondary'
+        data-toggle='collapse'
+        data-target='#collapse-roles'
+      >I'd like to specify certain roles for this idea</button>
+
+      {{! Skills entry }}
+      <div id='collapse-roles' class='collapse skills pt-3'>
+        <label for='skills'>Roles requested:</label>
+        <textarea
+          maxlength='500'
+          class='form-control'
+          id='skills'
+          name='skills'
+          placeholder='UI Designer, UI Developer, DBA'
+        ></textarea>
+      </div>
+    </div>
+
+    <div class='col-auto'>
+      <button
+        type='submit'
+        id='form-create-idea'
+        class='btn btn-primary shadow-sm'
+      >Create</button>
+    </div>
+  </form>
+</div>
+
+<script src='/js/ideaCreate.js'></script>

@@ -51,6 +51,7 @@ router.get('/space/:space_id', withApprovedMembership, withAuth, async (req, res
   }
 });
 
+
 // Create space access page
 router.get('/space/:space_id/access', withNoMembership, withAuth, async (req, res) => {
 
@@ -64,16 +65,28 @@ router.get('/space/:space_id/access', withNoMembership, withAuth, async (req, re
     res.status(400).json(err);
     console.log(err);
   }
-
 });
 
-// Create idea page
-router.get('/space/:space_id/idea', withAuth);
+// Get idea create page
+router.get('/space/:space_id/ideas', withApprovedMembership, withAuth, async (req, res) => {
+  try {
+    const spaceData = await Space.findByPk(req.params.space_id);
+    const space = spaceData.toJSON();
+
+    res.render('ideaCreate', { space });
+  } catch (err) {
+    res.status(400).json(err);
+    console.log(err);
+  }
+});
+
 
 // View a specific idea
-router.get('/idea/:id', withAuth, async (req, res) => {
+router.get('/space/:space_id/idea/:idea_id', withApprovedMembership, withAuth, async (req, res) => {
   try {
-    const ideaData = await Idea.findByPk(req.params.id, {
+    const { space_id, idea_id } = req.params;
+    const ideaData = await Idea.findByPk(idea_id, {
+
       include: {
         model: User,
         through: Interest,
@@ -92,6 +105,7 @@ router.get('/idea/:id', withAuth, async (req, res) => {
     res.render('idea', {
       idea,
       comments,
+      space_id,
     });
   } catch (err) {
     console.log(err);
