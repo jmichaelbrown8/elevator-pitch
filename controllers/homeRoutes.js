@@ -68,7 +68,7 @@ router.get('/space/:space_id/access', withNoMembership, withAuth, async (req, re
 });
 
 // Get idea create page
-router.get('/space/:space_id/ideas', withAuth, async (req, res) => {
+router.get('/space/:space_id/ideas', withApprovedMembership, withAuth, async (req, res) => {
   try {
     const spaceData = await Space.findByPk(req.params.space_id);
     const space = spaceData.toJSON();
@@ -82,7 +82,7 @@ router.get('/space/:space_id/ideas', withAuth, async (req, res) => {
 
 
 // View a specific idea
-router.get('/space/:space_id/idea/:idea_id', withAuth, async (req, res) => {
+router.get('/space/:space_id/idea/:idea_id', withApprovedMembership, withAuth, async (req, res) => {
   try {
     const { space_id, idea_id } = req.params;
     const ideaData = await Idea.findByPk(idea_id, {

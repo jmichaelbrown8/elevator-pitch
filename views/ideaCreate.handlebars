@@ -1,7 +1,7 @@
 <h3 class='space-id' data-id='{{space.id}}'>{{space.name}}</h3>
 <br />
 
-<div class='card card-body' style='border:none'>
+<div class='card card-body border-0 p-0'>
   <form class='row g-3 align-items-end'>
     {{! Idea name }}
     <div class='col-6'>
@@ -26,7 +26,7 @@
       ></textarea>
     </div>
  
-<div class="col-6-md">
+<div class="row-cols-2">
   <button type="button" class="btn btn-secondary" data-toggle="collapse" data-target="#collapse-members">I'd like members to join my idea</button>
   <div id="collapse-members" class="collapse member-number pt-3">
       <label for='member-number'>Number of members I'd like:</label>
@@ -40,13 +40,13 @@
           />
   </div>
 </div>
-
-<div class='col-6-md'>
+<br>
+<div class='row-cols-2'>
     <button type="button" class="btn btn-secondary" data-toggle="collapse" data-target="#collapse-roles">I'd like to specify certain roles for this
         idea</button>
 
     {{! Skills entry }}
-      <div id="collapse-roles" class="collapse col-12 skills pt-3">
+      <div id="collapse-roles" class="collapse skills pt-3">
       <label for='skills'>Roles requested:</label>
         <textarea
         maxlength='500'
@@ -57,8 +57,7 @@
       ></textarea>
     </div>
   </div>
-
-    <br />
+  
     <div class='col-auto'>
       <button
         type='submit'
