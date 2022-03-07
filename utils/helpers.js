@@ -8,13 +8,12 @@ module.exports = {
     return parseInt(amount).toLocaleString();
   },
   is_interested: (interestList, userId) => {
-    return interestList.reduce((prev, curr, i, arr) => {
-      console.log(arr);
-      console.log(prev);
-      console.log(curr.user_id);
-      console.log(userId);
+    return interestList.reduce((prev, curr) => {
+      if (prev) {
+        return true;
+      }
       // check if the current interest object includes the userId
-      if (curr.user_id === userId) {
+      if (curr.id === userId) {
         return true;
       }
       // else return false
