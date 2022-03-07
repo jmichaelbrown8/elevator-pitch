@@ -1,6 +1,6 @@
 const router = require('express').Router();
+const { withAuth, withApprovedMembership, withNoMembership } = require('../utils/auth');
 const { Idea, Space, Comment, User, Interest } = require('../models');
-const { withAuth } = require('../utils/auth');
 
 //Home/Dashboard
 router.get('/', async (req, res) => {
@@ -32,9 +32,9 @@ router.get('/signup', (req, res) => {
 //get space
 
 // View a specific space name and ideas associated.
-router.get('/space/:id', async (req, res) => {
+router.get('/space/:space_id', withApprovedMembership, withAuth, async (req, res) => {
   try {
-    const spaceData = await Space.findByPk(req.params.id, {
+    const spaceData = await Space.findByPk(req.params.space_id, {
       include: [
         {
           model: Idea,
@@ -52,7 +52,7 @@ router.get('/space/:id', async (req, res) => {
 });
 
 // Create space access page
-router.get('/space/:space_id/access', withAuth, async (req, res) => {
+router.get('/space/:space_id/access', withNoMembership, withAuth, async (req, res) => {
 
   try {
 

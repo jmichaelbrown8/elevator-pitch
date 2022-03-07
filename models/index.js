@@ -18,6 +18,10 @@ User.hasMany(Space, {
   as: 'ownedSpaces',
 });
 
+User.hasMany(SpaceMember, {
+  as: 'memberships'
+});
+
 User.belongsToMany(Space, {
   through: SpaceMember,
   as: 'spaces',
