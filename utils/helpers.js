@@ -20,4 +20,7 @@ module.exports = {
       return false;
     }, false);
   },
+  is_approved: (status) => {
+    return status === 'approved';
+  },
 };
