@@ -4,7 +4,7 @@
 <div class='card card-body border-0 p-0'>
   <form class='row g-3 align-items-end'>
     {{! Idea name }}
-    <div class='col-6'>
+    <div class='form-group'>
       <label for='idea-name'>Idea name:</label>
       <input
         type='text'
@@ -15,7 +15,7 @@
       />
     </div>
     {{! Idea content }}
-    <div class='col-12'>
+    <div class='form-group'>
       <label for='idea-content'>My pitch:</label>
       <textarea
         maxlength='500'
@@ -25,39 +25,48 @@
         placeholder='Have you ever wanted to...?'
       ></textarea>
     </div>
- 
-<div class="row-cols-2">
-  <button type="button" class="btn btn-secondary" data-toggle="collapse" data-target="#collapse-members">I'd like members to join my idea</button>
-  <div id="collapse-members" class="collapse member-number pt-3">
-      <label for='member-number'>Number of members I'd like:</label>
-          <input
-            type='number'
-            class='form-control'
-            default='0'
-            name='member-number'
-            id='member-number'
-            placeholder='1'
-          />
-  </div>
-</div>
-<br>
-<div class='row-cols-2'>
-    <button type="button" class="btn btn-secondary" data-toggle="collapse" data-target="#collapse-roles">I'd like to specify certain roles for this
-        idea</button>
 
-    {{! Skills entry }}
-      <div id="collapse-roles" class="collapse skills pt-3">
-      <label for='skills'>Roles requested:</label>
-        <textarea
-        maxlength='500'
-        class='form-control'
-        id='skills'
-        name='skills'
-        placeholder='UI Designer, UI Developer, DBA'
-      ></textarea>
+    <div class='form-group'>
+      <button
+        type='button'
+        class='btn btn-secondary'
+        data-toggle='collapse'
+        data-target='#collapse-members'
+      >I'd like members to join my idea</button>
+      <div id='collapse-members' class='collapse member-number pt-3'>
+        <label for='member-number'>Number of members I'd like:</label>
+        <input
+          type='number'
+          class='form-control'
+          default='0'
+          name='member-number'
+          id='member-number'
+          placeholder='1'
+        />
+      </div>
     </div>
-  </div>
-  
+    <br />
+    <div class='form-group'>
+      <button
+        type='button'
+        class='btn btn-secondary'
+        data-toggle='collapse'
+        data-target='#collapse-roles'
+      >I'd like to specify certain roles for this idea</button>
+
+      {{! Skills entry }}
+      <div id='collapse-roles' class='collapse skills pt-3'>
+        <label for='skills'>Roles requested:</label>
+        <textarea
+          maxlength='500'
+          class='form-control'
+          id='skills'
+          name='skills'
+          placeholder='UI Designer, UI Developer, DBA'
+        ></textarea>
+      </div>
+    </div>
+
     <div class='col-auto'>
       <button
         type='submit'
