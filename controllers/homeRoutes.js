@@ -4,17 +4,32 @@ const {
   withApprovedMembership,
   withNoMembership,
 } = require('../utils/auth');
-const { Idea, Space, Comment, User, Interest } = require('../models');
+const {
+  Idea,
+  Space,
+  Comment,
+  User,
+  Interest,
+  SpaceMember,
+} = require('../models');
 
 //Home/Dashboard
-router.get('/', async (req, res) => {
+router.get('/', withAuth, async (req, res) => {
   try {
     const userData = await User.findByPk(req.session.user_id, {
-      include: 'spaces',
+      include: [
+        {
+          model: SpaceMember,
+          as: 'memberships',
+          include: Space,
+        },
+      ],
     });
-    const spaces = userData.spaces.map((spaceData) => spaceData.toJSON());
+    const memberships = userData.memberships.map((membershipData) =>
+      membershipData.toJSON()
+    );
     res.render('homepage', {
-      spaces,
+      memberships,
     });
   } catch (err) {
     console.log(err);
