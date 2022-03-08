@@ -3,16 +3,29 @@
 Some data, just `req.params` by default, is automatically made available to client side javascript through the global method `getContext()`.
 
 ## Usage
+
+The most common usage, will be accessing `:param` data in client side event handlers. Below is an example showing how to fetch the `:space_id` param and build it into an api request path.
 ```js
 const myEventHandler = async (event) => {
-    // We no longer needed to store/access the :param data from elements
+    // Instead of storeing/accessing `:param` data from elements.
     // const space_id = event.target.dataset.id;
 
-    // Instead, we can pull it out of my newly provided "context" object, accessed via `getContext()`.
+    // We can pull it out of the globally provided "context" object, accessed via `getContext()`.
     // Get the space ID from global context.
     const { space_id } = getContext();
+
+    try {
+        const response = await fetch( `/api/space/${space_id}` );
+        // response handling
+    } catch(err) {
+        // error handling
+    }
 }
 ```
+
+## Extending `jsViewContext`: Adding more data to `getContext()`
+
+To be written!
 
 ## FAQ
 
@@ -26,4 +39,4 @@ Middleware in the Express layer helps automatically provide a `jsViewContext` va
 
 That object is printed as JSON in inside a `closure` where the `getContext` method is created.
 
-Since this is done at the top of the page, for all the views, the `getContext` method becomes global method accessible from any view js file.
+Since this is done at the top of the page, for all of the views, the `getContext` method becomes a global method accessible from any client side js file linked within a view.
