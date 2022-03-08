@@ -4,7 +4,6 @@ const { withAuthJson } = require('../../utils/auth');
 
 router.post('/:space_id/member', withAuthJson, async (req, res) => {
   try {
-    console.log( req.params );
     const { space_id } = req.params;
     const { user_id } = req.session;
 
