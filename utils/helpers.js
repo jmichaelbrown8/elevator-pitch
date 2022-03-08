@@ -20,7 +20,7 @@ module.exports = {
       return false;
     }, false);
   },
-  is_approved: (status) => {
-    return status === 'approved';
+  is_match: (a, b) => {
+    return a === b;
   },
 };
