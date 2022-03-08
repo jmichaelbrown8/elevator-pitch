@@ -19,7 +19,7 @@ User.hasMany(Space, {
 });
 
 User.hasMany(SpaceMember, {
-  as: 'memberships',
+  as: 'memberships'
 });
 
 User.belongsToMany(Space, {
@@ -31,10 +31,6 @@ User.belongsToMany(Space, {
 Space.belongsToMany(User, {
   through: SpaceMember,
   as: 'members',
-  foreignKey: 'space_id',
-});
-
-SpaceMember.belongsTo(Space, {
   foreignKey: 'space_id',
 });
 
@@ -68,5 +64,5 @@ module.exports = {
   Idea,
   Interest,
   Comment,
-  SpaceMember,
+  SpaceMember
 };

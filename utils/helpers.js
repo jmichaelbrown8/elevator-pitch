@@ -20,7 +20,4 @@ module.exports = {
       return false;
     }, false);
   },
-  is_match: (a, b) => {
-    return a === b;
-  },
 };
