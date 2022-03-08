@@ -26,6 +26,14 @@ Idea.init(
     pitch: {
       type: DataTypes.TEXT,
     },
+    members: {
+      type: DataTypes.INTEGER,
+      allowNull: true,
+    },
+    skills: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
     space_id: {
       type: Sequelize.UUID,
       onDelete: 'SET NULL',

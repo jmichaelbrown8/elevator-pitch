@@ -19,3 +19,13 @@
 .btn-primary:focus {
     background: var(--bs-primary);
 }
+a {
+    color: var(--bs-primary);
+}
+a:hover {
+    color: var(--bs-primary);
+    filter: brightness(80%);
+}
+.border-danger {
+    border-color: var(--bs-danger) !important;
+}

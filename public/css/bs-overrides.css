@@ -4,18 +4,18 @@
 
 /** ##### Navbar #### **/
 .navbar-dark .navbar-nav .nav-link {
-    color: rgba(255,255,255,.75);
+  color: rgba(255, 255, 255, 0.75);
 }
 .navbar-dark .navbar-nav .nav-link:focus,
 .navbar-dark .navbar-nav .nav-link:hover {
-    color: rgba(255,255,255,.95);
+  color: rgba(255, 255, 255, 0.95);
 }
 
 /** ##### Modal ##### **/
-.modal[aria-modal="true"] {
-    display: flex !important;
-    align-items: center;
+.modal[aria-modal='true'] {
+  display: flex !important;
+  align-items: center;
 }
 .modal-dialog {
-    flex-grow: 1;
+  flex-grow: 1;
 }
