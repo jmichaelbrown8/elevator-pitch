@@ -1,17 +1,10 @@
-const {Model, DataTypes} = require('sequelize');
+const { Model } = require('sequelize');
 const sequelize = require('../config/connection');
 
 class IdeaUpvote extends Model {}
 
 IdeaUpvote.init(
-  {
-    id: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      primaryKey: true,
-      autoIncrement: true,
-    }
-  },
+  {},
   {
     sequelize,
     timestamps: true,

@@ -69,7 +69,7 @@ Idea.hasMany(IdeaUpvote, {
   foreignKey: 'idea_id',
 });
 
-User.belongsTo(Idea, {
+User.belongsToMany(Idea, {
   foreignKey: 'user_id',
   through : IdeaUpvote,
   as: 'upvotes'
@@ -82,5 +82,6 @@ module.exports = {
   Idea,
   Interest,
   Comment,
-  SpaceMember
+  SpaceMember,
+  IdeaUpvote
 };
