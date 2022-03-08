@@ -48,7 +48,14 @@
     ></script>
 
     <script>
-      const viewContext = {{{as_json jsViewContext}}};
+      const getContext = (() => {
+        {{! /*Scope the context data to privately secure it from tampering*/ }}
+        const viewContext = {{{as_json jsViewContext}}};
+        return ( key ) => {
+          {{! /*If given a key, return that one prop, else return the whole context*/ }}
+          return key ? viewContext[key] : viewContext;
+        }
+      })();
     </script>
   </head>
 
