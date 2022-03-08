@@ -1,6 +1,9 @@
 (() => {
-  const joinSpace = async ({ target }) => {
-    const space_id = target.dataset.id;
+  const joinSpace = async () => {
+    // const space_id = target.dataset.id;
+
+    // Get the space ID from global context.
+    const { space_id } = getContext();
 
     const response = await fetch(`/api/space/${space_id}/member`, {
       method: 'POST',
