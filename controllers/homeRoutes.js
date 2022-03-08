@@ -98,36 +98,60 @@ router.get(
   }
 );
 
-// Create idea page
-router.get('/space/:space_id/idea', withAuth);
+// Get idea create page
+router.get(
+  '/space/:space_id/ideas',
+  withApprovedMembership,
+  withAuth,
+  async (req, res) => {
+    try {
+      const spaceData = await Space.findByPk(req.params.space_id);
+      const space = spaceData.toJSON();
+
+      res.render('ideaCreate', { space });
+    } catch (err) {
+      res.status(400).json(err);
+      console.log(err);
+    }
+  }
+);
 
 // View a specific idea
-router.get('/idea/:id', withAuth, async (req, res) => {
-  try {
-    const ideaData = await Idea.findByPk(req.params.id, {
-      include: {
-        model: User,
-        through: Interest,
-        as: 'interested_users',
-      },
-    });
-    const commentData = await Comment.findAll({
-      where: {
-        idea_id: ideaData.id,
-      },
-    });
+router.get(
+  '/space/:space_id/idea/:idea_id',
+  withApprovedMembership,
+  withAuth,
+  async (req, res) => {
+    try {
+      const { space_id, idea_id } = req.params;
+      const ideaData = await Idea.findByPk(idea_id, {
+        include: {
+          model: User,
+          through: Interest,
+          as: 'interested_users',
+        },
+      });
+      const commentData = await Comment.findAll({
+        where: {
+          idea_id: ideaData.id,
+        },
+      });
 
-    const idea = ideaData.get({ plain: true });
-    const comments = commentData.map((element) => element.get({ plain: true }));
+      const idea = ideaData.get({ plain: true });
+      const comments = commentData.map((element) =>
+        element.get({ plain: true })
+      );
 
-    res.render('idea', {
-      idea,
-      comments,
-    });
-  } catch (err) {
-    console.log(err);
+      res.render('idea', {
+        idea,
+        comments,
+        space_id,
+      });
+    } catch (err) {
+      console.log(err);
+    }
   }
-});
+);
 
 //signup
 router.get('/signup', (req, res) => {
