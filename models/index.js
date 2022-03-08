@@ -3,6 +3,7 @@ const User = require('./User');
 const Idea = require('./Idea');
 const Interest = require('./Interest');
 const Comment = require('./Comment');
+const IdeaUpvote = require('./IdeaUpvote');
 const SpaceMember = require('./SpaceMember');
 
 User.hasMany(Idea, {
@@ -62,6 +63,23 @@ Idea.hasMany(Comment, {
   foreignKey: 'idea_id',
 });
 
+Idea.belongsToMany(User, {
+  foreignKey: 'idea_id',
+  through : IdeaUpvote,
+  as: 'upvoter'
+});
+
+Idea.hasMany(IdeaUpvote, {
+  foreignKey: 'idea_id',
+});
+
+User.belongsToMany(Idea, {
+  foreignKey: 'user_id',
+  through : IdeaUpvote,
+  as: 'upvotes'
+});
+
+
 module.exports = {
   Space,
   User,
@@ -69,4 +87,5 @@ module.exports = {
   Interest,
   Comment,
   SpaceMember,
+  IdeaUpvote
 };
