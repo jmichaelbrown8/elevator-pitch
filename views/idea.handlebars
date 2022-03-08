@@ -69,14 +69,18 @@
         </div>
     </section>
  {{!-- {{/if}} --}}
-<br>
-{{!-- Awaiting comment styling and functionality from pr#50 --}}
+</div>
 
+<div class="mt-4 bg-primary text-white"> 
+    <h3 class="card-header justify-content-start">Comments</h3>
+</div>
+{{!-- Awaiting comment styling and functionality from pr#50 --}}
 {{#each comments}}
 <br>
 {{> comment }}
-<br>
 {{/each}}
+<br>
+
 <div class="card">
     <div class="card-body">
         <form> 
@@ -90,7 +94,6 @@
             </div>
         </form>
     </div>
-</div>
 </div>
 
 <script src="/js/addComment.js"></script>
