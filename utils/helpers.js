@@ -20,4 +20,5 @@ module.exports = {
       return false;
     }, false);
   },
+  as_json: (data) => JSON.stringify(data)
 };
