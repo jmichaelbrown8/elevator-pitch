@@ -1,0 +1,22 @@
+{{#if (is_match status 'approved')}}
+<div class='card card-body my-3 text-primary'>
+{{else}}
+<div class='card card-body my-3 border-danger text-danger'>
+{{/if}}
+  <div class='row g-3 align-items-center'>
+    <div class='col'>
+      <h3 class='fs-4 m-0'>
+        {{#if (is_match status 'approved')}}
+        <a class='text-decoration-none' href='/space/{{space.id}}'>
+        {{/if}}
+          {{space.name}}
+        {{#if (is_match status 'approved')}}
+        </a>
+        {{else}}
+        (status: {{status}})
+        {{/if}}
+        </h3>
+      
+    </div>
+  </div>
+</div>
