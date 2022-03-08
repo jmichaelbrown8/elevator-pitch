@@ -8,7 +8,7 @@ const createIdea = async (event) => {
   const skills = document.querySelector('#skills').value.trim();
 
   if (space_id && name && pitch) {
-    const response = await fetch('/api/idea', {
+    const response = await fetch(`/api/idea/${space_id}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

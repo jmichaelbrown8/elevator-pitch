@@ -26,12 +26,12 @@
     </div>
 
 {{!-- {{#if resources}} --}}
-    <div class=" bg-primary text-white"> 
+    <div class=" bg-primary text-white "> 
         <h3 class='card-header justify-content-start'>Resources </h3>
     </div>
     {{!-- Sample card data inserted for aesthetics. No resource table available at this time --}}
-        <div class="row row-cols-1 row-cols-md-3 g-4">
-        <div class="col">
+        <section title='resources' class="row row-cols-1 row-cols-md-3 g-4 border-0">
+        <div class="col ">
             <div class="card h-100">
              <img src="/assets/Elevator-Pitch.PNG" class="card-img-top" alt="...">
             <div class="card-body">
@@ -43,7 +43,7 @@
             </div>
             </div>
         </div>
-        <div class="col">
+        <div class="col ">
             <div class="card h-100">
             <img src="/assets/Elevator-Pitch.PNG" class="card-img-top" alt="...">
             <div class="card-body">
@@ -55,7 +55,7 @@
             </div>
             </div>
         </div>
-        <div class="col">
+        <div class="col ">
             <div class="card h-100">
             <img src="/assets/Elevator-Pitch.PNG" class="card-img-top" alt="...">
             <div class="card-body">
@@ -67,15 +67,15 @@
             </div>
             </div>
         </div>
-    </div>
+    </section>
  {{!-- {{/if}} --}}
-
+<br>
 {{!-- Awaiting comment styling and functionality from pr#50 --}}
-<hr>
+
 {{#each comments}}
 <br>
 {{> comment }}
 <br>
 {{/each}}
-
+</div>
 <script src="/js/interest.js"></script>

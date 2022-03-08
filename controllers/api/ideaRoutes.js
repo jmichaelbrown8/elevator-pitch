@@ -25,21 +25,24 @@ router.get('/:id', async (req, res) => {
 
 // Input:   name (creator), user_id, space_id (UUID optional), pitch (text)
 // Creates a new idea
-router.post('/', withApprovedMembership, withAuthJson, async (req, res) => {
-  try {
-    const idea = await Idea.create(req.body);
-
-    const myIdea = idea.toJSON();
-
-    res.status(200).json(myIdea);
-  } catch (err) {
-    let message = 'Something went wrong.';
-    console.log(err);
-    res.status(400).json({
-      message,
-      err,
-    });
+router.post(
+  '/:space_id',
+  withApprovedMembership,
+  withAuthJson,
+  async (req, res) => {
+    try {
+      const idea = await Idea.create(req.body);
+      const myIdea = idea.toJSON();
+      res.status(200).json(myIdea);
+    } catch (err) {
+      let message = 'Something went wrong.';
+      console.log(err);
+      res.status(400).json({
+        message,
+        err,
+      });
+    }
   }
-});
+);
 
 module.exports = router;
