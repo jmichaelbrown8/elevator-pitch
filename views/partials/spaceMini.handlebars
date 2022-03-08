@@ -1,7 +1,7 @@
 {{#if (is_approved status)}}
-<div class='card card-body my-3'>
+<div class='card card-body my-3 text-primary'>
 {{else}}
-<div class='card card-body my-3 bg-danger'>
+<div class='card card-body my-3 border-danger text-danger'>
 {{/if}}
   <div class='row g-3 align-items-center'>
     <div class='col'>
@@ -12,12 +12,11 @@
           {{space.name}}
         {{#if (is_approved status)}}
         </a>
+        {{else}}
+        (status: {{status}})
         {{/if}}
         </h3>
-      {{#if (is_approved status)}}
-      {{else}}
-        (status: {{status}})
-      {{/if}}
+      
     </div>
   </div>
 </div>
