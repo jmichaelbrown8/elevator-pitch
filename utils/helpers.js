@@ -20,5 +20,8 @@ module.exports = {
       return false;
     }, false);
   },
-  as_json: (data) => JSON.stringify(data)
+  as_json: (data) => JSON.stringify(data),
+  is_match: (a, b) => {
+    return a === b;
+  },
 };
