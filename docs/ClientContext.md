@@ -39,4 +39,4 @@ Middleware in the Express layer helps automatically provide a `jsViewContext` va
 
 That object is printed as JSON in inside a `closure` where the `getContext` method is created.
 
-Since this is done at the top of the page, for all of the views, the `getContext` method becomes a global method accessible from any client side js file linked within a view.
+Since this is done at the top of the page, for all of the views, `getContext()` becomes a globally accessible method from any client side js file linked within a view.
