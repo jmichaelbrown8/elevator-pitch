@@ -1,0 +1,16 @@
+[
+    {
+        "id": 1,
+        "name": "Github",
+        "type": "link",
+        "content": "https://github.com/jmichaelbrown8/elevator-pitch",
+        "idea_id": 1
+    },
+    {
+        "id": 2,
+        "name": "How We Collaborate",
+        "type": "markdown",
+        "content": "#How We Collaborate\n\nFuture home of inspirational team guidelines!",
+        "idea_id": 1
+    }
+]

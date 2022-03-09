@@ -1,6 +1,7 @@
 const Space = require('./Space');
 const User = require('./User');
 const Idea = require('./Idea');
+const Resource = require('./Resource');
 const Interest = require('./Interest');
 const Comment = require('./Comment');
 const IdeaUpvote = require('./IdeaUpvote');
@@ -59,6 +60,14 @@ Space.hasMany(Idea, {
   foreignKey: 'space_id',
 });
 
+Idea.hasMany(Resource, {
+  foreignKey: 'idea_id',
+});
+
+Resource.belongsTo(Idea, {
+  foreignKey: 'idea_id',
+});
+
 Idea.hasMany(Comment, {
   foreignKey: 'idea_id',
 });
@@ -84,6 +93,7 @@ module.exports = {
   Space,
   User,
   Idea,
+  Resource,
   Interest,
   Comment,
   SpaceMember,
