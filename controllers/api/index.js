@@ -5,11 +5,13 @@ const spaceMemberRoutes = require('./spaceMemberRoutes');
 const ideaRoutes = require('./ideaRoutes');
 const interestRoutes = require('./interestRoutes');
 const commentRoutes = require('./commentRoutes');
+const ideaUpdateRoutes = require('./ideaUpvoteRoutes');
 
 router.use('/user', userRoutes);
 router.use('/space', spaceRoutes, spaceMemberRoutes);
 router.use('/idea', ideaRoutes);
 router.use('/interest', interestRoutes);
 router.use('/comment', commentRoutes);
+router.use('./upvote', ideaUpdateRoutes)
 
 module.exports = router;
