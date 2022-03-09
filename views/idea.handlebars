@@ -24,52 +24,52 @@
         <p>{{idea.skills}}</p>
         {{/if}}
     </div>
+</div>
 
-{{!-- {{#if resources}} --}}
-    <div class=" bg-primary text-white "> 
-        <h3 class='card-header justify-content-start'>Resources </h3>
+{{#if resources.length}}
+    <div class=" bg-primary text-white my-4">
+        <h3 class='card-header justify-content-start'>Resources</h3>
     </div>
     {{!-- Sample card data inserted for aesthetics. No resource table available at this time --}}
-        <section title='resources' class="row row-cols-1 row-cols-md-3 g-4 border-0">
-        <div class="col ">
-            <div class="card h-100">
-             <img src="/assets/Elevator-Pitch.PNG" class="card-img-top" alt="...">
-            <div class="card-body">
-                <h5 class="card-title">Image Title</h5>
-                <p class="card-text">Notes</p>
-            </div>
-            <div class="card-footer">
-                <small class="text-muted"><a href="https://github.com/jmichaelbrown8/elevator-pitch">Figma Link</a></small>
-            </div>
-            </div>
-        </div>
-        <div class="col ">
-            <div class="card h-100">
-            <img src="/assets/Elevator-Pitch.PNG" class="card-img-top" alt="...">
-            <div class="card-body">
-                <h5 class="card-title">Image Title</h5>
-                <p class="card-text">Notes</p>
-            </div>
-            <div class="card-footer">
-                <small class="text-muted"><a href="https://github.com/jmichaelbrown8/elevator-pitch">Different Link</a></small>
-            </div>
+    <div class="row gy-4">
+        <div class="col-md-6 col-xl-4 col-xxl-3">
+            <div class="card card-body card-resource bg-light shadow-sm">
+                <a href="/space/{{idea.space_id}}/idea/{{idea.id}}/resource/create" class="overlay-hover inner-down-hover bg-success text-white shadow" style="--bs-bg-opacity: 0.85">
+                    <span class="d-block px-4 py-3 fs-4 fw-bold text-center">
+                        <span></span>
+                        Create a New<br/>
+                        <span class="fw-normal fs-5">Resource</span>
+                    </span>
+                </a>
+                <p class="m-0 overlay-hover--hide inner-down-hover--also fs-4 d-block text-center">
+                    <span class="badge fs-5 bg-success bi-plus-circle"> Add New</span>
+                    <span class="d-block mt-2">
+                        Resource
+                    </span>
+                </p>
             </div>
         </div>
-        <div class="col ">
-            <div class="card h-100">
-            <img src="/assets/Elevator-Pitch.PNG" class="card-img-top" alt="...">
-            <div class="card-body">
-                <h5 class="card-title">Image Title</h5>
-                <p class="card-text">Notes</p>
-            </div>
-            <div class="card-footer">
-                <small class="text-muted"><a href="https://github.com/jmichaelbrown8/elevator-pitch">GitHub Link</a></small>
-            </div>
+        {{#each resources}}
+        <div class="col-md-6 col-xl-4 col-xxl-3">
+            <div class="card card-body card-resource bg-light shadow-sm">
+                <a href="/space/{{../idea.space_id}}/idea/{{../idea.id}}/resource/{{id}}" class="overlay-hover inner-down-hover bg-primary text-white shadow" style="--bs-bg-opacity: 0.85">
+                    <span class="d-block px-4 py-3 fs-4 fw-bold text-center">
+                        View Resource<br/>
+                        <span class="fw-normal fs-5">{{name}}</span>
+                    </span>
+                </a>
+                <p class="m-0 overlay-hover--hide inner-down-hover--also fs-4 d-block text-center">
+                    <span class="badge fs-5 bg-primary">{{type}}</span>
+                    <span class="d-block mt-2">
+                        {{name}}
+                    </span>
+                </p>
             </div>
         </div>
+        {{/each}}
+    </div>
     </section>
- {{!-- {{/if}} --}}
-</div>
+ {{/if}}
 
 <div class="mt-4 bg-primary text-white"> 
     <h3 class="card-header justify-content-start">Comments</h3>
