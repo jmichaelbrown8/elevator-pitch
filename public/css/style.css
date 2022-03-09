@@ -1,9 +1,9 @@
 /** ##### Card - Resource ##### */
-.card-resource {
+.card-tile {
   border: none;
   height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 300px;
+  min-height: var(--tile-height, 300px);
 }
