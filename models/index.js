@@ -60,6 +60,14 @@ Space.hasMany(Idea, {
   foreignKey: 'space_id',
 });
 
+Idea.hasMany(Resource, {
+  foreignKey: 'idea_id',
+});
+
+Resource.belongsTo(Idea, {
+  foreignKey: 'idea_id',
+});
+
 Idea.hasMany(Comment, {
   foreignKey: 'idea_id',
 });
