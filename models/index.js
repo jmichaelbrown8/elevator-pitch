@@ -1,6 +1,7 @@
 const Space = require('./Space');
 const User = require('./User');
 const Idea = require('./Idea');
+const Resource = require('./Resource');
 const Interest = require('./Interest');
 const Comment = require('./Comment');
 const IdeaUpvote = require('./IdeaUpvote');
@@ -84,6 +85,7 @@ module.exports = {
   Space,
   User,
   Idea,
+  Resource,
   Interest,
   Comment,
   SpaceMember,
