@@ -1,11 +1,30 @@
 <div id="ideas" class="card">
     <div class=" bg-primary text-white"> 
-        <h3 class='card-header justify-content-start py-3 '>{{idea.name}} <br>
+        <h3 class='shareName card-header justify-content-start py-3'>{{idea.name}} <br>
         <button class='btn btn-light mt-2'>Like</button>
         <button class= 'btn btn-secondary mt-2 interest-{{is_interested idea.interested_users user_id}}' value="{{idea.id}}">{{idea.interested_users.length}} Interested</button>
+         <button class= 'btn btn-secondary mt-2' onclick='share()'>Share</button>
         </h3>
     </div>
-    
+
+<script>
+
+    function share() {
+    if(navigator.share){
+    navigator.share(
+    {
+      title: 'You need to see this!',
+      text: 'Check out this awesome idea I found on Elevator Pitch!',
+      url: '',
+    })
+    .then(() => console.log('Successfully shared'))
+    .catch(error => localStorage.setItem('toast', err),    
+      toastIt(true));
+  }
+  return;
+}
+</script>
+
     <div class="card-body">
         <h5>Created by:</h5>
         <p>{{user.name}}</p>
