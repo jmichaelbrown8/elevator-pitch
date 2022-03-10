@@ -19,4 +19,25 @@ router.post('/:space_id/member', withAuthJson, async (req, res) => {
   }
 });
 
+// Updates the status of a member in a space
+router.post('/:space_id/update', withAuthJson, async (req, res) => {
+  try {
+    const { user_id, status } = req.body;
+
+    const member = await SpaceMember.findByPk({
+      where: {
+        space_id: req.params.space_id,
+        user_id
+      },
+    });
+
+    member.status = status;
+    member.save();
+
+    res.status(200).json({ member });
+  } catch (err) {
+    res.status(400).json({ message: 'Update failed' });
+  }
+});
+
 module.exports = router;
