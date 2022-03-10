@@ -15,7 +15,7 @@ router.get('/', async (req, res) => {
       },
     });
     res.status(200).json({
-      upvoted: ideaUpvoteData ? true : false,
+      upvoted: ideaUpvoteData.length ? true : false,
     });
   } catch (err) {
     let message = 'Something went wrong.';
