@@ -69,6 +69,10 @@ router.get(
             model: Idea,
             include: { model: User, as: 'interested_users' },
           },
+          {
+            model: User,
+            as: 'members',
+          },
         ],
       });
       const space = spaceData.toJSON();
