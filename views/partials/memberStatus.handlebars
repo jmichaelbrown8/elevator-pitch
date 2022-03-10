@@ -1,0 +1,15 @@
+<div class="card" style="width: 18rem;">
+    <div class="card-body">
+    <h5 class="card-title">{{name}}</h5>
+    {{#if (is_match space_member.status 'pending')}}
+        <button type="button" class="btn btn-primary" data-status="approved" data-id={{{id}}}>Admit</button>
+        <button type="button" class="btn btn-danger" data-status="rejected" data-id={{{id}}}>Reject</button>
+    {{/if}}
+    {{#if (is_match space_member.status 'approved')}}
+        <button type="button" class="btn btn-danger" data-status="rejected" data-id={{{id}}}>Remove</button>
+    {{/if}}
+    {{#if (is_match space_member.status 'rejected')}}
+        <button type="button" class="btn btn-dark" data-status="approved" data-id={{{id}}}>Readmit</button>
+    {{/if}}
+    </div>
+</div>
