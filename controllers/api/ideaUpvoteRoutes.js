@@ -19,7 +19,7 @@ router.get('/', async (req, res) => {
       upvoted: ideaUpvoteData.length ? true : false,
     });
   } catch (err) {
-    let message = 'Something went wrong.';
+    let message = 'Like went wrong.';
 
     res.status(400).json({
       message,

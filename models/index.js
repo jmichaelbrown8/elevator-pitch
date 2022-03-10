@@ -73,9 +73,9 @@ Idea.hasMany(Comment, {
 });
 
 Idea.belongsToMany(User, {
-  foreignKey: 'idea_id',
   through : IdeaUpvote,
-  as: 'upvoter'
+  as: 'upvoter',
+  foreignKey: 'idea_id',
 });
 
 Idea.hasMany(IdeaUpvote, {

@@ -143,16 +143,16 @@ router.get(
           through: Interest,
           as: 'interested_users',
         },
-        include: {
-          model: User,
-          through: IdeaUpvote,
-          as: 'upvoter',
-        },
         include: [
           {
             model: User,
             through: Interest,
             as: 'interested_users',
+          },
+          {
+            model: User,
+            through: IdeaUpvote,
+            as: 'upvoter',
           },
           {
             model: Resource,

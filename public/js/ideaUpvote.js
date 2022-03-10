@@ -10,12 +10,9 @@ const addVote = async (event) => {
     },
   });
   if (response.ok) {
-    localStorage.setItem('toast', 'Thank you for your vote!');
+    res.status(200)
     document.location.reload();
-  } else {
-    localStorage.setItem('toast', 'Your vote was not counted.');
-    toastIt(true);
-  }
+  } 
 };
 
 const removeVote = async (event) => {
@@ -30,12 +27,9 @@ const removeVote = async (event) => {
     },
   });
   if (response.ok) {
-    localStorage.setItem('toast', 'Removed your vote.');
+    res.status(200)
     document.location.reload();
-  } else {
-    localStorage.setItem('toast', 'Unable to remove your vote.');
-    toastIt(true);
-  }
+  } 
 };
 
 const voteHandler = (event) => {
@@ -50,4 +44,7 @@ const voteHandler = (event) => {
     return;
   }
 };
-document.querySelector('.like').addEventListener('click', console.log("hello world"));
+const likes = document.querySelectorAll('.like');
+likes.forEach(like => {
+  like.addEventListener('click', voteHandler)
+});
