@@ -54,4 +54,4 @@ const interestHandler = (event) => {
   }
 };
 
-document.querySelector('#ideas').addEventListener('click', interestHandler);
+// document.querySelector('#ideas').addEventListener('click', interestHandler);
