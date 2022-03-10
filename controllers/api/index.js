@@ -5,7 +5,7 @@ const spaceMemberRoutes = require('./spaceMemberRoutes');
 const ideaRoutes = require('./ideaRoutes');
 const interestRoutes = require('./interestRoutes');
 const commentRoutes = require('./commentRoutes');
-const ideaUpvoteRoutes = require('./ideaUpvoteRoutes');
+const ideaUpvoteRoutes = require('./ideaUpvoteRoutes')
 const resourceRoutes = require('./resourceRoutes');
 
 router.use('/user', userRoutes);

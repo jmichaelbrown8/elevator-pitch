@@ -1,3 +1,5 @@
+const res = require('express/lib/response');
+
 const addVote = async (event) => {
   const idea_id = event.target.value;
   const response = await fetch('/api/upvote', {
@@ -10,9 +12,11 @@ const addVote = async (event) => {
     },
   });
   if (response.ok) {
-    res.status(200)
+    res.status(200);
     document.location.reload();
-  } 
+  } else {
+    res.json({ message: 'Unable to like' });
+  }
 };
 
 const removeVote = async (event) => {
@@ -27,9 +31,11 @@ const removeVote = async (event) => {
     },
   });
   if (response.ok) {
-    res.status(200)
+    res.status(200);
     document.location.reload();
-  } 
+  } else {
+    res.json({ message: 'Unable to unlike' });
+  }
 };
 
 const voteHandler = (event) => {
@@ -45,6 +51,6 @@ const voteHandler = (event) => {
   }
 };
 const likes = document.querySelectorAll('.like');
-likes.forEach(like => {
-  like.addEventListener('click', voteHandler)
+likes.forEach((like) => {
+  like.addEventListener('click', voteHandler);
 });

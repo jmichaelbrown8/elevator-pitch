@@ -78,9 +78,9 @@ Idea.belongsToMany(User, {
   foreignKey: 'idea_id',
 });
 
-Idea.hasMany(IdeaUpvote, {
-  foreignKey: 'idea_id',
-});
+// Idea.hasMany(IdeaUpvote, {
+//   foreignKey: 'idea_id',
+// });
 
 User.belongsToMany(Idea, {
   foreignKey: 'user_id',
