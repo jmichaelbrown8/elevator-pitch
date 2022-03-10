@@ -11,6 +11,7 @@ const {
   User,
   Interest,
   SpaceMember,
+  IdeaUpvote,
 } = require('../models');
 
 //Home/Dashboard
@@ -67,7 +68,14 @@ router.get(
         include: [
           {
             model: Idea,
-            include: { model: User, as: 'interested_users' },
+            include: [
+              { model: User, as: 'interested_users' },
+              {
+                model: User,
+                through: IdeaUpvote,
+                as: 'upvoter',
+              },
+            ],
           },
           {
             model: User,
@@ -133,6 +141,11 @@ router.get(
           model: User,
           through: Interest,
           as: 'interested_users',
+        },
+        include: {
+          model: User,
+          through: IdeaUpvote,
+          as: 'upvoter',
         },
       });
       const commentData = await Comment.findAll({
