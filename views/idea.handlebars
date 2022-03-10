@@ -1,7 +1,7 @@
 <div id="ideas" class="card">
     <div class=" bg-primary text-white"> 
         <h3 class='card-header justify-content-start py-3 '>{{idea.name}} <br>
-        <button class='btn btn-light mt-2 vote -{{is_interested idea.upvoter user_id}}' value="{{idea.id}}">{{idea.upvoter.length}} Like</button>
+        <button class='btn btn-light mt-2 like vote-{{is_liked idea.upvoter user_id}}' value="{{idea.id}}">{{idea.upvoter.length}} Like</button>
         <button class= 'btn btn-secondary mt-2 interest-{{is_interested idea.interested_users user_id}}' value="{{idea.id}}">{{idea.interested_users.length}} Interested</button>
         </h3>
     </div>
@@ -98,3 +98,4 @@
 
 <script src="/js/addComment.js"></script>
 <script src="/js/interest.js"></script>
+<script src = "/js/ideaUpvote.js"></script>

@@ -85,7 +85,7 @@ router.get(
         ],
       });
       const space = spaceData.toJSON();
-
+console.log('String', space)
       res.render('space', { space });
     } catch (err) {
       res.status(400).json(err);

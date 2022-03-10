@@ -1,9 +1,9 @@
 const addVote = async (event) => {
-  const ideaUpvote_id = event.target.value;
+  const idea_id = event.target.value;
   const response = await fetch('/api/upvote', {
     method: 'POST',
     body: JSON.stringify({
-      ideaUpvote_id,
+      idea_id,
     }),
     headerss: {
       'Content-type': 'application/json',
@@ -19,11 +19,11 @@ const addVote = async (event) => {
 };
 
 const removeVote = async (event) => {
-  const ideaUpvote_id = event.target.value;
+  const idea_id = event.target.value;
   const response = await fetch('/api/upvote', {
     method: 'DELETE',
     body: JSON.stringify({
-      ideaUpvote_id,
+      idea_id,
     }),
     headers: {
       'Content-Type': 'application/json',
@@ -50,4 +50,4 @@ const voteHandler = (event) => {
     return;
   }
 };
-document.querySelector('#ideas').addEventListener('click', voteHandler);
+document.querySelector('.like').addEventListener('click', console.log("hello world"));

@@ -14,6 +14,7 @@ router.get('/', async (req, res) => {
         user_id: req.session.user_id,
       },
     });
+    console.log('1', ideaUpvoteData)
     res.status(200).json({
       upvoted: ideaUpvoteData.length ? true : false,
     });
@@ -35,6 +36,7 @@ router.post('/', withAuthJson, async (req, res) => {
       idea_id: req.body.idea_id,
       user_id: req.session.user_id,
     });
+    console.log('2', upvoted)
     res.status(200).json({ upvoted: true });
   } catch (err) {
     let message = 'Something went wrong.';
@@ -55,6 +57,7 @@ router.delete('/', async (req, res) => {
         user_id: req.session.user_id,
       },
     });
+    console.log('3', upvoted)
     res.status(200).json({ upvoted: false });
   } catch (err) {
 

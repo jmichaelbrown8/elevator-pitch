@@ -4,7 +4,7 @@
         <h3 class="fs-4 m-0"><a class="text-decoration-none" href='/space/{{space_id}}/idea/{{id}}'>{{name}}</a></h3>
     </div>
     <div class="col-auto">
-      <button class='btn btn-primary'>Like</button>
+      <button class='btn btn-primary like vote-{{is_liked upvoter logged_in_user_id}}' value="{{id}}">{{upvoter.length}} Like</button>
     </div>
     <div class="col-auto">
       <button class='btn btn-secondary interest-{{is_interested interested_users logged_in_user_id}}' value="{{id}}">
