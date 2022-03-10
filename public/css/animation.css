@@ -1,0 +1,73 @@
+:root {
+  --timing: ease-in-out;
+  --speed: 220ms;
+  --speed-with-timing: var(--timing) var(--speed);
+
+  --distance: 10px;
+  --scale: 1.05;
+}
+.overlay-hover {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  transform: scale(var(--scale));
+  transition: opacity var(--speed-with-timing),
+    transform var(--speed-with-timing);
+  z-index: 50;
+}
+a.overlay-hover {
+  text-decoration: none;
+}
+.overlay-hover:hover,
+.overlay-hover:focus {
+  display: flex !important;
+  transform: scale(1);
+  opacity: 1;
+  filter: brightness(100%);
+}
+.overlay-hover--hide {
+  position: relative;
+  z-index: 40;
+  transition: opacity var(--speed-with-timing),
+    transform var(--speed-with-timing);
+}
+.overlay-hover:hover + .overlay-hover--hide,
+.overlay-hover:focus + .overlay-hover--hide {
+  transform: scale(0.9);
+  opacity: 0;
+}
+
+/** ##### Translate Up ##### **/
+.inner-up-hover > *,
+.inner-up-hover + .inner-up-hover--also > * {
+  transition: transform var(--speed-with-timing);
+  transform: translateY(var(--distance));
+}
+.inner-up-hover:hover > *,
+.inner-up-hover:focus > *,
+.inner-up-hover:hover + .inner-up-hover--also > *,
+.inner-up-hover:focus + .inner-up-hover--also > * {
+  transform: translateY(0);
+}
+
+/** ##### Translate Down ##### **/
+.inner-down-hover > * {
+  transition: transform var(--speed-with-timing);
+  transform: translateY(calc(-1 * var(--distance)));
+}
+.inner-down-hover:hover + .inner-down-hover--also > *,
+.inner-down-hover:focus + .inner-down-hover--also > * {
+    transition: transform var(--speed-with-timing);
+    transform: translateY(var(--distance));
+}
+.inner-down-hover:hover > *,
+.inner-down-hover:focus > *,
+.inner-down-hover + .inner-down-hover--also > *  {
+  transform: translateY(0);
+}
