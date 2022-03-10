@@ -1,5 +1,3 @@
-const res = require('express/lib/response');
-
 const addVote = async (event) => {
   const idea_id = event.target.value;
   const response = await fetch('/api/upvote', {
@@ -7,7 +5,7 @@ const addVote = async (event) => {
     body: JSON.stringify({
       idea_id,
     }),
-    headerss: {
+    headers: {
       'Content-type': 'application/json',
     },
   });
@@ -34,7 +32,7 @@ const removeVote = async (event) => {
     res.status(200);
     document.location.reload();
   } else {
-    res.json({ message: 'Unable to unlike' });
+    response.json({ message: 'Unable to unlike' });
   }
 };
 
