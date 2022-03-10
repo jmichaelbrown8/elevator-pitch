@@ -12,5 +12,15 @@
 {{/each}}
 </div>
 <script src="/js/interest.js"></script>
-
-
+{{name}}
+<div id="memberList" data-space-id={{space-id}}>
+  <div class="card" style="width: 18rem;">
+    <div class="card-body">
+      <h5 class="card-title">Members</h5>
+    </div>
+  </div>
+  {{#each space.members}}
+    {{> memberStatus }}
+  {{/each}}
+</div>
+<script src="/js/memberList.js"></script>

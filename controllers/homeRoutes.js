@@ -1,6 +1,6 @@
 const router = require('express').Router();
 const { withAuth, withApprovedMembership, withNoMembership } = require('../utils/auth');
-const { Idea, Space, Comment, User, Interest } = require('../models');
+const { Idea, Space, Comment, User, Interest, SpaceMember } = require('../models');
 
 //Home/Dashboard
 router.get('/', async (req, res) => {
@@ -39,6 +39,10 @@ router.get('/space/:space_id', withApprovedMembership, withAuth, async (req, res
         {
           model: Idea,
           include: { model: User, as: 'interested_users' },
+        },
+        {
+          model: User,
+          as: 'members',
         },
       ],
     });
