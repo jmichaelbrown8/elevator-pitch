@@ -23,8 +23,7 @@ router.post('/:space_id/member', withAuthJson, async (req, res) => {
 router.post('/:space_id/update', withAuthJson, async (req, res) => {
   try {
     const { user_id, status } = req.body;
-
-    const member = await SpaceMember.findByPk({
+    const member = await SpaceMember.findOne({
       where: {
         space_id: req.params.space_id,
         user_id
@@ -33,9 +32,10 @@ router.post('/:space_id/update', withAuthJson, async (req, res) => {
 
     member.status = status;
     member.save();
-
+    console.log(member);
     res.status(200).json({ member });
   } catch (err) {
+    console.log(err);
     res.status(400).json({ message: 'Update failed' });
   }
 });
