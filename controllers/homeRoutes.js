@@ -11,6 +11,7 @@ const {
   User,
   Interest,
   SpaceMember,
+  Resource,
   IdeaUpvote,
 } = require('../models');
 
@@ -147,6 +148,19 @@ router.get(
           through: IdeaUpvote,
           as: 'upvoter',
         },
+        include: [
+          {
+            model: User,
+            through: Interest,
+            as: 'interested_users',
+          },
+          {
+            model: Resource,
+            attributes: {
+              include: ['id', 'name', 'type']
+            }
+          }
+        ],
       });
       const commentData = await Comment.findAll({
         where: {
@@ -154,19 +168,42 @@ router.get(
         },
       });
 
-      const idea = ideaData.get({ plain: true });
+      const ideaPlain = ideaData.get({ plain: true });
+      const { resources, ...idea } = ideaPlain;
       const comments = commentData.map((element) =>
         element.get({ plain: true })
       );
 
       res.render('idea', {
         idea,
+        resources,
         comments,
         space_id,
       });
     } catch (err) {
       console.log(err);
     }
+  }
+);
+
+// Create a new resource
+router.get(
+  '/space/:space_id/idea/:idea_id/resource/create',
+  withApprovedMembership,
+  withAuth,
+  async (req, res) => {
+    res.render( 'resourceCreate' );
+  }
+);
+
+// View a specific resource
+router.get(
+  '/space/:space_id/idea/:idea_id/resource/:id_resource',
+  withApprovedMembership,
+  withAuth,
+  async (req, res) => {
+    // TODO Get specific resource and provide to view.
+    res.render( 'resource' );
   }
 );
 

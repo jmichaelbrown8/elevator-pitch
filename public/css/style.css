@@ -1,77 +1,9 @@
-/* root {
-  --primary: black;
-  --secondary: #b8c596;
-  --tertiary: #009ecc;
-  --quartrinary: white;
-  --dark: black;
-  --light: white;
-  --error: #e5383b;
-}
-
-html,
-body {
+/** ##### Card - Resource ##### */
+.card-tile {
+  border: none;
   height: 100%;
-  font-family: 'Poppins', sans-serif !important;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: var(--tile-height, 300px);
 }
-
-html,
-body,
-input,
-textarea,
-button {
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.004);
-}
-
-header {
-  position: fixed;
-  top: 0;
-  right: 0;
-  left: 0;
-  z-index: 2;
-  background-color: #009ecc !important;
-}
-
-header ul.mui-list--inline {
-  margin-bottom: 0;
-}
-
-header a {
-  color: #fff;
-}
-
-header table {
-  width: 100%;
-}
-
-.mui-btn--raised {
-  background-color: var(--tertiary) !important;
-  color: white !important;
-}
-
-
-form .login-form {
-  text-align: left;
-}
-
-form input {
-  margin: .5rem;
-  padding: 0.5rem;
-}
-
-
-#content-wrapper {
-  min-height: 100%;
-  box-sizing: border-box;
-  margin-bottom: -100px;
-  padding-bottom: 100px;
-}
-
-footer {
-  box-sizing: border-box;
-  height: 100px;
-  background-color: #eee;
-  border-top: 1px solid #e0e0e0;
-  padding-top: 25px;
-} 
