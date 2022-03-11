@@ -1,3 +1,5 @@
+const marked = require('marked');
+
 module.exports = {
   format_date: (date) => {
     // Format date as MM/DD/YYYY
@@ -24,4 +26,5 @@ module.exports = {
   is_match: (a, b) => {
     return a === b;
   },
+  marked: (md) => marked.parse(md),
 };
