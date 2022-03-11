@@ -12,6 +12,7 @@ const {
   Interest,
   SpaceMember,
   Resource,
+  IdeaUpvote,
 } = require('../models');
 
 //Home/Dashboard
@@ -68,7 +69,14 @@ router.get(
         include: [
           {
             model: Idea,
-            include: { model: User, as: 'interested_users' },
+            include: [
+              { model: User, as: 'interested_users' },
+              {
+                model: User,
+                through: IdeaUpvote,
+                as: 'upvoter',
+              },
+            ],
           },
           {
             model: User,
@@ -77,7 +85,7 @@ router.get(
         ],
       });
       const space = spaceData.toJSON();
-
+      console.log('String', space);
       res.render('space', { space });
     } catch (err) {
       res.status(400).json(err);
@@ -130,6 +138,11 @@ router.get(
     try {
       const { space_id, idea_id } = req.params;
       const ideaData = await Idea.findByPk(idea_id, {
+        include: {
+          model: User,
+          through: Interest,
+          as: 'interested_users',
+        },
         include: [
           {
             model: User,
@@ -137,11 +150,16 @@ router.get(
             as: 'interested_users',
           },
           {
+            model: User,
+            through: IdeaUpvote,
+            as: 'upvoter',
+          },
+          {
             model: Resource,
             attributes: {
-              include: ['id', 'name', 'type']
-            }
-          }
+              include: ['id', 'name', 'type'],
+            },
+          },
         ],
       });
       const commentData = await Comment.findAll({
@@ -174,7 +192,7 @@ router.get(
   withApprovedMembership,
   withAuth,
   async (req, res) => {
-    res.render( 'resourceCreate' );
+    res.render('resourceCreate');
   }
 );
 
@@ -185,7 +203,7 @@ router.get(
   withAuth,
   async (req, res) => {
     // TODO Get specific resource and provide to view.
-    res.render( 'resource' );
+    res.render('resource');
   }
 );
 

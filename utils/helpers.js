@@ -20,6 +20,19 @@ module.exports = {
       return false;
     }, false);
   },
+  is_liked: (likedList, userId) => {
+    return likedList.reduce((prev, curr) => {
+      if (prev) {
+        return true;
+      }
+      // check if the current interest object includes the userId
+      if (curr.id === userId) {
+        return true;
+      }
+      // else return false
+      return false;
+    }, false);
+  },
   as_json: (data) => JSON.stringify(data),
   is_match: (a, b) => {
     return a === b;
