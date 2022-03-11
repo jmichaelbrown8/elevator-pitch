@@ -14,7 +14,7 @@ router.get('/', async (req, res) => {
         user_id: req.session.user_id,
       },
     });
-    
+
     res.status(200).json({
       upvoted: ideaUpvoteData.length ? true : false,
     });
@@ -47,8 +47,8 @@ router.post('/', withAuthJson, async (req, res) => {
   }
 });
 
-// Removes upvote from the idea from the user.  
-router.delete('/', async (req, res) => {
+// Removes upvote from the idea from the user.
+router.delete('/', withAuthJson, async (req, res) => {
   try {
     await IdeaUpvote.destroy({
       where: {
@@ -58,7 +58,6 @@ router.delete('/', async (req, res) => {
     });
     res.status(200).json({ upvoted: false });
   } catch (err) {
-
     let message = 'Something went wrong.';
     res.status(400).json({
       message,

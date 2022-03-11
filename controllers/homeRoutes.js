@@ -85,7 +85,7 @@ router.get(
         ],
       });
       const space = spaceData.toJSON();
-console.log('String', space)
+      console.log('String', space);
       res.render('space', { space });
     } catch (err) {
       res.status(400).json(err);
@@ -157,9 +157,9 @@ router.get(
           {
             model: Resource,
             attributes: {
-              include: ['id', 'name', 'type']
-            }
-          }
+              include: ['id', 'name', 'type'],
+            },
+          },
         ],
       });
       const commentData = await Comment.findAll({
@@ -192,7 +192,7 @@ router.get(
   withApprovedMembership,
   withAuth,
   async (req, res) => {
-    res.render( 'resourceCreate' );
+    res.render('resourceCreate');
   }
 );
 
@@ -203,7 +203,7 @@ router.get(
   withAuth,
   async (req, res) => {
     // TODO Get specific resource and provide to view.
-    res.render( 'resource' );
+    res.render('resource');
   }
 );
 

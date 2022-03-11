@@ -10,7 +10,7 @@ const addVote = async (event) => {
     },
   });
   if (response.ok) {
-    res.status(200);
+    localStorage.setItem('toast', `Idea liked!`);
     document.location.reload();
   } else {
     res.json({ message: 'Unable to like' });
@@ -29,7 +29,7 @@ const removeVote = async (event) => {
     },
   });
   if (response.ok) {
-    res.status(200);
+    localStorage.setItem('toast', `Like removed.`);
     document.location.reload();
   } else {
     response.json({ message: 'Unable to unlike' });
