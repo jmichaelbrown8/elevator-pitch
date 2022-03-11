@@ -133,15 +133,19 @@ router.get(
         include: [
           {
             model: User,
+            as: 'creator',
+          },
+          {
+            model: User,
             through: Interest,
             as: 'interested_users',
           },
           {
             model: Resource,
             attributes: {
-              include: ['id', 'name', 'type']
-            }
-          }
+              include: ['id', 'name', 'type'],
+            },
+          },
         ],
       });
       const commentData = await Comment.findAll({
@@ -174,7 +178,7 @@ router.get(
   withApprovedMembership,
   withAuth,
   async (req, res) => {
-    res.render( 'resourceCreate' );
+    res.render('resourceCreate');
   }
 );
 
@@ -185,7 +189,7 @@ router.get(
   withAuth,
   async (req, res) => {
     // TODO Get specific resource and provide to view.
-    res.render( 'resource' );
+    res.render('resource');
   }
 );
 
