@@ -13,7 +13,8 @@ const addVote = async (event) => {
     localStorage.setItem('toast', `Idea liked!`);
     document.location.reload();
   } else {
-    res.json({ message: 'Unable to like' });
+    localStorage.setItem('toast', `Unable to like.`);
+    toastIt(true);
   }
 };
 
@@ -32,7 +33,8 @@ const removeVote = async (event) => {
     localStorage.setItem('toast', `Like removed.`);
     document.location.reload();
   } else {
-    response.json({ message: 'Unable to unlike' });
+    localStorage.setItem('toast', `Unable to unlike.`);
+    toastIt(true);
   }
 };
 
