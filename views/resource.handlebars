@@ -1,1 +1,114 @@
-Future home of viewing a resource \(o.o)/
+
+<button
+  type='submit'
+  onclick="window.location.href='/space/{{space_id}}/idea/{{idea_id}}'"
+  class='btn btn-primary mb-3'
+> < Back to idea</button>
+
+
+{{!-- THis will be current resource information --}}
+
+{{#if resources.length}}
+    <div class=" bg-primary text-white my-4">
+        <h3 class='card-header justify-content-start'>Resources</h3>
+    </div>
+    {{!-- Sample card data inserted for aesthetics. No resource table available at this time --}}
+    <div class="row gy-4">
+        <div class="col-md-6 col-xl-4 col-xxl-3">
+            <div class="card card-body card-tile bg-light shadow-sm">
+                <a href="/space/{{idea.space_id}}/idea/{{idea.id}}/resource/create" class="overlay-hover inner-down-hover bg-success text-white shadow" style="--bs-bg-opacity: 0.85">
+                    <span class="d-block px-4 py-3 fs-4 fw-bold text-center">
+                        <span></span>
+                        Create a New<br/>
+                        <span class="fw-normal fs-5">Resource</span>
+                    </span>
+                </a>
+                <p class="m-0 overlay-hover--hide inner-down-hover--also fs-4 d-block text-center">
+                    <span class="badge fs-5 bg-success bi-plus-circle"> Add New</span>
+                    <span class="d-block mt-2">
+                        Resource
+                    </span>
+                </p>
+            </div>
+        </div>
+        {{#each resources}}
+        <div class="col-md-6 col-xl-4 col-xxl-3">
+            <div class="card card-body card-tile bg-light shadow-sm">
+                <a href="/space/{{../idea.space_id}}/idea/{{../idea.id}}/resource/{{id}}" class="overlay-hover inner-down-hover bg-primary text-white shadow" style="--bs-bg-opacity: 0.85">
+                    <span class="d-block px-4 py-3 fs-4 fw-bold text-center">
+                        View Resource<br/>
+                        <span class="fw-normal fs-5">{{name}}</span>
+                    </span>
+                </a>
+                <p class="m-0 overlay-hover--hide inner-down-hover--also fs-4 d-block text-center">
+                    <span class="badge fs-5 bg-primary">{{type}}</span>
+                    <span class="d-block mt-2">
+                        {{name}}
+                    </span>
+                </p>
+            </div>
+        </div>
+        {{/each}}
+    </div>
+    </section>
+ {{/if}}
+
+<div class='row resource-form gy-4'>
+  <div class='card image-form'>
+    <div class='card-body'>
+      <form enctype='multipart/form-data'>
+        <div class='form-group'>
+          <div class='card-title'>
+            <label for='addImages' class='fs-4 fw-bold mb-2'>Add images</label>
+          </div>
+
+          <label for='image'><input
+              class='form-control-file'
+              type='file'
+              name='image'
+              accept='image/*'
+              id='image'
+              multiple
+            /></label>
+          <br />
+          <br />
+          <button
+            type='submit'
+            id='form-add-image'
+            class='btn btn-primary'
+          >Add</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  {{! Upload links }}
+  <div class='card'>
+    <div class='card-body'>
+      <form enctype='multipart/form-data'>
+        <div class='form-group'>
+          <div class='card-title'>
+            <label for='link' class='fs-4 fw-bold mb-2'>Add links</label>
+          </div>
+
+          <label for='link'><input
+              class='form-control'
+              type='link'
+              name='link'
+              multiple
+              id='link'
+            /></label>
+          <br />
+          <br />
+          <button
+            type='submit'
+            id='form-add-link'
+            class='btn btn-primary'
+          >Add</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<script src='/js/resource.js'></script>

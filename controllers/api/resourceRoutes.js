@@ -1,25 +1,57 @@
 const router = require('express').Router();
 const { Resource } = require('../../models');
 const { withApprovedMembership, withAuth } = require('../../utils/auth');
+const multer = require('multer');
+// uploads go to the public/upload directory.
+const upload = multer({ dest: '../public/uploads/' });
 
 const basePath = '/:space_id/idea/:idea_id/resource';
 
-router.post(basePath, withApprovedMembership, withAuth, async (req, res) => {
-  try {
-    const { idea_id } = req.params;
-    res.status(200).json(
-      await Resource.create({
-        ...req.body,
-        idea_id,
-      })
-    );
-  } catch (err) {
-    res.status(400).json({
-      message: 'Unable to create a resource.',
-      // ...err
-    });
+router.post(
+  basePath,
+  withApprovedMembership,
+  withAuth,
+  upload.array('image'),
+  async (req, res) => {
+    try {
+      const { idea_id } = req.params;
+      res.status(200).json(
+        await Resource.create({
+          ...req.body,
+          idea_id,
+        })
+      );
+    } catch (err) {
+      res.status(400).json({
+        message: 'Unable to create a resource.',
+        // ...err
+      });
+    }
   }
-});
+);
+// not sure if I need two. Only difference is 'image' vs 'link'. The documentation specified different routes for different file types but it does seem redundant.
+router.post(
+  basePath,
+  withApprovedMembership,
+  withAuth,
+  upload.array('link'),
+  async (req, res) => {
+    try {
+      const { idea_id } = req.params;
+      res.status(200).json(
+        await Resource.create({
+          ...req.body,
+          idea_id,
+        })
+      );
+    } catch (err) {
+      res.status(400).json({
+        message: 'Unable to create a resource.',
+        // ...err
+      });
+    }
+  }
+);
 
 router.put(
   `${basePath}/:resource_id`,
@@ -70,7 +102,7 @@ router.delete(
 
       await resource.destroy();
 
-      res.status(200).json( resource );
+      res.status(200).json(resource);
     } catch (err) {
       res.status(400).json(err);
     }
