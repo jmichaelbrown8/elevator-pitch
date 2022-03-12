@@ -46,6 +46,11 @@ User.belongsToMany(Idea, {
   foreignKey: 'user_id',
 });
 
+
+Idea.hasMany(Interest, {
+  foreignKey: 'idea_id',
+});
+
 Idea.belongsToMany(User, {
   through: Interest,
   as: 'interested_users',

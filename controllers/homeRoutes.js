@@ -132,9 +132,8 @@ router.get(
       const ideaData = await Idea.findByPk(idea_id, {
         include: [
           {
-            model: User,
-            through: Interest,
-            as: 'interested_users',
+            model: Interest,
+            attributes: { include: ['user_id','status'] },
           },
           {
             model: Resource,
@@ -152,12 +151,15 @@ router.get(
 
       const ideaPlain = ideaData.get({ plain: true });
       const { resources, ...idea } = ideaPlain;
-      const comments = commentData.map((element) =>
-        element.get({ plain: true })
-      );
+
+      const comments = commentData.map((element) => element.get({ plain: true }));
 
       res.render('idea', {
-        idea,
+        idea: {
+          ...idea,
+          // Rebuild `interested_users` as a key based object { [user_id]: "status" };
+          interested_users: idea.interests.reduce( (interested_users, { user_id, status }) => ({ [user_id]: status, ...interested_users }), {} )
+        },
         resources,
         comments,
         space_id,

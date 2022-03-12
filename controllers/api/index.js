@@ -8,9 +8,8 @@ const commentRoutes = require('./commentRoutes');
 const resourceRoutes = require('./resourceRoutes');
 
 router.use('/user', userRoutes);
-router.use('/space', spaceRoutes, spaceMemberRoutes, resourceRoutes);
+router.use('/space', spaceRoutes, spaceMemberRoutes, resourceRoutes, interestRoutes);
 router.use('/idea', ideaRoutes);
-router.use('/interest', interestRoutes);
 router.use('/comment', commentRoutes);
 
 module.exports = router;
