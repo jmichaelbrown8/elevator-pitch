@@ -42,7 +42,7 @@
     <script
       src='https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js'
     ></script>
-    
+
     {{! Bootstrap Script }}
 
     <script
@@ -51,13 +51,11 @@
 
     <script>
       const getContext = (() => {
-        {{! /*Scope the context data to privately secure it from tampering*/ }}
-        const viewContext = {{{as_json jsViewContext}}};
-        return ( key ) => {
-          {{! /*If given a key, return that one prop, else return the whole context*/ }}
-          return key ? viewContext[key] : viewContext;
-        }
-      })();
+      {{! /*Scope the context data to privately secure it from tampering*/ }}
+      const viewContext =
+      {{{as_json jsViewContext}}}; return ( key ) => {
+      {{! /*If given a key, return that one prop, else return the whole context*/ }}
+      return key ? viewContext[key] : viewContext; } })();
     </script>
   </head>
 
@@ -72,8 +70,8 @@
         <button
           class='navbar-toggler'
           type='button'
-          data-bs-toggle='collapse'
-          data-bs-target='#navbarScroll'
+          data-toggle='collapse'
+          data-target='#navbarScroll'
           aria-controls='navbarScroll'
           aria-expanded='false'
           aria-label='Toggle navigation'
@@ -125,7 +123,11 @@
 
     <footer class='bg-secondary px-3 py-5 mt-5'>
       <div class='text-center'>
-        <a href='https://github.com/jmichaelbrown8/elevator-pitch'> <img src='/assets/GitHub-Emblem.png' style='width:80px;height:40px'></a>
+        <a href='https://github.com/jmichaelbrown8/elevator-pitch'>
+          <img
+            src='/assets/GitHub-Emblem.png'
+            style='width:80px;height:40px'
+          /></a>
       </div>
     </footer>
 
