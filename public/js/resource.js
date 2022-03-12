@@ -8,7 +8,7 @@ const uploadImage = async (event) => {
   console.log(name, type, content);
 
   if (name && type && content) {
-    const response = await fetch(`/space/:space_id/idea/:idea_id/resource`, {
+    const response = await fetch(`api/space/:space_id/idea/:idea_id/resource`, {
       method: 'POST',
       body: JSON.stringify({ name, type, content }),
       headers: { 'Content-Type': 'application/json' },
@@ -61,7 +61,7 @@ const uploadLink = async (event) => {
   console.log(name, type, content);
 
   if (name && type && content) {
-    const response = await fetch(`/:space_id/idea/:idea_id/resource`, {
+    const response = await fetch(`api/space/:space_id/idea/:idea_id/resource`, {
       method: 'POST',
       body: JSON.stringify({ name, type, content }),
       headers: { 'Content-Type': 'application/json' },
