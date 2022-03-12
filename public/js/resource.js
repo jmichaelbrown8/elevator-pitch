@@ -13,7 +13,7 @@ const uploadImage = async (event) => {
   data.append('name', name);
   data.append('type', type);
   data.append('image', content);
-  console.log(FormData);
+  console.log(data, name);
 
   const response = await fetch(
     `/api/space/${space_id}/idea/${idea_id}/resource`,
@@ -55,29 +55,9 @@ const uploadLink = async (event) => {
     );
 
     if (response.ok) {
-      const item = await response.json();
-      console.log(item);
-      if (content) {
-        const data = new FormData();
-        data.append('content', item.content);
-        data.append('id', item.id);
-        const upload = await fetch(
-          `//space/:space_id/idea/:idea_id/resource/${item.id}`,
-          {
-            method: 'POST',
-            body: data,
-          }
-        );
-        if (upload.ok) {
-          localStorage.setItem('toast', `Created new resource!`);
-          // re-route back to create another resource
-          document.location.href = `api/space/${item.space_id}/idea/${item.id}/resource/create`;
-        }
-      } else {
-        const errorObj = await response.json();
-        localStorage.setItem('toast', errorObj.message);
-        toastIt(true);
-      }
+      localStorage.setItem('toast', `Created new resource!`);
+      // re-route back to create another resource
+      document.location.href = `api/space/${item.space_id}/idea/${item.id}/resource/create`;
     } else {
       const errorObj = await response.json();
       localStorage.setItem('toast', errorObj.message);
