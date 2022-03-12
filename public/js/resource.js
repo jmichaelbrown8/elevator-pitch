@@ -7,33 +7,32 @@ const uploadImage = async (event) => {
 
   const { space_id, idea_id } = getContext();
   // console.log showing properly
-  console.log('LOOK HERE:');
-  console.log(name, type, content);
-  // TODO: Why is this not sending the content
-  // Do we need to deconstruct content?
-  console.log(JSON.stringify({ name, type, content }));
+  // image data sent in something different than our body. Form-body element.
 
-  if (name && type && content) {
-    const response = await fetch(
-      `/api/space/${space_id}/idea/${idea_id}/resource`,
-      {
-        method: 'POST',
-        body: JSON.stringify({ name, type, content }),
-        headers: { 'Content-Type': 'application/json' },
-      }
-    );
-    console.log(response);
+  const data = new FormData();
+  data.append('name', name);
+  data.append('type', type);
+  data.append('image', content);
+  console.log(FormData);
 
-    if (response.ok) {
-      localStorage.setItem('toast', `Created new resource!`);
-      const item = await response.json();
-      // re-route back to create another resource
-      document.location.href = `/space/${item.space_id}/idea/${item.id}/resource/create`;
-    } else {
-      const errorObj = await response.json();
-      localStorage.setItem('toast', errorObj.message);
-      toastIt(true);
+  const response = await fetch(
+    `/api/space/${space_id}/idea/${idea_id}/resource`,
+    {
+      method: 'POST',
+      body: data,
     }
+  );
+
+  console.log(response);
+  if (response.ok) {
+    localStorage.setItem('toast', `Created new resource!`);
+    const item = await response.json();
+    // re-route back to create another resource
+    document.location.href = `/space/${item.space_id}/idea/${item.id}`;
+  } else {
+    const errorObj = await response.json();
+    localStorage.setItem('toast', errorObj.message);
+    toastIt(true);
   }
 };
 
@@ -46,11 +45,15 @@ const uploadLink = async (event) => {
   console.log(name, type, content);
 
   if (name && type && content) {
-    const response = await fetch(`api/space/:space_id/idea/:idea_id/resource`, {
-      method: 'POST',
-      body: JSON.stringify({ name, type, content }),
-      headers: { 'Content-Type': 'application/json' },
-    });
+    const response = await fetch(
+      `/api/space/${space_id}/idea/${idea_id}/resource`,
+      {
+        method: 'POST',
+        body: JSON.stringify({ name, type, content }),
+        headers: { 'Content-Type': 'application/json' },
+      }
+    );
+
     if (response.ok) {
       const item = await response.json();
       console.log(item);

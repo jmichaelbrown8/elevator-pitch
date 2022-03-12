@@ -105,3 +105,6 @@ dist
 
 # sequelize-cli config
 /config/config.json
+
+#Ignore uploaded images
+public/uploads/images
