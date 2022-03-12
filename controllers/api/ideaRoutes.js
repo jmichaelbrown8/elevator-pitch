@@ -1,8 +1,6 @@
 const router = require('express').Router();
 const { Idea } = require('../../models');
 const { withApprovedMembership, withAuthJson } = require('../../utils/auth');
-const multer = require('multer');
-const upload = multer();
 
 // Input:   id (idea id)
 // Output:  JSON Object containing idea data
