@@ -111,20 +111,20 @@
 
     <div class='mh-fold'>
       <div class='container my-5'>
+        {{#if space_id}}
         <a
           class='space-header'
+          href='/space/{{space_id}}'
           style='cursor:pointer; text-decoration:none; color:black'
         >
+        {{/if}}
           <h1 class='fs-1 wow zoomInDown'>Space for
             <span class='fw-bold'>ideas</span></h1>
+        {{#if space_id}}
         </a>
+        {{/if}}
       </div>
-      <script>
-        const { space_id } = getContext(); console.log(space_id.typeof);
-        if({space_id } === undefined) { $(".space-header").attr('href', `/`) }
-        else { $(".space-header").attr('href', `/space/${space_id}`); }
 
-      </script>
       <main class='container'>
         <!-- Render the sub layout -->
         {{{body}}}
