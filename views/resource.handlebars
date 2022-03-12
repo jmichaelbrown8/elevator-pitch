@@ -7,39 +7,26 @@
 {{! Current resource information }}
 
 <div class='bg-primary text-white my-4'>
-  <h3 class='card-header justify-content-start'>Resources</h3>
+  <h3 class='card-header justify-content-start'>Resource for {{ideas.name}}</h3>
 </div>
-{{! Sample card data inserted for aesthetics. No resource table available at this time }}
+
 <div class='row gy-4'>
   <br />
-  {{#each resources as |resource|}}
 
-    <div class='col-md-6 col-xl-4 col-xxl-3'>
-      <div class='card card-body card-tile bg-light shadow-sm'>
-        <a
-          href='/space/{{space_id}}/idea/{{idea_id}}/resource/{{id}}'
-          class='overlay-hover inner-down-hover bg-primary text-white shadow'
-          style='--bs-bg-opacity: 0.85'
-        >
-          <span class='d-block px-4 py-3 fs-4 fw-bold text-center'>
-            View Resource<br />
-            <span class='fw-normal fs-5'>{{name}}</span>
-          </span>
-        </a>
-        <p
-          class='m-0 overlay-hover--hide inner-down-hover--also fs-4 d-block text-center'
-        >
-          <span class='badge fs-5 bg-primary'>{{type}}</span>
-          <span class='d-block mt-2'>
-            {{name}}
-          </span>
-          <span class='d-block mt-2'>
-            {{content}}
-          </span>
-        </p>
+  <div class='col-md-6 col-xl-4 col-xxl-3'>
+    <div class='card card-body card-tile bg-light shadow-sm'>
+
+      <div class='card-text m-2'>Type: {{ideas.resource.type}}</div>
+      <div class='card-text m-2'>Name:
+        {{ideas.resource.name}}
+      </div>
+      <div class='card-text m-2'>
+        Content:
+        {{ideas.resource.content}}
       </div>
     </div>
-  {{/each}}
+  </div>
+
 </div>
 <br />
 <div class='row resource-form gy-4'>

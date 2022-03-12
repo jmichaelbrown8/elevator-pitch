@@ -126,10 +126,10 @@
 
 {{!-- current resources --}}
            
-        {{#each resources}}
+ {{#each resources}}
         <div class="col-md-6 col-xl-4 col-xxl-3">
             <div class="card card-body card-tile bg-light shadow-sm">
-                <a href="/space/{{space_id}}/idea/{{idea.id}}/resource/{{id}}" class="overlay-hover inner-down-hover bg-primary text-white shadow" style="--bs-bg-opacity: 0.85">
+                <a href="/space/{{../idea.space_id}}/idea/{{../idea.id}}/resource/{{id}}" class="overlay-hover inner-down-hover bg-primary text-white shadow" style="--bs-bg-opacity: 0.85">
                     <span class="d-block px-4 py-3 fs-4 fw-bold text-center">
                         View Resource<br/>
                         <span class="fw-normal fs-5">{{name}}</span>
@@ -138,7 +138,7 @@
                 <p class="m-0 overlay-hover--hide inner-down-hover--also fs-4 d-block text-center">
                     <span class="badge fs-5 bg-primary">{{type}}</span>
                     <span class="d-block mt-2">
-                        {{content}}
+                        {{name}}
                     </span>
                 </p>
             </div>

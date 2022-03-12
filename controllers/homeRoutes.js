@@ -207,7 +207,7 @@ router.get(
   withAuth,
   async (req, res) => {
     try {
-      const resourceData = await Idea.findByPk(req.params.idea_id, {
+      const ideaData = await Idea.findByPk(req.params.idea_id, {
         include: [
           {
             model: Resource,
@@ -219,12 +219,12 @@ router.get(
         ],
       });
 
-      const resources = resourceData.toJSON();
-      console.log(resources);
+      const ideas = ideaData.toJSON();
+      console.log(ideas);
       // TODO Get specific resource and provide to view.
       const { space_id, idea_id } = req.params;
       res.render('resource', {
-        resources,
+        ideas,
         space_id,
         idea_id,
       });
