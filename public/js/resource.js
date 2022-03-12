@@ -4,15 +4,23 @@ const uploadImage = async (event) => {
   const name = document.querySelector('#image').name;
   const type = document.querySelector('#image').type;
   const content = document.querySelector('#image').files;
+
+  const { space_id, idea_id } = getContext();
   // console.log showing properly
+  console.log('LOOK HERE:');
   console.log(name, type, content);
+  // TODO: Why is this not sending the content
+  console.log(JSON.stringify({ name, type, content }));
 
   if (name && type && content) {
-    const response = await fetch(`api/space/:space_id/idea/:idea_id/resource`, {
-      method: 'POST',
-      body: JSON.stringify({ name, type, content }),
-      headers: { 'Content-Type': 'application/json' },
-    });
+    const response = await fetch(
+      `/api/space/${space_id}/idea/${idea_id}/resource`,
+      {
+        method: 'POST',
+        body: JSON.stringify({ name, type, content }),
+        headers: { 'Content-Type': 'application/json' },
+      }
+    );
     console.log(response);
     // Unsure if a code block is needed to append the item to our page.
 
