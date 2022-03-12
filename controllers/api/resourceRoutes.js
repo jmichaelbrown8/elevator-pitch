@@ -47,23 +47,26 @@ router.post(
 );
 // not sure if I need two. Only difference is 'image' vs 'link'. The documentation specified different routes for different file types but it does seem redundant.
 router.post(
-  basePath,
+  '/:space_id/idea/:idea_id/resource',
   withApprovedMembership,
   withAuth,
   upload.array('link'),
   async (req, res) => {
     try {
-      console.log('File: ' + req.file);
-      console.log(req.file.filename);
+      console.log(req.body);
+      console.log('File: ' + req.body.file);
+      console.log(req.body.file.filename);
       const { idea_id } = req.params;
-      res.status(200).json(
-        await Resource.create({
-          ...req.body,
-          name: req.file.filename,
-          idea_id,
-        })
-      );
+      const resourceData = await Resource.create({
+        ...req.body,
+        content: req.file,
+        idea_id,
+      });
+
+      const resource = resourceData.json();
+      res.status(200).json(resource);
     } catch (err) {
+      console.log(err);
       res.status(400).json({
         message: 'Unable to create a resource.',
         // ...err

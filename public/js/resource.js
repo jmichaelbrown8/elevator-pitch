@@ -10,6 +10,7 @@ const uploadImage = async (event) => {
   console.log('LOOK HERE:');
   console.log(name, type, content);
   // TODO: Why is this not sending the content
+  // Do we need to deconstruct content?
   console.log(JSON.stringify({ name, type, content }));
 
   if (name && type && content) {
@@ -22,31 +23,7 @@ const uploadImage = async (event) => {
       }
     );
     console.log(response);
-    // Unsure if a code block is needed to append the item to our page.
 
-    // if (response.ok) {
-    //   const item = await response.json();
-    //   console.log(item);
-    //   if (content) {
-    //     const data = new FormData();
-    //     data.append('content', item.content);
-    //     data.append('id', item.id);
-    //     const upload = await fetch(
-    //       `/space/:space_id/idea/:idea_id/resource/${item.id}`,
-    //       {
-    //         method: 'POST',
-    //         body: data,
-    //       }
-    //     );
-    //     if (upload.ok) {
-    //       localStorage.setItem('toast', `Created new resource!`);
-    //       // re-route back to create another resource
-    //       document.location.href = `/space/${item.space_id}/idea/${item.id}/resource/create`;
-    //     } else {
-    //       const errorObj = await response.json();
-    //       localStorage.setItem('toast', errorObj.message);
-    //       toastIt(true);
-    //     }
     if (response.ok) {
       localStorage.setItem('toast', `Created new resource!`);
       const item = await response.json();
@@ -91,7 +68,7 @@ const uploadLink = async (event) => {
         if (upload.ok) {
           localStorage.setItem('toast', `Created new resource!`);
           // re-route back to create another resource
-          document.location.href = `/space/${item.space_id}/idea/${item.id}/resource/create`;
+          document.location.href = `api/space/${item.space_id}/idea/${item.id}/resource/create`;
         }
       } else {
         const errorObj = await response.json();
