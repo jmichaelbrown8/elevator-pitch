@@ -3,7 +3,7 @@ const { Resource } = require('../../models');
 const { withApprovedMembership, withAuth } = require('../../utils/auth');
 const multer = require('multer');
 // uploads go to the public/upload directory.
-const upload = multer({ dest: '../public/uploads/' });
+const upload = multer({ dest: '../../public/uploads/' });
 
 const basePath = '/:space_id/idea/:idea_id/resource';
 
@@ -14,10 +14,13 @@ router.post(
   upload.array('image'),
   async (req, res) => {
     try {
+      console.log('File: ' + req.file);
+      console.log(req.file.filename);
       const { idea_id } = req.params;
       res.status(200).json(
         await Resource.create({
           ...req.body,
+          content: req.file,
           idea_id,
         })
       );
@@ -37,10 +40,13 @@ router.post(
   upload.array('link'),
   async (req, res) => {
     try {
+      console.log('File: ' + req.file);
+      console.log(req.file.filename);
       const { idea_id } = req.params;
       res.status(200).json(
         await Resource.create({
           ...req.body,
+          name: req.file.filename,
           idea_id,
         })
       );

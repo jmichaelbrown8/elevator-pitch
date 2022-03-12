@@ -45,6 +45,9 @@
                     <span class="d-block mt-2">
                         {{name}}
                     </span>
+                        <span class="d-block mt-2">
+                        {{content}}
+                    </span>
                 </p>
             </div>
         </div>
@@ -54,19 +57,18 @@
  {{/if}}
 
 <div class='row resource-form gy-4'>
-  <div class='card image-form'>
+  <div class='card'>
     <div class='card-body'>
       <form enctype='multipart/form-data'>
         <div class='form-group'>
           <div class='card-title'>
-            <label for='addImages' class='fs-4 fw-bold mb-2'>Add images</label>
+            <label for='addImages' class='fs-4 fw-bold mb-2'>Add images or docs</label>
           </div>
 
           <label for='image'><input
               class='form-control-file'
               type='file'
               name='image'
-              accept='image/*'
               id='image'
               multiple
             /></label>
@@ -74,8 +76,8 @@
           <br />
           <button
             type='submit'
-            id='form-add-image'
-            class='btn btn-primary'
+            id= 'upload-image'
+            class='btn btn-primary '
           >Add</button>
         </div>
       </form>
@@ -83,7 +85,7 @@
   </div>
 
   {{! Upload links }}
-  <div class='card'>
+  <div class='card '>
     <div class='card-body'>
       <form enctype='multipart/form-data'>
         <div class='form-group'>
@@ -102,7 +104,7 @@
           <br />
           <button
             type='submit'
-            id='form-add-link'
+            id= 'upload-link'
             class='btn btn-primary'
           >Add</button>
         </div>
