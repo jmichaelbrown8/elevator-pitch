@@ -2,8 +2,18 @@ const router = require('express').Router();
 const { Resource } = require('../../models');
 const { withApprovedMembership, withAuth } = require('../../utils/auth');
 const multer = require('multer');
+// How and where to store user files
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, '../../public/uploads');
+  },
+  filename: function (req, file, cb) {
+    const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1e9);
+    cb(null, file.fieldname + '-' + uniqueSuffix);
+  },
+});
 // uploads go to the public/upload directory.
-const upload = multer({ dest: '../../public/uploads/' });
+const upload = multer({ storage: storage });
 
 const basePath = '/:space_id/idea/:idea_id/resource';
 
