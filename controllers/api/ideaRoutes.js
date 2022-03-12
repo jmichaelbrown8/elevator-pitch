@@ -30,8 +30,12 @@ router.post(
   withApprovedMembership,
   withAuthJson,
   async (req, res) => {
+    const { user_id } = req.session;
     try {
-      const idea = await Idea.create(req.body);
+      const idea = await Idea.create({
+        user_id,
+        ...req.body,
+      });
       const myIdea = idea.toJSON();
       res.status(200).json(myIdea);
     } catch (err) {

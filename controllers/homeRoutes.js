@@ -146,6 +146,10 @@ router.get(
         include: [
           {
             model: User,
+            as: 'creator',
+          },
+          {
+            model: User,
             through: Interest,
             as: 'interested_users',
           },
