@@ -12,7 +12,7 @@
         <h5>Last updated:</h5>
         <p>{{format_date idea.updatedAt}}</p>
         <h5>Elevator Pitch:</h5>
-        <p class="card-text">{{{marked idea.pitch}}}</p>
+        <p class="card-text">{{{format_markdown idea.pitch}}}</p>
 
         {{#if idea.members}}
         <h5>Members requested:</h5>

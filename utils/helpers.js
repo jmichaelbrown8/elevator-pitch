@@ -1,4 +1,5 @@
 const marked = require('marked');
+const sanitizeHtml = require('sanitize-html');
 
 module.exports = {
   format_date: (date) => {
@@ -36,8 +37,19 @@ module.exports = {
     }, false);
   },
   as_json: (data) => JSON.stringify(data),
+  /** This helper will check if the two variables passed are equal */
   is_match: (a, b) => {
     return a === b;
   },
-  marked: (md) => marked.parse(md),
+  /** This helper will:
+   * 1. convert markdown to presentable html,
+   * 2. TODO: highlight code blocks, and
+   * 3. sanitize the HTML */
+  format_markdown: (md) => {
+    const dirtyMarkdown = marked.parse(md);
+    const cleanMarkdown = sanitizeHtml(dirtyMarkdown);
+    return cleanMarkdown;
+  },
+  /** This helper will take out any unsafe html that could allow javascript injection on the page */
+  sanitize_html: (html) => sanitizeHtml(html),
 };
