@@ -13,7 +13,6 @@ router.post(
   upload.array('image'),
   async (req, res) => {
     try {
-      console.log(req.body);
       const { idea_id } = req.params;
       const resourceData = await Resource.create({
         ...req.body,
@@ -36,7 +35,7 @@ router.post(
   '/:space_id/idea/:idea_id/resource',
   withApprovedMembership,
   withAuth,
-  upload.array('link'),
+  upload.single('link'),
   async (req, res) => {
     try {
       console.log(req.body);

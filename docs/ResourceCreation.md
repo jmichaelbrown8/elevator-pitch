@@ -5,9 +5,9 @@ Take note of the
 enctype="multipart/form-data" and name="uploaded_file" fields:
 
 ```HTML
-<form action="/stats" enctype="multipart/form-data" method="post">
+<form action="/api/space/{{space_id}}/idea/{{idea_id}}/resource" enctype="multipart/form-data" method="post">
   <div class="form-group">
-    <input type="file" class="form-control-file" name="uploaded_file">
+    <input type="file" class="form-control-file" name="resource_file">
     <input type="text" class="form-control" placeholder="Number of speakers" name="nspeakers">
     <input type="submit" value="Get me the stats!" class="btn btn-default">            
   </div>
@@ -17,8 +17,8 @@ enctype="multipart/form-data" and name="uploaded_file" fields:
 You'll need to require multer and a destination for the file uploads. The name field in your html form must match. 
 ```js
 const multer  = require('multer')
-const upload = multer({ dest: './public/data/uploads/' })
-app.post('/stats', upload.single('uploaded_file'), function (req, res) {
+const upload = multer({ dest: './public/uploads/images' })
+app.post('/api/space/{{space_id}}/idea/{{idea_id}}/resource', upload.single('resource_file'), function (req, res) {
    // req.file is the name of your file in the form above, here 'uploaded_file'
    // req.body will hold the text fields, if there were any 
    console.log(req.file, req.body)

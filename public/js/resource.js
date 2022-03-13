@@ -6,8 +6,8 @@ const uploadImage = async (event) => {
   const content = document.querySelector('#image').files;
 
   const { space_id, idea_id } = getContext();
-  // console.log showing properly
-  // image data sent in something different than our body. Form-body element.
+
+  // image data sent in something different than JSON as our body. Form-body element.
 
   const data = new FormData();
   data.append('name', name);
@@ -23,7 +23,6 @@ const uploadImage = async (event) => {
     }
   );
 
-  console.log(response);
   if (response.ok) {
     localStorage.setItem('toast', `Created new resource!`);
     const item = await response.json();

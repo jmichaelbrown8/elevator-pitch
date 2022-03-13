@@ -146,7 +146,7 @@ router.get(
         include: [
           {
             model: Interest,
-            attributes: { include: ['user_id','status'] },
+            attributes: { include: ['user_id', 'status'] },
           },
           {
             model: User,
@@ -174,13 +174,21 @@ router.get(
       const ideaPlain = ideaData.get({ plain: true });
       const { resources, ...idea } = ideaPlain;
 
-      const comments = commentData.map((element) => element.get({ plain: true }));
+      const comments = commentData.map((element) =>
+        element.get({ plain: true })
+      );
 
       res.render('idea', {
         idea: {
           ...idea,
           // Rebuild `interested_users` as a key based object { [user_id]: "status" };
-          interested_users: idea.interests.reduce( (interested_users, { user_id, status }) => ({ [user_id]: status, ...interested_users }), {} )
+          interested_users: idea.interests.reduce(
+            (interested_users, { user_id, status }) => ({
+              [user_id]: status,
+              ...interested_users,
+            }),
+            {}
+          ),
         },
         resources,
         comments,
@@ -217,10 +225,11 @@ router.get(
         include: [
           {
             model: Resource,
-            attributes: {
-              include: ['id', 'name', 'type'],
-            },
             where: { id: req.params.id_resource },
+            attributes: {
+              include: ['id', 'name', 'type', 'content'],
+            },
+
           },
         ],
       });
