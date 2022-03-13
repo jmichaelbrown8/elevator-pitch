@@ -43,8 +43,9 @@ module.exports = {
   },
   /** This helper will:
    * 1. convert markdown to presentable html,
-   * 2. TODO: highlight code blocks, and
-   * 3. sanitize the HTML */
+   * 2. sanitize the HTML
+   * 3. (client-side syntax highlighting)
+   */
   format_markdown: (md) => {
     const dirtyMarkdown = marked.parse(md);
     const cleanMarkdown = sanitizeHtml(dirtyMarkdown);
