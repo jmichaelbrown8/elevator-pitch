@@ -68,6 +68,36 @@ router.post(
 );
 
 router.put(
+  baseRoute,
+  withApprovedMembership,
+  withAuthJson,
+  async (req, res) => {
+    const { user_id } = req.session;
+    const { idea_id } = req.params;
+    const { details } = req.body;
+
+    try {
+      await Interest.update(
+        {
+          details,
+          status: 'pending',
+        },
+        {
+          where: {
+            idea_id,
+            user_id,
+          },
+        }
+      );
+      res.json({ message: 'Interest request updated.' });
+    } catch (err) {
+      let message = 'Unable to update the interest request.';
+      res.status(400).json({ message, err });
+    }
+  }
+);
+
+router.put(
   `${baseRoute}/:user_id`,
   withApprovedMembership,
   withIdeaOwnership,
@@ -77,7 +107,7 @@ router.put(
     const { status } = req.body;
 
     try {
-      const result = await Interest.update(
+      await Interest.update(
         {
           status,
         },
@@ -88,7 +118,6 @@ router.put(
           },
         }
       );
-      console.log(result);
       res.json({ message: 'Interest request updated' });
     } catch (err) {
       let message = 'Unable to update the interest request.';

@@ -1,18 +1,18 @@
 <div class="modal fade" tabindex="-1" id="add-interest-modal" tabindex="-1" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
-        {{#if (is_prop_in interests_status user_id)}}
-        <div class="modal-header">
-            <h5 class="modal-title">Change of mind?</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-         <div class="modal-body">
-            <p class="m-0">No problem! You can remove your interest to contribute by using the button below.</p>
-        </div>
-        <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary" id="remove-interest">Remove Interest</button>
-        </div>
+        {{#if (is_prop_match interests_status user_id "pending")}}
+            <div class="modal-header">
+                <h5 class="modal-title">Change of mind?</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p class="m-0">No problem! You can remove your interest to contribute by using the button below.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" id="remove-interest">Remove Interest</button>
+            </div>
         {{else}}
         <form id="add-interest-form">
             <div class="modal-header">

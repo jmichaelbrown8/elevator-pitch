@@ -6,18 +6,24 @@
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body" id="idea-members">
-             {{#each interests}}
-             <div class="card" data-user-id="{{user_id}}">
+             {{#each (filter_by_prop interests "status" "approved" "pending")}}
+             <div class="card {{#if @index}}mt-2{{/if}}" data-user-id="{{user_id}}">
                 <div class="card-body">
-                  {{#if (is_match status "approved")}}
-                    <span class="badge bg-success">Approved</span>
+                  {{#if (is_match ../owner_id user_id)}}
+                    <span class="badge bg-primary">Owner</span>
                     <h2 class="fs-4 mb-0 mt-3">{{user.name}}</h2>
-                  {{/if}}
-                  {{#if (is_match status "pending")}}
-                    <span class="badge bg-warning">Pending</span>
-                    <p class="fs-5 mb-0 mt-3">{{details}}</p>
+                  {{else}}
+                    {{#if (is_match status "approved")}}
+                      <span class="badge bg-success">Approved</span>
+                      <h2 class="fs-4 mb-0 mt-3">{{user.name}}</h2>
+                    {{/if}}
+                    {{#if (is_match status "pending")}}
+                      <span class="badge bg-warning">Pending</span>
+                      <p class="fs-5 mb-0 mt-3">{{details}}</p>
+                    {{/if}}
                   {{/if}}
                 </div>
+                {{#unless (is_match ../owner_id user_id)}}
                 <div class="card-footer d-flex justify-content-between">
                   {{#if (is_match status "approved")}}
                     <button class="btn btn-danger btn-sm" data-status="removed">Remove</button>
@@ -27,6 +33,7 @@
                     <button class="btn btn-success btn-sm" data-status="approved">Approve</button>
                   {{/if}}
                 </div>
+                {{/unless}}
              </div>
              {{/each}}
         </div>

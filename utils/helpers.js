@@ -16,6 +16,7 @@ module.exports = {
   is_prop_match: (object, propName, value) => {
     return object[propName] === value;
   },
+  filter_by_prop: (objectList, propName, ...values) => objectList.filter( item => values.includes(item[propName]) ),
   is_interested: (interestList, userId) => {
     return interestList.reduce((prev, curr) => {
       if (prev) {

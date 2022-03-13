@@ -8,9 +8,11 @@
     localStorage.setItem('toast', message);
     location.reload();
   };
+  let addMode = 'POST';
 
   // Focus the input after the modal is shown
-  $('#add-interest-modal').on('shown.bs.modal', () => {
+  $('#add-interest-modal').on('shown.bs.modal', e => {
+    addMode = $(e.relatedTarget).data('type') === 'resend' ? 'PUT' : 'POST';
     if( detailsInput.length ) {
       detailsInput.focus();
     }
@@ -28,7 +30,7 @@
     try {
       const { space_id, idea_id } = getContext();
       const response = await fetch(`/api/space/${space_id}/idea/${idea_id}/interest`, {
-        method: 'POST',
+        method: addMode,
         body: JSON.stringify({ details }),
         headers: {
           'Content-Type': 'application/json'

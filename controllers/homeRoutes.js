@@ -71,7 +71,10 @@ router.get(
           {
             model: Idea,
             include: [
-              { model: User, as: 'interested_users' },
+              // {
+              //   model: User,
+              //   as: 'interested_users'
+              // },
               {
                 model: User,
                 through: IdeaUpvote,
@@ -144,11 +147,11 @@ router.get(
             model: Interest,
             attributes: { exclude: ['createdAt','updatedAt','idea_id'] },
             include: User,
-            where: {
-              status: {
-                [Op.in]: ['pending','approved']
-              }
-            },
+            // where: {
+            //   status: {
+            //     [Op.in]: ['pending','approved']
+            //   }
+            // },
             required:false
           },
           {
@@ -168,7 +171,6 @@ router.get(
           },
         ],
       });
-      console.log(ideaData);
       const commentData = await Comment.findAll({
         where: {
           idea_id: ideaData.id,
@@ -176,7 +178,6 @@ router.get(
       });
 
       const ideaPlain = ideaData.get({ plain: true });
-      console.log(ideaPlain);
       const { resources, ...idea } = ideaPlain;
 
       const comments = commentData.map((element) => element.get({ plain: true }));
@@ -187,8 +188,6 @@ router.get(
         }), {}
       );
 
-      console.log(interests_status);
-
       res.render('idea', {
         idea: {
           ...idea,
@@ -198,6 +197,7 @@ router.get(
         resources,
         comments,
         space_id,
+        is_owner: req.session.user_id === idea.user_id
       });
     } catch (err) {
       console.log(err);
