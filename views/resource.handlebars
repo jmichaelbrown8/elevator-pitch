@@ -13,23 +13,18 @@
 
   <div class="card">
     <div class="card-body">
-      <h5 class="card-title fw-bold">{{resource.name}}</h5>
-      <h5 class="card-title fw-bold">{{resource.type}}:</h5>
+      <span class="fs-6 fw-normal">
+          name:</span>
+                        <span class="fw-bold fs-5">{{resource.name}}</span>
+          <span class="fs-6 fw-normal"><br>
+          type:</span>
+                        <span class="fw-bold fs-5">{{resource.type}}</span><br>
+    
+          <span class="fw-bold fs-5"><a href="{{resource.content}}>">{{resource.content}}</span></a>
     </div>
-    <div class='card-text m-2 fs-5'>  
-     
-          <div class='card-text'>
-        Content:
-        {{resource.content}}
-          </div>
-      </div>
-    </div>  
- 
-
-
-
-
-            <div class="card card-body bg-light shadow-sm mt-3" data-bs-toggle="modal" data-bs-target="#resource-modal" >
+  </div>  
+      
+  <div class="card card-body bg-light shadow-sm mt-3" data-bs-toggle="modal" data-bs-target="#resource-modal" >
                 <a class="overlay-hover inner-down-hover bg-success text-white shadow"  style="--bs-bg-opacity: 0.85">
                     <span class="d-block px-4 py-3 fs-4 fw-bold text-center" >
                         <span>
@@ -43,8 +38,8 @@
                         Resource
                     </span>
                 </p>
-            </div>
-        </div>
+       
+  </div>
 
 {{!-- modal for inserting a resource --}}
-{{> modals/resourceMini ideas}}
+{{> modals/resourceMini resource}}
