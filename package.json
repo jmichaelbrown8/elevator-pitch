@@ -31,8 +31,10 @@
     "express": "^4.17.3",
     "express-handlebars": "^6.0.2",
     "express-session": "^1.17.2",
+    "marked": "^4.0.12",
     "mysql2": "^2.3.3",
     "nodemon": "^2.0.15",
+    "sanitize-html": "^2.7.0",
     "sequelize": "^6.17.0"
   },
   "devDependencies": {
