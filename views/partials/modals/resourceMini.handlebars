@@ -8,10 +8,10 @@
             </div>
       <div class="modal-body">
 
-<div class='row gy-4'>
+
   <div class='card'>
     <div class='card-body'>
-      <form action='/api/space/{{space_id}}/idea/{{idea_id}}/resource' enctype="multipart/form-data" method="post" id="image-upload">
+      <form action='/api/space/{{space_id}}/idea/{{id}}/resource/image' enctype="multipart/form-data" method="post" id="image-upload">
         <div class='form-group'>
           <div class='card-title'>
             <label for='addImages' class='fs-4 fw-bold mb-2'>Add images</label>
@@ -27,46 +27,44 @@
             /></label>
             </div>
             <br>
-          <input
+           <input
             type='submit'
-            value="Upload"
-            class='btn btn-primary '
-          >Add</input>
-        </div>
+            value="Upload image"
+            class='btn btn-primary'
+          ></input>
+    
       </form>
-    </div>
+ 
 
-<div class='card'>
-    <div class='card-body'>
-      <form action='/api/space/{{space_id}}/idea/{{idea_id}}/resource' enctype="multipart/form-data" method="post" id="doc-upload">
+      <form action='/api/space/{{space_id}}/idea/{{id}}/resource/doc' enctype="multipart/form-data" method="post" id="doc-upload">
         <div class='form-group'>
           <div class='card-title'>
-            <label for='addImages' class='fs-4 fw-bold mb-2'>Add Docs (md, pdf, etc</label>
+            <label for='addDocs' class='fs-4 fw-bold mb-2'>Add Docs (md, pdf)</label>
           </div>
 
           <label for='doc'><input
               class='form-control-file'
-              type='doc-file'
-              name='doc'
-              accept='image/*'
-              id='image'
-              single
+              type='file'
+              name='doc-file'
+              {{!-- accept only doc types --}}
+              id='doc'
+             
             /></label>
             </div>
             <br>
-          <button
+          <input
             type='submit'
+            value="Upload doc"
             class='btn btn-primary '
-          >Add</button>
-        </div>
+          ></input>
+     
       </form>
-    </div>
+ 
 
   {{! Upload links }}
-  <div class='card'>
-    <div class='card-body'>
+
       <form enctype='multipart/form-data' 
-            action='/api/space/{{space_id}}/idea/{{idea_id}}/resource'>
+            action='/api/space/{{space_id}}/idea/{{id}}/resource/link'>
         <div class='form-group'>
           <div class='card-title'>
             <label for='link' class='fs-4 fw-bold mb-2'>Add links</label>
@@ -76,15 +74,16 @@
               class='form-control'
               type='link'
               name='link'
-              multiple
+             
               id='link'
             /></label>
         </div>
     <br>
-          <button
+          <input
             type='submit'
+            value="Upload link"
             class='btn btn-primary '
-          >Add</button>
+          ></input>
         </div>
       </form>
     </div>
@@ -95,4 +94,3 @@
       </div>
     </div>
   </div>
-</div>

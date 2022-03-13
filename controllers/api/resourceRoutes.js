@@ -5,9 +5,9 @@ const upload = require('../../config/upload');
 // uploads go to the public/upload directory. Included in gitIgnore
 
 const basePath = '/:space_id/idea/:idea_id/resource';
-
+// image posting
 router.post(
-  basePath,
+  `${basePath}/image`,
   withApprovedMembership,
   withAuth,
   upload.single('image-file'),
@@ -37,9 +37,41 @@ router.post(
     }
   }
 );
-// not sure if I need two. Only difference is 'image' vs 'link'. The documentation specified different routes for different file types but it does seem redundant.
+// doc posting
 router.post(
-  '/:space_id/idea/:idea_id/resource',
+  `${basePath}/doc`,
+  withApprovedMembership,
+  withAuth,
+  upload.single('image-file'),
+  async (req, res, next) => {
+    try {
+      const resourceData = await Resource.create({
+        name: req.body.name,
+        type: req.body.type,
+        content: req.file.path,
+      });
+      resource = resourceData.toJSON();
+      console.log(resource);
+      resourceData.save(() => {
+        res.status(200).json({
+          message: `Resource created`,
+        });
+      });
+
+      document.location.reload();
+    } catch (err) {
+      console.log(err);
+      res.status(400).json({
+        message: 'Resource created',
+        // ...err
+      });
+    }
+  }
+);
+// not sure if I need two. Only difference is 'image' vs 'link'. The documentation specified different routes for different file types but it does seem redundant.
+// link posting
+router.post(
+  `${basePath}/link`,
   withApprovedMembership,
   withAuth,
   upload.single('link-file'),
@@ -51,7 +83,7 @@ router.post(
         content: req.file,
         idea_id,
       });
-
+      // not sure if we should return this as json since we sent it in as form data.
       const resource = resourceData.json();
       res.status(200).json(resource);
     } catch (err) {
