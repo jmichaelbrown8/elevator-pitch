@@ -3,7 +3,7 @@
         "id": 1,
         "user_id": 1,
         "name": "Yar Pirate Ipsum",
-        "pitch": "# This is a title \nAnd this is some text under it. \n\n## Plus a secondary title \nand some more text... \n\n### And a third title level \n* With  \n* Some \n* Bullets \n\n`and code formatting and` \n\n```\n // a whole code block here \n\n<script type=\"javascript\">alert('hello');</script>``` \n\n1. Plus \n1. Some  \n1. Numbered  \n1. Lists",
+        "pitch": "# This is a title \nAnd this is some text under it. \n\n## Plus a secondary title \nand some more text... \n\n### And a third title level \n* With  \n* Some \n* Bullets \n\n`and code formatting and` \n\n```JavaScript\n// a whole code block here \n\nalert('hello');\n```\n\n1. Plus \n1. Some  \n1. Numbered  \n1. Lists",
         "members": 5,
         "skills": "UI Developer, MongoDB, GraphQL",
         "space_id": "123e4567-e89b-12d3-a456-426614174000"
