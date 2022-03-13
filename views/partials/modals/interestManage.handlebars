@@ -5,10 +5,9 @@
             <h5 class="modal-title">Idea Members</h5>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
-        <div class="modal-body">
+        <div class="modal-body" id="idea-members">
              {{#each interests}}
-             <div class="card">
-                
+             <div class="card" data-user-id="{{user_id}}">
                 <div class="card-body">
                   {{#if (is_match status "approved")}}
                     <span class="badge bg-success">Approved</span>
@@ -21,11 +20,11 @@
                 </div>
                 <div class="card-footer d-flex justify-content-between">
                   {{#if (is_match status "approved")}}
-                    <button class="btn btn-danger btn-sm">Remove</button>
+                    <button class="btn btn-danger btn-sm" data-status="removed">Remove</button>
                   {{/if}}
                   {{#if (is_match status "pending")}}
-                    <button class="btn btn-danger btn-sm">Dismiss</button>
-                    <button class="btn btn-success btn-sm">Approve</button>
+                    <button class="btn btn-danger btn-sm" data-status="dismissed">Dismiss</button>
+                    <button class="btn btn-success btn-sm" data-status="approved">Approve</button>
                   {{/if}}
                 </div>
              </div>
@@ -34,3 +33,4 @@
     </div>
   </div>
 </div>
+<script src="/js/interestManage.js"></script>

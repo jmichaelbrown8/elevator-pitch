@@ -11,7 +11,6 @@ module.exports = {
     return parseInt(amount).toLocaleString();
   },
   is_prop_in: (object, propName) => {
-    console.log( object, propName );
     return propName in object;
   },
   is_prop_match: (object, propName, value) => {

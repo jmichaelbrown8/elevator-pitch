@@ -1,4 +1,4 @@
-const { User, SpaceMember } = require('../models');
+const { User, SpaceMember, Space, Idea } = require('../models');
 
 /**
  * HELPER METHODS: For use in middleware, (Not middleware itself)
@@ -38,6 +38,16 @@ const fetchSessionUser = async (req, res, next) => {
           attributes: ['space_id', 'status'],
           as: 'memberships',
         },
+        {
+          model: Idea,
+          attributes: ['id'],
+          as: 'ownedIdeas',
+        },
+        {
+          model: Space,
+          attributes: ['id'],
+          as: 'ownedSpaces',
+        },
       ],
     });
 
@@ -61,6 +71,9 @@ const fetchSessionUser = async (req, res, next) => {
         }),
         {}
       ),
+      // Flatten the object lists, to just a list of ids
+      ownedIdeas: authUserData.ownedIdeas.map(({ id }) => id),
+      ownedSpaces: authUserData.ownedSpaces.map(({ id }) => id),
     };
   }
 
@@ -79,6 +92,44 @@ const withApprovedMembership = (req, res, next) => {
 
     // Invalidate the request if they don't have a membership for the space or it's not approved.
     if (!(space_id in memberships) || memberships[space_id] !== 'approved') {
+      invalidateAuth(req, errorRedirect, errorMessage);
+    }
+  }
+
+  next();
+};
+
+const withSpaceOwnership = (req, res, next) => {
+  const { space_id } = req.params;
+
+  const errorRedirect = `/space/${space_id}`;
+  const errorMessage = 'You must be the space owner to perform this action.';
+
+  // Validate the authUser was loaded correctly
+  if (validateAuthUser(req, errorRedirect, errorMessage)) {
+    const { ownedSpaces } = req.authUser;
+
+    // Invalidate the request if they don't have a membership for the space or it's not approved.
+    if (!ownedSpaces.includes(space_id)) {
+      invalidateAuth(req, errorRedirect, errorMessage);
+    }
+  }
+
+  next();
+};
+
+const withIdeaOwnership = (req, res, next) => {
+  const { idea_id, space_id } = req.params;
+
+  const errorRedirect = `/space/${space_id}/idea/${idea_id}`;
+  const errorMessage = 'You must be the idea owner to perform this action.';
+
+  // Validate the authUser was loaded correctly
+  if (validateAuthUser(req, errorRedirect, errorMessage)) {
+    const { ownedIdeas } = req.authUser;
+
+    // Invalidate the request if they don't have a membership for the space or it's not approved.
+    if (!ownedIdeas.includes(parseInt(idea_id))) {
       invalidateAuth(req, errorRedirect, errorMessage);
     }
   }
@@ -136,6 +187,8 @@ const withAuthJson = (req, res, next) => {
 };
 
 module.exports = {
+  withSpaceOwnership,
+  withIdeaOwnership,
   withApprovedMembership,
   withNoMembership,
   withAuth,

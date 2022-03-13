@@ -148,7 +148,8 @@ router.get(
               status: {
                 [Op.in]: ['pending','approved']
               }
-            }
+            },
+            required:false
           },
           {
             model: User,
@@ -167,6 +168,7 @@ router.get(
           },
         ],
       });
+      console.log(ideaData);
       const commentData = await Comment.findAll({
         where: {
           idea_id: ideaData.id,
