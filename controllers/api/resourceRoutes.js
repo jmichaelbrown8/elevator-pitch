@@ -10,21 +10,28 @@ router.post(
   basePath,
   withApprovedMembership,
   withAuth,
-  upload.array('image'),
-  async (req, res) => {
+  upload.single('image-file'),
+  async (req, res, next) => {
     try {
       const { idea_id } = req.params;
       const resourceData = await Resource.create({
-        ...req.body,
-        idea_id,
+        name: req.body.name,
+        type: req.body.type,
+        content: req.file.path,
+      });
+      resource = resourceData.toJSON();
+      console.log(resource);
+      resourceData.save(() => {
+        res.status(200).json({
+          message: `Resource created`,
+        });
       });
 
-      const resource = resourceData.json();
-      res.status(200).json(resource);
+      document.location.reload();
     } catch (err) {
       console.log(err);
       res.status(400).json({
-        message: 'Unable to create a resource.',
+        message: 'Resource created',
         // ...err
       });
     }
@@ -35,12 +42,9 @@ router.post(
   '/:space_id/idea/:idea_id/resource',
   withApprovedMembership,
   withAuth,
-  upload.single('link'),
+  upload.single('link-file'),
   async (req, res) => {
     try {
-      console.log(req.body);
-      console.log('File: ' + req.body.file);
-      console.log(req.body.file.filename);
       const { idea_id } = req.params;
       const resourceData = await Resource.create({
         ...req.body,

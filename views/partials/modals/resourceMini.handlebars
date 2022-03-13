@@ -11,7 +11,7 @@
 <div class='row gy-4'>
   <div class='card'>
     <div class='card-body'>
-      <form action="/" enctype="multipart/form-data" method="post" id="image-upload" action ="">
+      <form action='/api/space/{{space_id}}/idea/{{idea_id}}/resource' enctype="multipart/form-data" method="post" id="image-upload">
         <div class='form-group'>
           <div class='card-title'>
             <label for='addImages' class='fs-4 fw-bold mb-2'>Add images</label>
@@ -20,27 +20,53 @@
           <label for='image'><input
               class='form-control-file'
               type='file'
-              name='image'
+              name='image-file'
               accept='image/*'
               id='image'
-              multiple
+              single
+            /></label>
+            </div>
+            <br>
+          <input
+            type='submit'
+            value="Upload"
+            class='btn btn-primary '
+          >Add</input>
+        </div>
+      </form>
+    </div>
+
+<div class='card'>
+    <div class='card-body'>
+      <form action='/api/space/{{space_id}}/idea/{{idea_id}}/resource' enctype="multipart/form-data" method="post" id="doc-upload">
+        <div class='form-group'>
+          <div class='card-title'>
+            <label for='addImages' class='fs-4 fw-bold mb-2'>Add Docs (md, pdf, etc</label>
+          </div>
+
+          <label for='doc'><input
+              class='form-control-file'
+              type='doc-file'
+              name='doc'
+              accept='image/*'
+              id='image'
+              single
             /></label>
             </div>
             <br>
           <button
             type='submit'
-            id="upload-image"
             class='btn btn-primary '
           >Add</button>
         </div>
       </form>
     </div>
 
-
   {{! Upload links }}
   <div class='card'>
     <div class='card-body'>
-      <form enctype='multipart/form-data'>
+      <form enctype='multipart/form-data' 
+            action='/api/space/{{space_id}}/idea/{{idea_id}}/resource'>
         <div class='form-group'>
           <div class='card-title'>
             <label for='link' class='fs-4 fw-bold mb-2'>Add links</label>
@@ -57,7 +83,6 @@
     <br>
           <button
             type='submit'
-            id="upload-link"
             class='btn btn-primary '
           >Add</button>
         </div>
