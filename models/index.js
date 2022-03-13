@@ -73,6 +73,10 @@ Idea.hasMany(Resource, {
   foreignKey: 'idea_id',
 });
 
+Interest.belongsTo(User, {
+  foreignKey: 'user_id',
+});
+
 Resource.belongsTo(Idea, {
   foreignKey: 'idea_id',
 });

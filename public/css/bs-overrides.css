@@ -19,3 +19,24 @@
 .modal-dialog {
   flex-grow: 1;
 }
+
+.modal.sidecar {
+  flex-direction: column;
+  justify-content: stretch;
+  align-items: flex-end;
+}
+.modal.sidecar .modal-dialog {
+  margin: 0;
+}
+.modal.sidecar .modal-content {
+  transform: translateX(100%);
+  transition: transform var(--speed-with-timing);
+  height: 100%;
+  width: 380px;
+  max-width: 100%;
+  border-radius: 0;
+  border: 0;
+}
+.modal.sidecar.show .modal-content {
+  transform: translateX(0);
+}

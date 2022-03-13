@@ -1,0 +1,18 @@
+<div class="modal sidecar" tabindex="-1" id="manage-interest-modal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title">Idea Members</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+             {{#each interests}}
+             <div class="card card-body">
+                <h2 class="fs-4">{{user.name}}</h2>
+                <p class="fs-5">{{details}}</p>
+             </div>
+             {{/each}}
+        </div>
+    </div>
+  </div>
+</div>
