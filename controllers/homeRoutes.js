@@ -145,13 +145,12 @@ router.get(
         },
         include: [
           {
-            model: User,
-            as: 'creator',
+            model: Interest,
+            attributes: { include: ['user_id','status'] },
           },
           {
             model: User,
-            through: Interest,
-            as: 'interested_users',
+            as: 'creator',
           },
           {
             model: User,
@@ -174,12 +173,15 @@ router.get(
 
       const ideaPlain = ideaData.get({ plain: true });
       const { resources, ...idea } = ideaPlain;
-      const comments = commentData.map((element) =>
-        element.get({ plain: true })
-      );
+
+      const comments = commentData.map((element) => element.get({ plain: true }));
 
       res.render('idea', {
-        idea,
+        idea: {
+          ...idea,
+          // Rebuild `interested_users` as a key based object { [user_id]: "status" };
+          interested_users: idea.interests.reduce( (interested_users, { user_id, status }) => ({ [user_id]: status, ...interested_users }), {} )
+        },
         resources,
         comments,
         space_id,
