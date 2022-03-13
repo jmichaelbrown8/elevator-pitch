@@ -6,7 +6,7 @@ const renderWithAppData = async (req, res, next) => {
 
   req.viewData = {
     loggedIn,
-    jsViewContext: {}
+    jsViewContext: {},
   };
 
   if (loggedIn && user_id) {
@@ -27,10 +27,11 @@ const renderWithAppData = async (req, res, next) => {
     render(name, {
       ...(data ? data : {}),
       ...req.viewData,
+      ...req.params,
       jsViewContext: {
         ...req.viewData.jsViewContext,
-        ...req.params
-      }
+        ...req.params,
+      },
     });
 
   return next();

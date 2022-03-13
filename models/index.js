@@ -11,6 +11,11 @@ User.hasMany(Idea, {
   foreignKey: 'user_id',
 });
 
+Idea.belongsTo(User, {
+  foreignKey: 'user_id',
+  as: 'creator',
+});
+
 User.hasMany(Comment, {
   foreignKey: 'user_id',
 });
@@ -79,20 +84,20 @@ Idea.hasMany(Comment, {
 
 Idea.belongsToMany(User, {
   foreignKey: 'idea_id',
-  through : IdeaUpvote,
-  as: 'upvoter'
+  through: IdeaUpvote,
+  as: 'upvoter',
 });
 
 Idea.hasMany(IdeaUpvote, {
+  as: 'upvotes',
   foreignKey: 'idea_id',
 });
 
 User.belongsToMany(Idea, {
   foreignKey: 'user_id',
-  through : IdeaUpvote,
-  as: 'upvotes'
+  through: IdeaUpvote,
+  as: 'upvotes',
 });
-
 
 module.exports = {
   Space,
@@ -102,5 +107,5 @@ module.exports = {
   Interest,
   Comment,
   SpaceMember,
-  IdeaUpvote
+  IdeaUpvote,
 };

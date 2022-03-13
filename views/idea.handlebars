@@ -12,19 +12,18 @@
 
 <div id="ideas" class="card">
     <div class=" bg-primary text-white"> 
-        <h3 class='card-header justify-content-start py-3 '>
-            {{idea.name}}<br>
-            <button class='btn btn-light mt-2'>Like</button>
+        <h3 class='card-header justify-content-start py-3 '>{{idea.name}} <br>
+        <button class='btn btn-light mt-2 like vote-{{is_liked idea.upvoter user_id}}' value="{{idea.id}}">{{idea.upvoter.length}} Like</button>
         </h3>
     </div>
     
     <div class="card-body">
         <h5>Created by:</h5>
-        <p>{{user.name}}</p>
+        <p>{{idea.creator.name}}</p>
         <h5>Last updated:</h5>
         <p>{{format_date idea.updatedAt}}</p>
         <h5>Elevator Pitch:</h5>
-        <p class="card-text">{{idea.pitch}}</p>
+        <p class="card-text">{{{format_markdown idea.pitch}}}</p>
 
         {{#if idea.members}}
         <h5>Members requested:</h5>
@@ -147,3 +146,11 @@
 
 <script src="/js/addComment.js"></script>
 <script src="/js/interest.js"></script>
+<script src = "/js/ideaUpvote.js"></script>
+
+{{!-- highlight.js for any code block formatting client-side --}}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/styles/default.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/highlight.min.js"></script>
+<script>
+    hljs.highlightAll();
+</script>
