@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { Op } = require('sequelize');
+// const { Op } = require('sequelize');
 const {
   withAuth,
   withApprovedMembership,
@@ -145,14 +145,14 @@ router.get(
         include: [
           {
             model: Interest,
-            attributes: { exclude: ['createdAt','updatedAt','idea_id'] },
+            attributes: { exclude: ['createdAt', 'updatedAt', 'idea_id'] },
             include: User,
             // where: {
             //   status: {
             //     [Op.in]: ['pending','approved']
             //   }
             // },
-            required:false
+            required: false,
           },
           {
             model: User,
@@ -180,24 +180,27 @@ router.get(
       const ideaPlain = ideaData.get({ plain: true });
       const { resources, ...idea } = ideaPlain;
 
-      const comments = commentData.map((element) => element.get({ plain: true }));
+      const comments = commentData.map((element) =>
+        element.get({ plain: true })
+      );
       const interests_status = idea.interests.reduce(
         (interests_status, { user_id, status }) => ({
           [user_id]: status,
-          ...interests_status
-        }), {}
+          ...interests_status,
+        }),
+        {}
       );
 
       res.render('idea', {
         idea: {
           ...idea,
           // Rebuild `interested_users` as a key based object { [user_id]: "status" };
-          interests_status
+          interests_status,
         },
         resources,
         comments,
         space_id,
-        is_owner: req.session.user_id === idea.user_id
+        is_owner: req.session.user_id === idea.user_id,
       });
     } catch (err) {
       console.log(err);
