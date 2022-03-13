@@ -1,4 +1,5 @@
 const router = require('express').Router();
+const { Op } = require('sequelize');
 const {
   withAuth,
   withApprovedMembership,
@@ -142,7 +143,12 @@ router.get(
           {
             model: Interest,
             attributes: { exclude: ['createdAt','updatedAt','idea_id'] },
-            include: User
+            include: User,
+            where: {
+              status: {
+                [Op.in]: ['pending','approved']
+              }
+            }
           },
           {
             model: User,
