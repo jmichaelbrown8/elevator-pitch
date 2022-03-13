@@ -11,23 +11,20 @@ router.post(
   withApprovedMembership,
   withAuth,
   upload.single('image-file'),
-  async (req, res, next) => {
+  async (req, res) => {
     try {
-      const { idea_id } = req.params;
       const resourceData = await Resource.create({
-        name: req.body.name,
-        type: req.body.type,
+        ...req.body,
         content: req.file.path,
       });
       resource = resourceData.toJSON();
+      // res.status(200).json(resource)
       console.log(resource);
-      resourceData.save(() => {
-        res.status(200).json({
-          message: `Resource created`,
-        });
+      resource.save(() => {
+        res.send(
+          `Resource created! <hr/><img src = "${req.file.path}" width = "400"><hr />`
+        );
       });
-
-      document.location.reload();
     } catch (err) {
       console.log(err);
       res.status(400).json({
@@ -42,8 +39,8 @@ router.post(
   `${basePath}/doc`,
   withApprovedMembership,
   withAuth,
-  upload.single('image-file'),
-  async (req, res, next) => {
+  upload.single('doc-file'),
+  async (req, res) => {
     try {
       const resourceData = await Resource.create({
         name: req.body.name,
@@ -52,10 +49,8 @@ router.post(
       });
       resource = resourceData.toJSON();
       console.log(resource);
-      resourceData.save(() => {
-        res.status(200).json({
-          message: `Resource created`,
-        });
+      resource.save(() => {
+        res.send(`Resource created! <hr/><a href= "${req.file.path}"><hr />`);
       });
 
       document.location.reload();
@@ -77,15 +72,17 @@ router.post(
   upload.single('link-file'),
   async (req, res) => {
     try {
-      const { idea_id } = req.params;
       const resourceData = await Resource.create({
-        ...req.body,
-        content: req.file,
-        idea_id,
+        name: req.body.name,
+        type: req.body.type,
+        content: req.file.path,
       });
-      // not sure if we should return this as json since we sent it in as form data.
-      const resource = resourceData.json();
-      res.status(200).json(resource);
+      resource = resourceData.toJSON();
+      // res.status(200).json(resource)
+      // console.log(resource);
+      resource.save(() => {
+        res.send(`Resource created! <hr/><a href = "${req.file.path}"><hr />`);
+      });
     } catch (err) {
       console.log(err);
       res.status(400).json({
