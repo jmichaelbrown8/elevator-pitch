@@ -1,20 +1,20 @@
-<div class="card card-body bg-secondary border-0 mb-3" style="--bs-bg-opacity: 0.2">
-    <div class="d-md-flex justify-content-between align-items-center">
-        <div>
-            <h3>Love the idea?</h3>
-            <p class="mb-3 mb-md-0">Help make it a reality, by joining the collaborators</p>
-        </div>
-        <div>
-            <button class= 'btn btn-primary mt-2 px-5 py-4 w-100' data-bs-toggle="modal" data-bs-target="#add-interest-modal">Become a collaborator</button>
-        </div> 
-    </div>
-</div>
-
 <div id="ideas" class="card">
-    <div class=" bg-primary text-white"> 
-        <h3 class='card-header justify-content-start py-3 '>{{idea.name}} <br>
-        <button class='btn btn-light mt-2 like vote-{{is_liked idea.upvoter user_id}}' value="{{idea.id}}">{{idea.upvoter.length}} Like</button>
-        </h3>
+    <div class=" bg-primary text-white">
+        <div class="d-md-flex justify-content-between align-items-center">
+            <h3 class='card-header justify-content-start py-3 '>
+                {{idea.name}}<br>
+                <button class='btn btn-light mt-2 like vote-{{is_liked idea.upvoter user_id}}' value="{{idea.id}}">{{idea.upvoter.length}} Like</button>
+            </h3>
+            <div class="p-3">
+                {{#if (is_prop_in idea.interested_users user_id)}}
+                    {{#if (is_prop_match idea.interested_users user_id "pending")}}
+                        <button class= 'btn bg-white text-primary px-5 py-4 w-100' data-bs-toggle="modal" data-bs-target="#add-interest-modal">Request Pending</button>
+                    {{/if}}
+                {{else}}
+                    <button class= 'btn bg-white text-primary px-5 py-4 w-100' data-bs-toggle="modal" data-bs-target="#add-interest-modal">Collaborate</button>
+                {{/if}}
+            </div>
+        </div>
     </div>
     
     <div class="card-body">
@@ -36,6 +36,20 @@
         {{/if}}
     </div>
 </div>
+
+{{#unless (is_prop_in idea.interested_users user_id)}}
+<div class="card card-body bg-secondary border-0 my-4" style="--bs-bg-opacity: 0.2">
+    <div class="d-md-flex justify-content-between align-items-center">
+        <div>
+            <h3>Love the idea?</h3>
+            <p class="mb-3 mb-md-0">Help make it a reality, by joining the collaborators</p>
+        </div>
+        <div>
+            <button class= 'btn btn-primary mt-2 px-5 py-4 w-100' data-bs-toggle="modal" data-bs-target="#add-interest-modal">Become a collaborator</button>
+        </div> 
+    </div>
+</div>
+{{/unless}}
 
 {{#if resources.length}}
     <div class=" bg-primary text-white my-4">
@@ -107,42 +121,7 @@
     </div>
 </div>
 
-<div class="modal fade" tabindex="-1" id="add-interest-modal" tabindex="-1" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-        {{#if (is_prop_in idea.interested_users user_id)}}
-        <div class="modal-header">
-            <h5 class="modal-title">Change of mind?</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-         <div class="modal-body">
-            <p class="m-0">No problem! You can remove your interest to contribute by using the button below.</p>
-        </div>
-        <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            <button type="submit" class="btn btn-primary">Remove Interest</button>
-        </div>
-        {{else}}
-        <form id="add-interest-form">
-            <div class="modal-header">
-                <h5 class="modal-title">Let's do this!</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <div class="mb-3">
-                    <label for="interest-details" class="form-label">Why and how would you like to contribute?</label>
-                    <textarea class="form-control" id="interest-details" placeholder="I'd love to help to help guiding front end development!" style="min-height:120px"></textarea>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="submit" class="btn btn-primary">Submit</button>
-            </div>
-        </form>
-        {{/if}}
-    </div>
-  </div>
-</div>
+{{> modals/interest interested_users=idea.interested_users}}
 
 <script src="/js/addComment.js"></script>
 <script src="/js/interest.js"></script>

@@ -44,10 +44,12 @@ router.post(
     try {
       const { user_id } = req.session;
       const { idea_id } = req.params;
+      const { details } = req.body;
       // Create interest if it doesn't exist
       await Interest.create({
         idea_id,
         user_id,
+        details
       });
       res.status(200).json({ interested: true });
     } catch (err) {

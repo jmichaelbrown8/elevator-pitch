@@ -5,7 +5,7 @@ class Interest extends Model {}
 
 Interest.init(
   {
-    role: DataTypes.STRING,
+    details: DataTypes.STRING,
     status: {
       type: DataTypes.STRING(20),
       validate: {
