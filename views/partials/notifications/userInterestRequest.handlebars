@@ -1,13 +1,23 @@
 {{#if (is_prop_match myInterest "status" "removed")}}
 <div class="card card-body bg-secondary border-0 mb-4 p-4" style="--bs-bg-opacity: 0.2">
     <h3>You've been removed from the Idea</h3>
-    <p class="mb-3 mb-md-0">Looks like the owner has removed you from the list of collaborators. You can use the <button class="btn btn-link p-0" data-bs-toggle="modal" data-bs-target="#add-interest-modal" data-type="resend">Resubmit Request</button> button below to resubmit you interest to join as a collaborator.</strong></p>
+    <p class="mb-3 mb-md-0">
+        Looks like the owner has removed you from the list of collaborators.
+        {{#if can_join}}
+            You can use the <button class="btn btn-link p-0" data-bs-toggle="modal" data-bs-target="#add-interest-modal" data-type="resend">Resubmit Request</button> button below to resubmit you interest to join as a collaborator.
+        {{/if}}
+    </p>
 </div>
 {{/if}}
 
 {{#if (is_prop_match myInterest "status" "dismissed")}}
 <div class="card card-body bg-secondary border-0 mb-4 p-4" style="--bs-bg-opacity: 0.2">
     <h3>Your request to collaborate wasn't accepted</h3>
-    <p class="mb-3 mb-md-0">Looks like the owner didn't accept your request. You can try again by using the <button class="btn btn-link p-0" data-bs-toggle="modal" data-bs-target="#add-interest-modal" data-type="resend">Resubmit Request</button> button below</strong>.</p>
+    <p class="mb-3 mb-md-0">
+        Looks like the owner didn't accept your request.
+        {{#if can_join}}
+            You can try again by using the <button class="btn btn-link p-0" data-bs-toggle="modal" data-bs-target="#add-interest-modal" data-type="resend">Resubmit Request</button> button below.
+        {{/if}}
+    </p>
 </div>
 {{/if}}

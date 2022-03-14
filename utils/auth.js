@@ -187,6 +187,7 @@ const withAuthJson = (req, res, next) => {
 };
 
 module.exports = {
+  invalidateAuth,
   withSpaceOwnership,
   withIdeaOwnership,
   withApprovedMembership,

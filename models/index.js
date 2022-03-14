@@ -83,6 +83,10 @@ Interest.belongsTo(User, {
   foreignKey: 'user_id',
 });
 
+Interest.belongsTo(Idea, {
+  foreignKey: 'idea_id',
+});
+
 Resource.belongsTo(Idea, {
   foreignKey: 'idea_id',
 });

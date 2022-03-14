@@ -89,7 +89,7 @@ router.get(
         ],
       });
       const space = spaceData.toJSON();
-      console.log('String', space);
+      // console.log('String', space);
       res.render('space', { space });
     } catch (err) {
       res.status(400).json(err);
@@ -142,15 +142,16 @@ router.get(
     try {
       const { user_id } = req.session;
       const { space_id, idea_id } = req.params;
-      const { isAccepting } = await Idea.getStatus( idea_id );
+      const can_join = !(await Interest.findUserApprovalInSpace( user_id, space_id ));
+      const { is_accepting, spots_left } = await Idea.getStatus( idea_id );
       const ideaData = await Idea.findByPk(idea_id, {
         include: [
           {
             model: Interest,
             attributes: { exclude: ['createdAt', 'updatedAt', 'idea_id'] },
             include: User,
-            // Reduce
-            ...(isAccepting ? {} : {
+            // Only get approved members if the idea is not accepting new members
+            ...(is_accepting ? {} : {
               where: {
                 status: {
                   [Op.in]: ['approved']
@@ -191,6 +192,7 @@ router.get(
         },
       });
 
+
       const ideaPlain = ideaData.get({ plain: true });
       const { resources, ...idea } = ideaPlain;
 
@@ -201,14 +203,10 @@ router.get(
         (count, { status }) => (status === 'approved' ? count + 1 : count),
         0
       );
-      const spots_left = idea.members ? idea.members - approved_count : idea.members;
 
       res.render('idea', {
-        idea: {
-          ...idea,
-          // If there's no spots left, filter out non approved members
-          ...(spots_left ? {} : { interests: idea.interests.filter( ({status}) => status === 'approved' ) })
-        },
+        can_join: can_join && spots_left,
+        idea,
         resources,
         comments,
         space_id,

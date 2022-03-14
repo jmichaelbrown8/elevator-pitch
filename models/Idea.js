@@ -5,7 +5,7 @@ class Idea extends Model {}
 
 Idea.getStatus = async function( idea_id ) {
 
-  const result = await this.findByPk( idea_id, {
+  const result = (await this.findByPk( idea_id, {
     attributes: [
       'user_id',
       'members',
@@ -14,14 +14,15 @@ Idea.getStatus = async function( idea_id ) {
         sequelize.literal(
           '(SELECT COUNT(*) FROM interest WHERE interest.idea_id = idea.id AND interest.status = "approved")'
         ),
-        'approvedCount',
+        'approved_count',
       ]
     ],
-  } );
+  } )).toJSON();
 
   return {
     owner: result.user_id,
-    isAccepting: result.members && result.members > result.approvedCount
+    spots_left: result.members ? result.members - result.approved_count : 0,
+    is_accepting: result.members && result.members > result.approved_count
   };
 
 };
