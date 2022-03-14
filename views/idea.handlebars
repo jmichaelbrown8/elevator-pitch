@@ -1,3 +1,11 @@
+{{#if is_owner}}
+<div class="mb-4">
+    <button class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#manage-interest-modal">Manage Members</button>
+</div>
+{{/if}}
+
+{{> notifications/userInterestRequest interests_status=idea.interests_status }}
+
 <div id="ideas" class="card">
     <div class=" bg-primary text-white">
         <div class="d-md-flex justify-content-between align-items-center">
@@ -6,10 +14,14 @@
                 <button class='btn btn-light mt-2 like vote-{{is_liked idea.upvoter user_id}}' value="{{idea.id}}">{{idea.upvoter.length}} Like</button>
             </h3>
             <div class="p-3">
-                {{#if (is_prop_in idea.interested_users user_id)}}
-                    {{#if (is_prop_match idea.interested_users user_id "pending")}}
-                        <button class= 'btn bg-white text-primary px-5 py-4 w-100' data-bs-toggle="modal" data-bs-target="#add-interest-modal">Request Pending</button>
-                    {{/if}}
+                {{#if (is_prop_in idea.interests_status user_id)}}
+                    {{#unless (is_prop_match idea.interests_status user_id "approved")}}
+                        {{#if (is_prop_match idea.interests_status user_id "pending")}}
+                            <button class= 'btn bg-white text-primary px-5 py-4 w-100' data-bs-toggle="modal" data-bs-target="#add-interest-modal">Request Pending</button>
+                        {{else}}
+                            <button class= 'btn bg-white text-primary px-5 py-4 w-100' data-bs-toggle="modal" data-bs-target="#add-interest-modal" data-type="resend">Resubmit Request</button>
+                        {{/if}}
+                    {{/unless}}
                 {{else}}
                     <button class= 'btn bg-white text-primary px-5 py-4 w-100' data-bs-toggle="modal" data-bs-target="#add-interest-modal">Collaborate</button>
                 {{/if}}
@@ -37,7 +49,7 @@
     </div>
 </div>
 
-{{#unless (is_prop_in idea.interested_users user_id)}}
+{{#unless (is_prop_in idea.interests_status user_id)}}
 <div class="card card-body bg-secondary border-0 my-4" style="--bs-bg-opacity: 0.2">
     <div class="d-md-flex justify-content-between align-items-center">
         <div>
@@ -121,7 +133,10 @@
     </div>
 </div>
 
-{{> modals/interest interested_users=idea.interested_users}}
+{{> modals/interest interests_status=idea.interests_status}}
+{{#if is_owner}}
+{{> modals/interestManage interests=idea.interests owner_id=idea.user_id}}
+{{/if}}
 
 <script src="/js/addComment.js"></script>
 <script src="/js/interest.js"></script>

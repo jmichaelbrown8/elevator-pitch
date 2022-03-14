@@ -1,4 +1,5 @@
 const router = require('express').Router();
+// const { Op } = require('sequelize');
 const {
   withAuth,
   withApprovedMembership,
@@ -70,7 +71,10 @@ router.get(
           {
             model: Idea,
             include: [
-              { model: User, as: 'interested_users' },
+              // {
+              //   model: User,
+              //   as: 'interested_users'
+              // },
               {
                 model: User,
                 through: IdeaUpvote,
@@ -138,15 +142,17 @@ router.get(
     try {
       const { space_id, idea_id } = req.params;
       const ideaData = await Idea.findByPk(idea_id, {
-        include: {
-          model: User,
-          through: Interest,
-          as: 'interested_users',
-        },
         include: [
           {
             model: Interest,
-            attributes: { include: ['user_id','status'] },
+            attributes: { exclude: ['createdAt', 'updatedAt', 'idea_id'] },
+            include: User,
+            // where: {
+            //   status: {
+            //     [Op.in]: ['pending','approved']
+            //   }
+            // },
+            required: false,
           },
           {
             model: User,
@@ -174,17 +180,27 @@ router.get(
       const ideaPlain = ideaData.get({ plain: true });
       const { resources, ...idea } = ideaPlain;
 
-      const comments = commentData.map((element) => element.get({ plain: true }));
+      const comments = commentData.map((element) =>
+        element.get({ plain: true })
+      );
+      const interests_status = idea.interests.reduce(
+        (interests_status, { user_id, status }) => ({
+          [user_id]: status,
+          ...interests_status,
+        }),
+        {}
+      );
 
       res.render('idea', {
         idea: {
           ...idea,
           // Rebuild `interested_users` as a key based object { [user_id]: "status" };
-          interested_users: idea.interests.reduce( (interested_users, { user_id, status }) => ({ [user_id]: status, ...interested_users }), {} )
+          interests_status,
         },
         resources,
         comments,
         space_id,
+        is_owner: req.session.user_id === idea.user_id,
       });
     } catch (err) {
       console.log(err);
