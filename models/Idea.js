@@ -3,6 +3,29 @@ const sequelize = require('../config/connection');
 
 class Idea extends Model {}
 
+Idea.getStatus = async function( idea_id ) {
+
+  const result = await this.findByPk( idea_id, {
+    attributes: [
+      'user_id',
+      'members',
+      [
+        // Use plain SQL to get a count of all short books
+        sequelize.literal(
+          '(SELECT COUNT(*) FROM interest WHERE interest.idea_id = idea.id AND interest.status = "approved")'
+        ),
+        'approvedCount',
+      ]
+    ],
+  } );
+
+  return {
+    owner: result.user_id,
+    isAccepting: result.members && result.members > result.approvedCount
+  };
+
+};
+
 Idea.init(
   {
     id: {

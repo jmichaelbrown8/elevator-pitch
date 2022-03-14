@@ -1,5 +1,5 @@
 const router = require('express').Router();
-// const { Op } = require('sequelize');
+const { Op } = require('sequelize');
 const {
   withAuth,
   withApprovedMembership,
@@ -140,18 +140,32 @@ router.get(
   withAuth,
   async (req, res) => {
     try {
+      const { user_id } = req.session;
       const { space_id, idea_id } = req.params;
+      const { isAccepting } = await Idea.getStatus( idea_id );
       const ideaData = await Idea.findByPk(idea_id, {
         include: [
           {
             model: Interest,
             attributes: { exclude: ['createdAt', 'updatedAt', 'idea_id'] },
             include: User,
-            // where: {
-            //   status: {
-            //     [Op.in]: ['pending','approved']
-            //   }
-            // },
+            // Reduce
+            ...(isAccepting ? {} : {
+              where: {
+                status: {
+                  [Op.in]: ['approved']
+                }
+              }
+            }),
+            required: false,
+          },
+          {
+            model: Interest,
+            attributes: ['status'],
+            where: {
+              user_id
+            },
+            as: 'myInterest',
             required: false,
           },
           {
@@ -183,23 +197,23 @@ router.get(
       const comments = commentData.map((element) =>
         element.get({ plain: true })
       );
-      const interests_status = idea.interests.reduce(
-        (interests_status, { user_id, status }) => ({
-          [user_id]: status,
-          ...interests_status,
-        }),
-        {}
+      const approved_count = idea.interests.reduce(
+        (count, { status }) => (status === 'approved' ? count + 1 : count),
+        0
       );
+      const spots_left = idea.members ? idea.members - approved_count : idea.members;
 
       res.render('idea', {
         idea: {
           ...idea,
-          // Rebuild `interested_users` as a key based object { [user_id]: "status" };
-          interests_status,
+          // If there's no spots left, filter out non approved members
+          ...(spots_left ? {} : { interests: idea.interests.filter( ({status}) => status === 'approved' ) })
         },
         resources,
         comments,
         space_id,
+        approved_count,
+        spots_left,
         is_owner: req.session.user_id === idea.user_id,
       });
     } catch (err) {

@@ -62,6 +62,11 @@ Idea.hasMany(Interest, {
   foreignKey: 'idea_id',
 });
 
+Idea.hasOne(Interest, {
+  foreignKey: 'idea_id',
+  as: 'myInterest'
+});
+
 Idea.belongsTo(Space, {
   foreignKey: 'space_id',
 });
