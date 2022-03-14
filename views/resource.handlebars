@@ -19,8 +19,17 @@
           <span class="fs-6 fw-normal"><br>
           type:</span>
                         <span class="fw-bold fs-5">{{resource.type}}</span><br>
-    
-          <div class="fw-bold fs-5">{{{resource.content}}}</div>
+      {{#if (is_match resource.type 'markdown')}}
+          <div class="fw-bold fs-5">{{{format_markdown resource.content}}}</div>
+        {{/if}}
+
+        {{#if (is_match resource.type 'image')}}
+         <div class="fw-bold fs-5">{{{resource.content}}}</div>
+         {{/if}}
+
+         {{#if (is_match resource.type 'link')}}
+         <div class="fw-bold fs-5">{{{sanitize_html resource.content}}}</div>
+         {{/if}}
     </div>
   </div>  
       
