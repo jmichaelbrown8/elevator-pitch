@@ -18,7 +18,7 @@ const withIdeaAcceptingInterest = async (req, res, next) => {
     invalidateAuth(
       req,
       `/space/${space_id}/idea/${idea_id}`,
-      'This idea is not accepting request of interest to collaborate.'
+      'The idea is not accepting requests of interest to collaborate at this time.'
     );
   }
 
