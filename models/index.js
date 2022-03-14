@@ -9,6 +9,7 @@ const SpaceMember = require('./SpaceMember');
 
 User.hasMany(Idea, {
   foreignKey: 'user_id',
+  as: 'ownedIdeas'
 });
 
 Idea.belongsTo(User, {
@@ -71,6 +72,10 @@ Space.hasMany(Idea, {
 
 Idea.hasMany(Resource, {
   foreignKey: 'idea_id',
+});
+
+Interest.belongsTo(User, {
+  foreignKey: 'user_id',
 });
 
 Resource.belongsTo(Idea, {
