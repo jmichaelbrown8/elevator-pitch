@@ -1,6 +1,10 @@
 const router = require('express').Router();
 const { Interest } = require('../../models');
-const { withAuthJson, withApprovedMembership } = require('../../utils/auth');
+const {
+  withAuthJson,
+  withApprovedMembership,
+  withIdeaOwnership,
+} = require('../../utils/auth');
 
 const baseRoute = '/:space_id/idea/:idea_id/interest';
 
@@ -16,7 +20,7 @@ router.get(
       const interestData = await Interest.findAll({
         attributes: ['user_id'],
         where: {
-          idea_id
+          idea_id,
         },
       });
 
@@ -49,7 +53,7 @@ router.post(
       await Interest.create({
         idea_id,
         user_id,
-        details
+        details,
       });
       res.status(200).json({ interested: true });
     } catch (err) {
@@ -59,6 +63,65 @@ router.post(
         message,
         err,
       });
+    }
+  }
+);
+
+router.put(
+  baseRoute,
+  withApprovedMembership,
+  withAuthJson,
+  async (req, res) => {
+    const { user_id } = req.session;
+    const { idea_id } = req.params;
+    const { details } = req.body;
+
+    try {
+      await Interest.update(
+        {
+          details,
+          status: 'pending',
+        },
+        {
+          where: {
+            idea_id,
+            user_id,
+          },
+        }
+      );
+      res.json({ message: 'Interest request updated.' });
+    } catch (err) {
+      let message = 'Unable to update the interest request.';
+      res.status(400).json({ message, err });
+    }
+  }
+);
+
+router.put(
+  `${baseRoute}/:user_id`,
+  withApprovedMembership,
+  withIdeaOwnership,
+  withAuthJson,
+  async (req, res) => {
+    const { idea_id, user_id } = req.params;
+    const { status } = req.body;
+
+    try {
+      await Interest.update(
+        {
+          status,
+        },
+        {
+          where: {
+            idea_id,
+            user_id,
+          },
+        }
+      );
+      res.json({ message: 'Interest request updated' });
+    } catch (err) {
+      let message = 'Unable to update the interest request.';
+      res.status(400).json({ message, err });
     }
   }
 );

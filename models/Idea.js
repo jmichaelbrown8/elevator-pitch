@@ -44,6 +44,29 @@ Idea.init(
     },
   },
   {
+    hooks: {
+      afterCreate: async (newIdea) => {
+        // Auto apporove idea owner
+        const { interest } = sequelize.models;
+        await interest.create({
+          user_id: newIdea.user_id,
+          idea_id: newIdea.id,
+          status: 'approved',
+        });
+        return newIdea;
+      },
+      afterBulkCreate: async (ideas) => {
+        // Auto apporove idea owners
+        const interestRequests = ideas.map((newIdea) => ({
+          user_id: newIdea.user_id,
+          idea_id: newIdea.id,
+          status: 'approved',
+        }));
+        const { interest } = sequelize.models;
+        await interest.bulkCreate(interestRequests);
+        return ideas;
+      },
+    },
     sequelize,
     timestamps: true,
     freezeTableName: true,

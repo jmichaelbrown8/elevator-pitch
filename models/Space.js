@@ -36,7 +36,6 @@ Space.init(
         return newSpace;
       },
       afterBulkCreate: async (spaces) => {
-        console.log(spaces);
         const spaceMembers = spaces.map((newSpace) => ({
           user_id: newSpace.user_id,
           space_id: newSpace.id,

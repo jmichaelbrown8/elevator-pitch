@@ -9,7 +9,7 @@ Interest.init(
     status: {
       type: DataTypes.STRING(20),
       validate: {
-        isIn: [['rejected', 'pending', 'approved']],
+        isIn: [['removed', 'dismissed', 'pending', 'approved']],
       },
       defaultValue: 'pending',
     }
