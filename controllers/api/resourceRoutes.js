@@ -13,22 +13,21 @@ router.post(
   upload.single('image-file'),
   async (req, res) => {
     try {
-      const resourceData = await Resource.create({
-        ...req.body,
-        content: req.file.path,
+      console.log(req.body.name, req.body.type, req.file);
+      const { space_id, idea_id } = req.params;
+
+      await Resource.create({
+        idea_id,
+        name: req.file.filename,
+        type: 'image',
+        content: `<img style="height:60vh; width:auto" src = "/${req.file.filename}"/>`,
       });
-      resource = resourceData.toJSON();
-      // res.status(200).json(resource)
-      console.log(resource);
-      resource.save(() => {
-        res.send(
-          `Resource created! <hr/><img src = "${req.file.path}" width = "400"><hr />`
-        );
-      });
+
+      res.redirect(`/space/${space_id}/idea/${idea_id}`);
     } catch (err) {
       console.log(err);
       res.status(400).json({
-        message: 'Resource created',
+        message: 'Resource not created!',
         // ...err
       });
     }
@@ -42,51 +41,48 @@ router.post(
   upload.single('doc-file'),
   async (req, res) => {
     try {
-      const resourceData = await Resource.create({
-        name: req.body.name,
-        type: req.body.type,
-        content: req.file.path,
-      });
-      resource = resourceData.toJSON();
-      console.log(resource);
-      resource.save(() => {
-        res.send(`Resource created! <hr/><a href= "${req.file.path}"><hr />`);
+      console.log(req.body.name, req.body.type, req.file);
+      const { space_id, idea_id } = req.params;
+
+      await Resource.create({
+        idea_id,
+        name: req.file.filename,
+        type: 'markdown',
+        content: `<object data="${req.file.filename}" type="text/html">${req.file.filename}</object>`,
       });
 
-      document.location.reload();
+      res.redirect(`/space/${space_id}/idea/${idea_id}`);
     } catch (err) {
       console.log(err);
       res.status(400).json({
-        message: 'Resource created',
+        message: 'Resource not created!',
         // ...err
       });
     }
   }
 );
-// not sure if I need two. Only difference is 'image' vs 'link'. The documentation specified different routes for different file types but it does seem redundant.
-// link posting
+
 router.post(
   `${basePath}/link`,
   withApprovedMembership,
   withAuth,
-  upload.single('link-file'),
+  upload.single('link'),
   async (req, res) => {
     try {
-      const resourceData = await Resource.create({
-        name: req.body.name,
-        type: req.body.type,
-        content: req.file.path,
+      const { space_id, idea_id } = req.params;
+      console.log(req.file);
+      await Resource.create({
+        idea_id,
+        name: req.file.filename,
+        type: 'link',
+        content: `<a href = "/${req.file.filename}"/>`,
       });
-      resource = resourceData.toJSON();
-      // res.status(200).json(resource)
-      // console.log(resource);
-      resource.save(() => {
-        res.send(`Resource created! <hr/><a href = "${req.file.path}"><hr />`);
-      });
+
+      res.redirect(`/space/${space_id}/idea/${idea_id}`);
     } catch (err) {
       console.log(err);
       res.status(400).json({
-        message: 'Unable to create a resource.',
+        message: 'Resource not created!',
         // ...err
       });
     }

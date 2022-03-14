@@ -13,7 +13,7 @@
   <div class='card'>
     <div class='card-body'>
 {{!-- Upload images --}}
-      <form action='/api/space/{{space_id}}/idea/{{id}}/resource/image' enctype="multipart/form-data" method="post" id="image-upload">
+      <form action='/api/space/{{space_id}}/idea/{{idea_id}}{{id}}/resource/image' enctype="multipart/form-data" method="post" id="image-upload">
         <div class='form-group'>
           <div class='card-title'>
             <label for='addImages' class='fs-4 fw-bold mb-2'>Add images</label>
@@ -25,7 +25,7 @@
               name='image-file'
               accept='image/*'
               id='image'
-              single
+           
             /></label>
             </div>
             <br>
@@ -38,17 +38,17 @@
       </form>
  <hr>
 {{!-- Upload docs --}}
-      <form action='/api/space/{{space_id}}/idea/{{id}}/resource/doc' enctype="multipart/form-data" method="post" id="doc-upload">
+      <form action='/api/space/{{space_id}}/idea/{{idea_id}}{{id}}/resource/doc' enctype="multipart/form-data" method="post" id="doc-upload">
         <div class='form-group'>
           <div class='card-title'>
-            <label for='addDocs' class='fs-4 fw-bold mb-2'>Add Docs (md, pdf)</label>
+            <label for='addDocs' class='fs-4 fw-bold mb-2'>Add Docs (markdown)</label>
           </div>
 
           <label for='doc'><input
               class='form-control-file'
               type='file'
               name='doc-file'
-              {{!-- accept only doc types! --}}
+              accept='markdown/*'
               id='doc'
              
             /></label>
@@ -57,7 +57,7 @@
           <input
             type='submit'
             value="Upload doc"
-            class='btn btn-primary '
+            class='btn btn-primary'
           ></input>
      
       </form>
@@ -65,7 +65,7 @@
   {{! Upload links }}
 <hr>
       <form enctype='multipart/form-data' method="post"
-            action='/api/space/{{space_id}}/idea/{{id}}/resource/link'>
+            action='/api/space/{{space_id}}/idea/{{idea_id}}{{id}}/resource/link'>
         <div class='form-group'>
           <div class='card-title'>
             <label for='link' class='fs-4 fw-bold mb-2'>Add links</label>
@@ -75,7 +75,7 @@
               class='form-control'
               type='link'
               name='link'
-             
+              accept='url'
               id='link'
             /></label>
         </div>

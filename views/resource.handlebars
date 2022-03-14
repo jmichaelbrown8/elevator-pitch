@@ -20,7 +20,7 @@
           type:</span>
                         <span class="fw-bold fs-5">{{resource.type}}</span><br>
     
-          <span class="fw-bold fs-5"><a href="{{resource.content}}>">{{resource.content}}</span></a>
+          <div class="fw-bold fs-5">{{{resource.content}}}</div>
     </div>
   </div>  
       
@@ -42,4 +42,4 @@
   </div>
 
 {{!-- modal for inserting a resource --}}
-{{> modals/resourceMini resource}}
+{{> modals/resourceMini}}
