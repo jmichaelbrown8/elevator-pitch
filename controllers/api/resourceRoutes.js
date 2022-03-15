@@ -20,7 +20,7 @@ router.post(
         idea_id,
         name: req.file.filename,
         type: 'image',
-        content: `<img style="height:60vh; width:auto" src = "/${req.file.filename}"/>`,
+        content: `<img style="height:60vh; width:auto" src = "/${space_id}/${idea_id}/${req.file.filename}"/>`,
       });
 
       res.redirect(`/space/${space_id}/idea/${idea_id}`);
