@@ -89,7 +89,7 @@ router.get(
         ],
       });
       const space = spaceData.toJSON();
-      console.log('String', space);
+
       res.render('space', { space });
     } catch (err) {
       res.status(400).json(err);
@@ -183,6 +183,7 @@ router.get(
       const comments = commentData.map((element) =>
         element.get({ plain: true })
       );
+
       const interests_status = idea.interests.reduce(
         (interests_status, { user_id, status }) => ({
           [user_id]: status,
@@ -190,6 +191,7 @@ router.get(
         }),
         {}
       );
+
 
       res.render('idea', {
         idea: {
@@ -214,7 +216,11 @@ router.get(
   withApprovedMembership,
   withAuth,
   async (req, res) => {
-    res.render('resourceCreate');
+    const { space_id, idea_id } = req.params;
+    res.render('resourceCreate', {
+      space_id,
+      idea_id,
+    });
   }
 );
 
@@ -224,8 +230,29 @@ router.get(
   withApprovedMembership,
   withAuth,
   async (req, res) => {
-    // TODO Get specific resource and provide to view.
-    res.render('resource');
+    try {
+      const resourceData = await Resource.findByPk(req.params.id_resource, {
+        include: [
+          {
+            model: Idea,
+            where: { id: req.params.idea_id },
+          },
+        ],
+      });
+
+      const resource = resourceData.toJSON();
+      console.log(resource);
+      // TODO Get specific resource and provide to view.
+      const { space_id, idea_id } = req.params;
+      res.render('resource', {
+        resource,
+        space_id,
+        idea_id,
+      });
+    } catch (err) {
+      res.status(400).json(err);
+      console.log(err);
+    }
   }
 );
 

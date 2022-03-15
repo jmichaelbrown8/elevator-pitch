@@ -1,25 +1,40 @@
 const router = require('express').Router();
 const { Resource } = require('../../models');
 const { withApprovedMembership, withAuth } = require('../../utils/auth');
+const upload = require('../../config/upload');
+// uploads go to the public/upload directory. Included in gitIgnore
 
 const basePath = '/:space_id/idea/:idea_id/resource';
+// image posting
+router.post(
+  `${basePath}/image`,
+  withApprovedMembership,
+  withAuth,
+  upload.single('image-file'),
+  async (req, res) => {
+    try {
+      console.log(req.body.name, req.body.type, req.file);
+      const { space_id, idea_id } = req.params;
 
-router.post(basePath, withApprovedMembership, withAuth, async (req, res) => {
-  try {
-    const { idea_id } = req.params;
-    res.status(200).json(
       await Resource.create({
-        ...req.body,
         idea_id,
-      })
-    );
-  } catch (err) {
-    res.status(400).json({
-      message: 'Unable to create a resource.',
-      // ...err
-    });
+        name: req.file.filename,
+        type: 'image',
+        content: `<img style="height:60vh; width:auto" src = "/${space_id}/${idea_id}/${req.file.filename}"/>`,
+      });
+
+      res.redirect(`/space/${space_id}/idea/${idea_id}`);
+    } catch (err) {
+      console.log(err);
+      res.status(400).json({
+        message: 'Resource not created!',
+        // ...err
+      });
+    }
   }
-});
+);
+
+// insert mardown post and link post routes here
 
 router.put(
   `${basePath}/:resource_id`,
@@ -70,7 +85,7 @@ router.delete(
 
       await resource.destroy();
 
-      res.status(200).json( resource );
+      res.status(200).json(resource);
     } catch (err) {
       res.status(400).json(err);
     }

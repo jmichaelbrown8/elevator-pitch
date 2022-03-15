@@ -32,7 +32,7 @@ router.post('/:space_id/update', withAuthJson, async (req, res) => {
 
     member.status = status;
     member.save();
-    console.log(member);
+
     res.status(200).json({ member });
   } catch (err) {
     console.log(err);

@@ -30,8 +30,8 @@
       <button
         type='button'
         class='btn btn-secondary'
-        data-toggle='collapse'
-        data-target='#collapse-members'
+        data-bs-toggle='collapse'
+        data-bs-target='#collapse-members'
       >I'd like members to join my idea</button>
       <div id='collapse-members' class='collapse member-number pt-3'>
         <label for='member-number'>Number of members I'd like:</label>
@@ -50,8 +50,8 @@
       <button
         type='button'
         class='btn btn-secondary'
-        data-toggle='collapse'
-        data-target='#collapse-roles'
+        data-bs-toggle='collapse'
+        data-bs-target='#collapse-roles'
       >I'd like to specify certain roles for this idea</button>
 
       {{! Skills entry }}
@@ -66,14 +66,16 @@
         ></textarea>
       </div>
     </div>
+    {{! Create and Add images/links. Image upload require an idea id. We don't have one until the idea is created.}}
 
     <div class='col-auto'>
       <button
         type='submit'
         id='form-create-idea'
         class='btn btn-primary shadow-sm'
-      >Create</button>
+      >Create and Add Resources</button>
     </div>
+
   </form>
 </div>
 

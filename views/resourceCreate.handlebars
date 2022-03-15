@@ -1,1 +1,65 @@
-Future home of creating a resource \(o.o)/
+{{!-- not needed - moved creation to modal see resourceMini inside paritals --}}
+
+<button
+  type='submit'
+  onclick="window.location.href='/space/{{space_id}}/idea/{{idea_id}}'"
+  class='btn btn-primary mb-3'
+> Back to idea</button>
+
+
+<div class='row gy-4'>
+  <div class='card'>
+    <div class='card-body'>
+      <form action="/" enctype="multipart/form-data" method="post" id="image-upload">
+        <div class='form-group'>
+          <div class='card-title'>
+            <label for='addImages' class='fs-4 fw-bold mb-2'>Add images</label>
+          </div>
+
+          <label for='image'><input
+              class='form-control-file'
+              type='file'
+              name='image'
+              accept='image/*'
+              id='image'
+              multiple
+            /></label>
+            </div>
+            <br>
+          <button
+            type='submit'
+            id="upload-image"
+            class='btn btn-primary '
+          >Add</button>
+        </div>
+      </form>
+    </div>
+
+
+  {{! Upload links }}
+  <div class='card'>
+    <div class='card-body'>
+      <form enctype='multipart/form-data'>
+        <div class='form-group'>
+          <div class='card-title'>
+            <label for='link' class='fs-4 fw-bold mb-2'>Add links</label>
+          </div>
+
+          <label for='link'><input
+              class='form-control'
+              type='link'
+              name='link'
+              multiple
+              id='link'
+            /></label>
+        </div>
+    <br>
+          <button
+            type='submit'
+            id="upload-link"
+            class='btn btn-primary '
+          >Add</button>
+        </div>
+      </form>
+    </div>
+</div>
