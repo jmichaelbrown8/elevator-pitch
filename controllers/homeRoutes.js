@@ -210,7 +210,7 @@ router.get(
   }
 );
 
-// Create a new resource
+// Create a new resource helper route
 router.get(
   '/space/:space_id/idea/:idea_id/resource/create',
   withApprovedMembership,

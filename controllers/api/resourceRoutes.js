@@ -2,6 +2,7 @@ const router = require('express').Router();
 const { Resource } = require('../../models');
 const { withApprovedMembership, withAuth } = require('../../utils/auth');
 const upload = require('../../config/upload');
+const { response } = require('express');
 // uploads go to the public/upload directory. Included in gitIgnore
 
 const basePath = '/:space_id/idea/:idea_id/resource';
@@ -28,13 +29,39 @@ router.post(
       console.log(err);
       res.status(400).json({
         message: 'Resource not created!',
-        // ...err
       });
+      const errorObj = await response.json();
+      localStorage.setItem('toast', errorObj.message);
+      toastIt(true);
+      // ...err
     }
   }
 );
 
 // insert mardown post and link post routes here
+router.post(
+  `${basePath}/file`,
+  withApprovedMembership,
+  withAuth,
+  async (req, res) => {
+    try {
+      const { idea_id } = req.params;
+
+      const resourceData = await Resource.create({
+        idea_id,
+        ...req.body
+      });
+      const resource = resourceData.toJSON();
+      res.status(200).res.json(resource);
+
+    } catch (err) {
+      console.log(err);
+      res.status(400).json({
+        message: 'Resource not created!',
+      });
+    }
+  }
+);
 
 router.put(
   `${basePath}/:resource_id`,
