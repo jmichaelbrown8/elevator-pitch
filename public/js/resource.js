@@ -10,7 +10,7 @@ const uploadItem = async (event) => {
 
   // markdown or link data sent through.
 
-  const response = await fetch(`/api/space/${space_id}/idea/${idea_id}/files`, {
+  const response = await fetch(`/api/space/${space_id}/idea/${idea_id}/file`, {
     method: 'POST',
     body: JSON.stringify({ body }),
     headers: { 'Content-Type': 'application/json' },
@@ -28,6 +28,13 @@ const uploadItem = async (event) => {
   }
 };
 
-// add in html tag for each form.
+// html tags for each form (add, update, or delete)
 $('#markdown-upload').addEventListener('click', uploadItem);
 $('#link-upload').addEventListener('click', uploadItem);
+
+// Separate issue - add edit/delete options to resource.handlebars
+// $('#markdown-edit').addEventListener('click', updateItem);
+// $('#link-edit').addEventListener('click', updateItem);
+
+// $('#markdown-delete').addEventListener('click', deleteItem);
+// $('#link-delete').addEventListener('click', deleteItem);
