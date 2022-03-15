@@ -33,61 +33,8 @@ router.post(
     }
   }
 );
-// doc posting
-router.post(
-  `${basePath}/doc`,
-  withApprovedMembership,
-  withAuth,
-  upload.single('doc-file'),
-  async (req, res) => {
-    try {
-      console.log(req.body.name, req.body.type, req.file);
-      const { space_id, idea_id } = req.params;
 
-      await Resource.create({
-        idea_id,
-        name: req.file.filename,
-        type: 'markdown',
-        content: `<object data="${req.file.filename}" type="text/html">${req.file.filename}</object>`,
-      });
-
-      res.redirect(`/space/${space_id}/idea/${idea_id}`);
-    } catch (err) {
-      console.log(err);
-      res.status(400).json({
-        message: 'Resource not created!',
-        // ...err
-      });
-    }
-  }
-);
-
-router.post(
-  `${basePath}/link`,
-  withApprovedMembership,
-  withAuth,
-  upload.single('link'),
-  async (req, res) => {
-    try {
-      const { space_id, idea_id } = req.params;
-      console.log(req.file);
-      await Resource.create({
-        idea_id,
-        name: req.file.filename,
-        type: 'link',
-        content: `<a href = "/${req.file.filename}"/>`,
-      });
-
-      res.redirect(`/space/${space_id}/idea/${idea_id}`);
-    } catch (err) {
-      console.log(err);
-      res.status(400).json({
-        message: 'Resource not created!',
-        // ...err
-      });
-    }
-  }
-);
+// insert mardown post and link post routes here
 
 router.put(
   `${basePath}/:resource_id`,
