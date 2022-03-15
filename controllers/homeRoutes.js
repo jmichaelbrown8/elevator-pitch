@@ -1,5 +1,4 @@
 const router = require('express').Router();
-const sequelize = require('../config/connection');
 const { Op } = require('sequelize');
 const {
   withAuth,
@@ -148,28 +147,33 @@ router.get(
         space_id
       ));
       const { is_accepting, spots_left } = await Idea.getStatus(idea_id);
+
+      // Restricts Interest records to 'approved' only.
+      const getNotAcceptingInterestWhere = () => [
+        {
+          status: {
+            [Op.in]: ['approved'],
+          },
+        },
+      ];
+      // Filters out Interest records for users who have already been approved for other spaces.
+      const getAcceptingInterestWhere = () => [
+        Idea.literalInterestUserHasNoApprovalsInOtherIdeas(),
+      ];
+
+      const whereInterest = {
+        [Op.and]: is_accepting
+          ? getAcceptingInterestWhere()
+          : getNotAcceptingInterestWhere(),
+      };
+
       const ideaData = await Idea.findByPk(idea_id, {
         include: [
           {
             model: Interest,
             attributes: { exclude: ['createdAt', 'updatedAt', 'idea_id'] },
             include: User,
-            where: {
-              [Op.and]: [
-                ...(is_accepting
-                  ? [
-                    sequelize.literal(`(SELECT COUNT(*) from interest i2 WHERE status = "approved" AND user_id = interests.user_id AND idea_id IN (SELECT id FROM idea i2 WHERE space_id = idea.space_id AND id <> idea.id)) < 1`)
-                  ]
-                  : [
-                    {
-                      status: {
-                        [Op.in]: ['approved'],
-                      },
-                    },
-                  ]),
-              ],
-              // Only get approved members if the idea is not accepting new members
-            },
+            where: whereInterest,
             required: false,
           },
           {
