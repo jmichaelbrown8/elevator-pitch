@@ -192,7 +192,6 @@ router.get(
         {}
       );
 
-
       res.render('idea', {
         idea: {
           ...idea,

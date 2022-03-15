@@ -1,15 +1,8 @@
 const uploadItem = async (event) => {
   event.preventDefault();
-
-  const body = {
-    name: document.querySelector('#markdown-name').name,
-    type: document.querySelector('#markdown-type').type,
-    content: document.querySelector('#markdown').value,
-  };
   const { space_id, idea_id } = getContext();
-
+  console.log(body);
   // markdown or link data sent through.
-
   const response = await fetch(`/api/space/${space_id}/idea/${idea_id}/file`, {
     method: 'POST',
     body: JSON.stringify({ body }),
@@ -28,9 +21,27 @@ const uploadItem = async (event) => {
   }
 };
 
+const markdownUpload = () => {
+  const body = {
+    name: 'markdown',
+    type: 'markdown',
+    content: $('#markdown-content').innerHTML,
+  };
+  uploadItem(body);
+};
+
+const linkUpload = () => {
+  const body = {
+    name: 'link',
+    type: 'link',
+    content: $('#link-content').innerHTML,
+  };
+  uploadItem(body);
+};
+
 // html tags for each form (add, update, or delete)
-$('#markdown-upload').addEventListener('click', uploadItem);
-$('#link-upload').addEventListener('click', uploadItem);
+$('#markdown-upload').addEventListener('click', markdownUpload);
+$('#link-upload').addEventListener('click', linkUpload);
 
 // Separate issue - add edit/delete options to resource.handlebars
 // $('#markdown-edit').addEventListener('click', updateItem);
