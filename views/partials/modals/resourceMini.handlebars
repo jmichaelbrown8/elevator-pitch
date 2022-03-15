@@ -1,7 +1,7 @@
 <div class="modal fade fs-6" id="resource-modal" tabindex="-1" role="dialog" aria-labelledby="addresource-modal"
   aria-hidden="true">
 
-  <div class="modal-dialog" style='height:80vh;width:70vw'>
+  <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title">Help collaborators visualize and explore your idea</h5>
@@ -25,14 +25,14 @@
         </ul>
 
         <div class="tab-content" id="pills-tabContent">
+          {{!-- Upload images --}}
           <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
             <hr>
-            {{!-- Upload images --}}
             <form action='/api/space/{{space_id}}/idea/{{idea_id}}{{id}}/resource/image' enctype="multipart/form-data"
               method="post" id="image-upload">
               <div class='form-group'>
                 <div class='card-title'>
-                  <label for='addImages' class='fs-4 fw-bold mb-2'>Add images</label>
+                  <label for='addImages' class='fs-4 fw-bold mb-3'>Add images</label>
                 </div>
 
                 <label for='image'><input class='form-control-file' type='file' name='image-file' accept='image/*'
@@ -45,9 +45,8 @@
 
           </div>
 
+          {{!-- Upload docs --}}
           <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
-
-            {{!-- Upload docs --}}
             <hr>
             <form action='/api/space/{{space_id}}/idea/{{idea_id}}{{id}}/resource/doc' enctype="multipart/form-data"
               method="post" id="doc-upload">
@@ -55,11 +54,8 @@
                 <div class='card-title'>
                   <label for='addDocs' class='fs-4 fw-bold mb-2'>Add Docs (markdown)</label>
                 </div>
-
-                <textarea maxlength='500' class='form-control' id='idea-content' name='idea-content'
+                <textarea maxlength='500' class='form-control' style="height: 200px" id='idea-content' name='idea-content'
                   placeholder='Add Markdown'></textarea>
-
-
               </div>
               <br>
               <input type='submit' value="Upload doc" class='btn btn-primary'></input>
@@ -68,10 +64,8 @@
 
 
           </div>
+          {{! Upload links }}
           <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab">
-
-
-            {{! Upload links }}
             <hr>
             <form enctype='multipart/form-data' method="post"
               action='/api/space/{{space_id}}/idea/{{idea_id}}{{id}}/resource/link'>
@@ -93,6 +87,6 @@
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
       </div>
     </div>
- </div>
- 
+  </div>
+
 </div>
