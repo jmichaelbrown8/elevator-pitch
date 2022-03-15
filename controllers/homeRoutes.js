@@ -1,4 +1,5 @@
 const router = require('express').Router();
+const sequelize = require('../config/connection');
 const { Op } = require('sequelize');
 const {
   withAuth,
@@ -142,29 +143,40 @@ router.get(
     try {
       const { user_id } = req.session;
       const { space_id, idea_id } = req.params;
-      const can_join = !(await Interest.findUserApprovalInSpace( user_id, space_id ));
-      const { is_accepting, spots_left } = await Idea.getStatus( idea_id );
+      const can_join = !(await Interest.findUserApprovalInSpace(
+        user_id,
+        space_id
+      ));
+      const { is_accepting, spots_left } = await Idea.getStatus(idea_id);
       const ideaData = await Idea.findByPk(idea_id, {
         include: [
           {
             model: Interest,
             attributes: { exclude: ['createdAt', 'updatedAt', 'idea_id'] },
             include: User,
-            // Only get approved members if the idea is not accepting new members
-            ...(is_accepting ? {} : {
-              where: {
-                status: {
-                  [Op.in]: ['approved']
-                }
-              }
-            }),
+            where: {
+              [Op.and]: [
+                ...(is_accepting
+                  ? [
+                    sequelize.literal(`(SELECT COUNT(*) from interest i2 WHERE status = "approved" AND user_id = interests.user_id AND idea_id IN (SELECT id FROM idea i2 WHERE space_id = idea.space_id AND id <> idea.id)) < 1`)
+                  ]
+                  : [
+                    {
+                      status: {
+                        [Op.in]: ['approved'],
+                      },
+                    },
+                  ]),
+              ],
+              // Only get approved members if the idea is not accepting new members
+            },
             required: false,
           },
           {
             model: Interest,
             attributes: ['status'],
             where: {
-              user_id
+              user_id,
             },
             as: 'myInterest',
             required: false,
@@ -191,7 +203,6 @@ router.get(
           idea_id: ideaData.id,
         },
       });
-
 
       const ideaPlain = ideaData.get({ plain: true });
       const { resources, ...idea } = ideaPlain;
