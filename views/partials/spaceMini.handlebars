@@ -4,13 +4,13 @@
 {{else}}
 <div class='col-md-6 col-xl-4 col-xxl-3 border-danger text-danger'>
 {{/if}}
-<div class="card card-body card-tile bg-light shadow-sm">
+<div class="card card-body card-tile bg-light shadow-sm text-wrap">
                 {{#if (is_match status 'approved')}}
                 <a href='/space/{{space.id}}' 
                 {{else}}
                 <a 
                 {{/if}}
-                class="overlay-hover inner-down-hover bg-primary text-white shadow" style="--bs-bg-opacity: 0.85">
+                class="overlay-hover inner-down-hover bg-primary text-white shadow " style="--bs-bg-opacity: 0.85">
 
                     <span class="d-block px-4 py-3 fs-4 fw-bold text-center">
                         View Space<br/>
@@ -21,8 +21,9 @@
                   {{#if (is_match status 'approved')}}
                     <span class="badge fs-5 bg-primary bi-person-workspace">  {{space.name}}</span>
                     {{else}}
+                     <span class="badge fs-5 bg-danger bi-person-workspace">  {{space.name}}</span>
                     <span class="d-block mt-2">
-                        Status:{{status}}
+                        Status: {{status}}
                     </span>
                     {{/if}}
                 </p>

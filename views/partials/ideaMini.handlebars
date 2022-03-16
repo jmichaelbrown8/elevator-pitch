@@ -1,20 +1,36 @@
-<div class="card card-body my-3">
-  <div class="row g-3 align-items-center">
-    <div class="col">
-        <h3 class="fs-4 m-0">
-          <a class="text-decoration-none" href='/space/{{space_id}}/idea/{{id}}'>
-            {{name}}
-          </a>
-          {{#if (is_match id approvedInterest.idea_id)}}<span class="ms-3 badge bg-primary">Collaborator</span>{{/if}}
-        </h3>
-    </div>
-    <div class="col-auto">
-      <button class='btn btn-primary like vote-{{is_liked upvoter logged_in_user_id}}' value="{{id}}">{{upvoter.length}} Like</button>
-    </div>
-    {{!-- <div class="col-auto">
-      <button class='btn btn-secondary interest-{{is_interested interested_users logged_in_user_id}}' value="{{id}}">
-        {{interested_users.length}} Interested
-      </button>
-    </div> --}}
+<div class='col-md-6 col-xl-4 col-xxl-3'>
+  <div class='card card-body card-tile bg-light shadow-sm'>
+    <a
+      href='/space/{{space_id}}/idea/{{id}}'
+      class='overlay-hover inner-down-hover bg-primary text-white shadow'
+      style='--bs-bg-opacity: 0.85'
+    >
+      <span class='d-block px-4 py-3 fs-4 fw-bold text-center'>
+        <span>
+          Check out this<br /></span>
+        <span class='fw-normal fs-5'>Idea</span>
+      </span>
+    </a>
+
+    {{! </a> }}
+    <p
+      class='m-0 overlay-hover--hide inner-down-hover--also fs-4 d-block text-center text-wrap'
+    >
+      <span class='badge fs-5 bg-primary'>
+        {{name}}
+      </span>
+
+      {{#if (is_match id approvedInterest.idea_id)}}
+        <span class='d-block mt-2'>Collaborator</span>
+      {{/if}}
+      <br />
+      <button
+        class='col mt-2 btn btn-success disabled like vote-{{is_liked
+            upvoter
+            logged_in_user_id
+          }}'
+        value='{{id}}'
+      >{{upvoter.length}} Like</button>
+    </p>
   </div>
 </div>
