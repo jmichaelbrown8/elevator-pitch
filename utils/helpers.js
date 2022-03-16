@@ -48,6 +48,14 @@ module.exports = {
   is_match: (a, b) => {
     return a === b;
   },
+  is_any_truthy: ( ...values ) => {
+    for( const value in values ) {
+      if( value ) {
+        return true;
+      }
+    }
+    return false;
+  },
   /** This helper will:
    * 1. convert markdown to presentable html,
    * 2. sanitize the HTML

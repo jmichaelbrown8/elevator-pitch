@@ -23,6 +23,7 @@
                     {{/if}}
                   {{/if}}
                 </div>
+                {{#if is_owner}}
                 {{#unless (is_match ../owner_id user_id)}}
                 <div class="card-footer d-flex justify-content-between">
                   {{#if (is_match status "approved")}}
@@ -34,6 +35,7 @@
                   {{/if}}
                 </div>
                 {{/unless}}
+                {{/if}}
              </div>
              {{/each}}
         </div>
