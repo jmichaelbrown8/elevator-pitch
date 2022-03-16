@@ -22,10 +22,11 @@ const hbs = exphbs.create({
 const sess = {
   secret: process.env.SESSION_SECRET || 'Replace me',
   cookie: {
-    // Stored in milliseconds (1800000 === 30 minutes)
-    maxAge: 1800000,
+    // Stored in milliseconds (43200000 === 12 hours)
+    maxAge: 43200000,
   },
   resave: false,
+  rolling: true,
   saveUninitialized: true,
   store: new SequelizeStore({
     db: sequelize,
