@@ -1,4 +1,4 @@
-const { User, SpaceMember, Space, Idea } = require('../models');
+const { User, SpaceMember, Space, Idea, Interest } = require('../models');
 
 /**
  * HELPER METHODS: For use in middleware, (Not middleware itself)
@@ -118,6 +118,24 @@ const withSpaceOwnership = (req, res, next) => {
   next();
 };
 
+const withIdeaApproval = async (req, res, next) => {
+  const { idea_id, space_id } = req.params;
+  const { user_id } = req.session;
+
+  const errorRedirect = `/space/${space_id}/idea/${idea_id}`;
+  const errorMessage =
+    'You must an approved idea member to perform this action.';
+
+  // Validate the authUser was loaded correctly
+  if (validateAuthUser(req, errorRedirect, errorMessage)) {
+    if (!(await Interest.findOne({ idea_id, user_id, status: 'approved' }))) {
+      invalidateAuth(req, errorRedirect, errorMessage);
+    }
+  }
+
+  next();
+};
+
 const withIdeaOwnership = (req, res, next) => {
   const { idea_id, space_id } = req.params;
 
@@ -130,6 +148,26 @@ const withIdeaOwnership = (req, res, next) => {
 
     // Invalidate the request if they don't have a membership for the space or it's not approved.
     if (!ownedIdeas.includes(parseInt(idea_id))) {
+      invalidateAuth(req, errorRedirect, errorMessage);
+    }
+  }
+
+  next();
+};
+
+const withNoIdeaApprovals = async (req, res, next) => {
+  const { space_id } = req.params;
+
+  const errorRedirect = `/space/${space_id}`;
+  const errorMessage =
+    'You are already approved for another idea in this space. You are not eligible to create new ideas.';
+
+  // Validate the authUser was loaded correctly
+  if (validateAuthUser(req, errorRedirect, errorMessage)) {
+    const { user_id } = req.session;
+
+    // Invalidate the request if they don't have a membership for the space or it's not approved.
+    if (await Interest.findUserApprovalInSpace(user_id, space_id)) {
       invalidateAuth(req, errorRedirect, errorMessage);
     }
   }
@@ -190,6 +228,8 @@ module.exports = {
   invalidateAuth,
   withSpaceOwnership,
   withIdeaOwnership,
+  withIdeaApproval,
+  withNoIdeaApprovals,
   withApprovedMembership,
   withNoMembership,
   withAuth,

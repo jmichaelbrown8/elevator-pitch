@@ -4,6 +4,7 @@ const {
   withAuth,
   withApprovedMembership,
   withNoMembership,
+  withNoIdeaApprovals,
 } = require('../utils/auth');
 const {
   Idea,
@@ -66,6 +67,8 @@ router.get(
   withAuth,
   async (req, res) => {
     try {
+      const { user_id } = req.session;
+      const { space_id } = req.params;
       const spaceData = await Space.findByPk(req.params.space_id, {
         include: [
           {
@@ -88,9 +91,16 @@ router.get(
           },
         ],
       });
+      const approvedInsterest = await Interest.findUserApprovalInSpace(
+        user_id,
+        space_id
+      );
       const space = spaceData.toJSON();
       // console.log('String', space);
-      res.render('space', { space });
+      res.render('space', {
+        space,
+        approvedInsterest,
+      });
     } catch (err) {
       res.status(400).json(err);
       console.log(err);
@@ -119,6 +129,7 @@ router.get(
 router.get(
   '/space/:space_id/ideas',
   withApprovedMembership,
+  withNoIdeaApprovals,
   withAuth,
   async (req, res) => {
     try {
