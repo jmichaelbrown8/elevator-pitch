@@ -194,8 +194,10 @@ const withNoMembership = (req, res, next) => {
   next();
 };
 
-const withAuth = (req, res, next) => {
+const withAuth = async (req, res, next) => {
   if (!req.session.loggedIn) {
+    req.session.authRedirectedFrom = req.originalUrl;
+    await req.session.save();
     res.redirect('/login');
   } else if (req.authState && !req.authState.valid) {
     // If previous middleware invalidated `req.authState`, redirect the user
