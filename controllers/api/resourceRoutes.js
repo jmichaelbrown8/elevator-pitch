@@ -52,7 +52,8 @@ router.post(
         ...req.body,
       });
       const resource = resourceData.toJSON();
-      res.status(200).res.json(resource);
+      console.log(resource);
+      res.status(200).json(resource);
     } catch (err) {
       console.log(err);
       res.status(400).json({
