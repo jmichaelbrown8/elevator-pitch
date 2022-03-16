@@ -209,20 +209,6 @@ router.get(
   }
 );
 
-// Create a new resource helper route
-router.get(
-  '/space/:space_id/idea/:idea_id/resource/create',
-  withApprovedMembership,
-  withAuth,
-  async (req, res) => {
-    const { space_id, idea_id } = req.params;
-    res.render('resourceCreate', {
-      space_id,
-      idea_id,
-    });
-  }
-);
-
 // View a specific resource
 router.get(
   '/space/:space_id/idea/:idea_id/resource/:id_resource',
