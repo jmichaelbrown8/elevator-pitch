@@ -1,70 +1,49 @@
-const uploadImage = async (event) => {
-  event.preventDefault();
-
-  const name = document.querySelector('#image').name;
-  const type = document.querySelector('#image').type;
-  const content = document.querySelector('#image').files;
-
+const uploadItem = async (body) => {
   const { space_id, idea_id } = getContext();
 
-  // image data sent in something different than JSON as our body. Form-body element.
-
-  const data = new FormData();
-  data.append('name', name);
-  data.append('type', type);
-  data.append('image', content);
-  console.log(data, name);
-
+  // markdown or link data sent through.
   const response = await fetch(
-    `/api/space/${space_id}/idea/${idea_id}/resource`,
+    `/api/space/${space_id}/idea/${idea_id}/resource/file`,
     {
       method: 'POST',
-      body: data,
+      body: JSON.stringify({ body }),
+      headers: { 'Content-Type': 'application/json' },
     }
   );
-
+  console.log(body);
   if (response.ok) {
     localStorage.setItem('toast', `Created new resource!`);
+
     const item = await response.json();
+    console.log(item);
     // re-route back to create another resource
     document.location.href = `/space/${item.space_id}/idea/${item.id}`;
   } else {
     const errorObj = await response.json();
+    console.log(errorObj, 'This is the error obj in client side js');
     localStorage.setItem('toast', errorObj.message);
     toastIt(true);
   }
 };
 
-const uploadLink = async (event) => {
-  event.preventDefault();
-
-  const name = document.querySelector('#link').name;
-  const type = document.querySelector('#link').type;
-  const content = document.querySelector('#link').value.trim();
-  console.log(name, type, content);
-
-  if (name && type && content) {
-    const response = await fetch(
-      `/api/space/${space_id}/idea/${idea_id}/resource`,
-      {
-        method: 'POST',
-        body: JSON.stringify({ name, type, content }),
-        headers: { 'Content-Type': 'application/json' },
-      }
-    );
-
-    if (response.ok) {
-      localStorage.setItem('toast', `Created new resource!`);
-      // re-route back to create another resource
-      document.location.href = `api/space/${item.space_id}/idea/${item.id}/resource/create`;
-    } else {
-      const errorObj = await response.json();
-      localStorage.setItem('toast', errorObj.message);
-      toastIt(true);
-    }
-  }
+const markdownUpload = () => {
+  const body = {
+    name: 'markdown' + '-' + Date.now(),
+    type: 'markdown',
+    content: $('#markdown-content').val(),
+  };
+  uploadItem(body);
 };
 
-document.querySelector('#upload-image').addEventListener('click', uploadImage);
+const linkUpload = () => {
+  const body = {
+    name: 'link' + '-' + Date.now(),
+    type: 'link',
+    content: $('#link-content').val(),
+  };
+  uploadItem(body);
+};
 
-document.querySelector('#upload-link').addEventListener('click', uploadLink);
+// html tags for each form (add, update, or delete)
+$('#markdown-upload').on('click', markdownUpload);
+$('#link-upload').on('click', linkUpload);

@@ -46,8 +46,7 @@
           {{!-- Upload docs --}}
           <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
             <hr>
-            <form action='/api/space/{{space_id}}/idea/{{idea_id}}{{id}}/resource/doc' enctype="multipart/form-data"
-              method="post" id="doc-upload">
+            <form>
               <div class='form-group'>
                 <div class='card-title'>
                   <label for='addDocs' class='fs-4 fw-bold mb-2'>Add Docs (markdown)</label>
@@ -56,15 +55,14 @@
                   name='markdown-content' placeholder='Add Markdown'></textarea>
               </div>
               <br>
-              <input type='submit' id="markdown-upload" value="Upload doc" class='btn btn-primary'></input>
+              <input type='button' id="markdown-upload" value="Upload doc" class='btn btn-primary'></input>
             </form>
           </div>
 
           {{! Upload links }}
           <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab">
             <hr>
-            <form enctype='multipart/form-data' method="post"
-              action='/api/space/{{space_id}}/idea/{{idea_id}}{{id}}/resource/link'>
+            <form>
               <div class='form-group'>
                 <div class='card-title'>
                   <label for='link' class='fs-4 fw-bold mb-2'>Add links</label>
@@ -86,3 +84,4 @@
     </div>
   </div>
 </div>
+<script src="/js/resource.js"></script>
