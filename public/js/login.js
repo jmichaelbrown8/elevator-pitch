@@ -17,7 +17,8 @@ const loginFormHandler = async (event) => {
 
     if (response.ok) {
       localStorage.setItem('toast', 'You are now logged in.');
-      document.location.replace('/');
+      const { redirect } = await response.json();
+      document.location.replace(redirect || '/');
     } else {
       localStorage.setItem('toast', 'Failed to log in.');
       toastIt(true);
