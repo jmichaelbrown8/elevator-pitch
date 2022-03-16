@@ -1,12 +1,29 @@
 const router = require('express').Router();
-const { Interest } = require('../../models');
+const { Idea, Interest } = require('../../models');
 const {
   withAuthJson,
   withApprovedMembership,
   withIdeaOwnership,
+  invalidateAuth,
 } = require('../../utils/auth');
 
 const baseRoute = '/:space_id/idea/:idea_id/interest';
+
+//
+const withIdeaAcceptingInterest = async (req, res, next) => {
+  const { space_id, idea_id } = req.params;
+  const { is_accepting } = await Idea.getStatus(idea_id);
+
+  if (!is_accepting) {
+    invalidateAuth(
+      req,
+      `/space/${space_id}/idea/${idea_id}`,
+      'The idea is not accepting requests of interest to collaborate at this time.'
+    );
+  }
+
+  next();
+};
 
 // Input:   req.session.user_id and param for idea_id
 // Output:  boolean to indicate if the user has already shown interest or not
@@ -39,15 +56,25 @@ router.get(
 );
 
 // Input:   idea_id, user_id
-// Creates a new interest relation between user and idea
+// Creates a new interest record for the current user.
 router.post(
   baseRoute,
   withApprovedMembership,
+  withIdeaAcceptingInterest,
   withAuthJson,
   async (req, res) => {
     try {
       const { user_id } = req.session;
-      const { idea_id } = req.params;
+      const { space_id, idea_id } = req.params;
+
+      const can_join = !(await Interest.findUserApprovalInSpace( user_id, space_id ));
+
+      if (!can_join) {
+        return res.status(400).json({
+          message: 'You are already approved for another idea. You are not allow to join new ideas at this time.',
+        });
+      }
+
       const { details } = req.body;
       // Create interest if it doesn't exist
       await Interest.create({
@@ -70,6 +97,7 @@ router.post(
 router.put(
   baseRoute,
   withApprovedMembership,
+  withIdeaAcceptingInterest,
   withAuthJson,
   async (req, res) => {
     const { user_id } = req.session;
@@ -77,6 +105,15 @@ router.put(
     const { details } = req.body;
 
     try {
+
+      const can_join = !(await Interest.findUserApprovalInSpace( user_id, space_id ));
+
+      if (!can_join) {
+        return res.status(400).json({
+          message: 'You are already approved for another idea. You are not allow to join new ideas at this time.',
+        });
+      }
+
       await Interest.update(
         {
           details,
@@ -103,10 +140,24 @@ router.put(
   withIdeaOwnership,
   withAuthJson,
   async (req, res) => {
-    const { idea_id, user_id } = req.params;
+    const { space_id, idea_id, user_id } = req.params;
     const { status } = req.body;
-
     try {
+      if (status === 'approved') {
+        const { is_accepting } = await Idea.getStatus(idea_id);
+        if (!is_accepting) {
+          return res.status(400).json({
+            message: 'This idea cannot accept more approved interest.',
+          });
+        }
+        const can_join = !(await Interest.findUserApprovalInSpace( user_id, space_id ));
+        if (!can_join) {
+          return res.status(400).json({
+            message: 'This user is already approved for another idea. They are not allowed to join new ideas at this time.',
+          });
+        }
+      }
+
       await Interest.update(
         {
           status,

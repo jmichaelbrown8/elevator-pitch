@@ -1,9 +1,10 @@
 const router = require('express').Router();
-// const { Op } = require('sequelize');
+const { Op } = require('sequelize');
 const {
   withAuth,
   withApprovedMembership,
   withNoMembership,
+  withNoIdeaApprovals,
 } = require('../utils/auth');
 const {
   Idea,
@@ -66,6 +67,8 @@ router.get(
   withAuth,
   async (req, res) => {
     try {
+      const { user_id } = req.session;
+      const { space_id } = req.params;
       const spaceData = await Space.findByPk(req.params.space_id, {
         include: [
           {
@@ -88,9 +91,16 @@ router.get(
           },
         ],
       });
+      const approvedInsterest = await Interest.findUserApprovalInSpace(
+        user_id,
+        space_id
+      );
       const space = spaceData.toJSON();
-
-      res.render('space', { space });
+      // console.log('String', space);
+      res.render('space', {
+        space,
+        approvedInsterest,
+      });
     } catch (err) {
       res.status(400).json(err);
       console.log(err);
@@ -119,6 +129,7 @@ router.get(
 router.get(
   '/space/:space_id/ideas',
   withApprovedMembership,
+  withNoIdeaApprovals,
   withAuth,
   async (req, res) => {
     try {
@@ -140,18 +151,49 @@ router.get(
   withAuth,
   async (req, res) => {
     try {
+      const { user_id } = req.session;
       const { space_id, idea_id } = req.params;
+      const can_join = !(await Interest.findUserApprovalInSpace(
+        user_id,
+        space_id
+      ));
+      const { is_accepting, spots_left } = await Idea.getStatus(idea_id);
+
+      // Restricts Interest records to 'approved' only.
+      const getNotAcceptingInterestWhere = () => [
+        {
+          status: {
+            [Op.in]: ['approved'],
+          },
+        },
+      ];
+      // Filters out Interest records for users who have already been approved for other spaces.
+      const getAcceptingInterestWhere = () => [
+        Idea.literalInterestUserHasNoApprovalsInOtherIdeas(),
+      ];
+
+      const whereInterest = {
+        [Op.and]: is_accepting
+          ? getAcceptingInterestWhere()
+          : getNotAcceptingInterestWhere(),
+      };
+
       const ideaData = await Idea.findByPk(idea_id, {
         include: [
           {
             model: Interest,
             attributes: { exclude: ['createdAt', 'updatedAt', 'idea_id'] },
             include: User,
-            // where: {
-            //   status: {
-            //     [Op.in]: ['pending','approved']
-            //   }
-            // },
+            where: whereInterest,
+            required: false,
+          },
+          {
+            model: Interest,
+            attributes: ['status'],
+            where: {
+              user_id,
+            },
+            as: 'myInterest',
             required: false,
           },
           {
@@ -183,25 +225,20 @@ router.get(
       const comments = commentData.map((element) =>
         element.get({ plain: true })
       );
-
-      const interests_status = idea.interests.reduce(
-        (interests_status, { user_id, status }) => ({
-          [user_id]: status,
-          ...interests_status,
-        }),
-        {}
+      const approved_count = idea.interests.reduce(
+        (count, { status }) => (status === 'approved' ? count + 1 : count),
+        0
       );
 
 
       res.render('idea', {
-        idea: {
-          ...idea,
-          // Rebuild `interested_users` as a key based object { [user_id]: "status" };
-          interests_status,
-        },
+        can_join: can_join && spots_left,
+        idea,
         resources,
         comments,
         space_id,
+        approved_count,
+        spots_left,
         is_owner: req.session.user_id === idea.user_id,
       });
     } catch (err) {

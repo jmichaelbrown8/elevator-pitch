@@ -1,0 +1,27 @@
+[
+    {
+        "user_id": 2,
+        "space_id": "123e4567-e89b-12d3-a456-426614174000",
+        "status": "approved"
+    },
+    {
+        "user_id": 3,
+        "space_id": "123e4567-e89b-12d3-a456-426614174000",
+        "status": "approved"
+    },
+    {
+        "user_id": 4,
+        "space_id": "123e4567-e89b-12d3-a456-426614174000",
+        "status": "approved"
+    },
+    {
+        "user_id": 5,
+        "space_id": "123e4567-e89b-12d3-a456-426614174000",
+        "status": "approved"
+    },
+    {
+        "user_id": 6,
+        "space_id": "123e4567-e89b-12d3-a456-426614174000",
+        "status": "approved"
+    }
+]

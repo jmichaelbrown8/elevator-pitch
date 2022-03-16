@@ -14,7 +14,7 @@ module.exports = {
     return propName in object;
   },
   is_prop_match: (object, propName, value) => {
-    return object[propName] === value;
+    return object && object[propName] === value;
   },
   filter_by_prop: (objectList, propName, ...values) => objectList.filter( item => values.includes(item[propName]) ),
   is_interested: (interestList, userId) => {

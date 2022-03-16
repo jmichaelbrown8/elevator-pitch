@@ -1,6 +1,10 @@
 const router = require('express').Router();
 const { Idea } = require('../../models');
-const { withApprovedMembership, withAuthJson } = require('../../utils/auth');
+const {
+  withApprovedMembership,
+  withAuthJson,
+  withNoIdeaApprovals,
+} = require('../../utils/auth');
 
 // Input:   id (idea id)
 // Output:  JSON Object containing idea data
@@ -28,6 +32,7 @@ router.get('/:id', async (req, res) => {
 router.post(
   '/:space_id',
   withApprovedMembership,
+  withNoIdeaApprovals,
   withAuthJson,
   async (req, res) => {
     const { user_id } = req.session;

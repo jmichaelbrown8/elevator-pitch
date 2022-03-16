@@ -4,7 +4,11 @@
 </div>
 {{/if}}
 
-{{> notifications/userInterestRequest interests_status=idea.interests_status }}
+{{#if can_join}}
+    {{#if idea.myInterest}}
+        {{> notifications/userInterestRequest myInterest=idea.myInterest }}
+    {{/if}}
+{{/if}}
 
 <div id="ideas" class="card">
     <div class=" bg-primary text-white">
@@ -14,16 +18,18 @@
                 <button class='btn btn-light mt-2 like vote-{{is_liked idea.upvoter user_id}}' value="{{idea.id}}">{{idea.upvoter.length}} Like</button>
             </h3>
             <div class="p-3">
-                {{#if (is_prop_in idea.interests_status user_id)}}
-                    {{#unless (is_prop_match idea.interests_status user_id "approved")}}
-                        {{#if (is_prop_match idea.interests_status user_id "pending")}}
-                            <button class= 'btn bg-white text-primary px-5 py-4 w-100' data-bs-toggle="modal" data-bs-target="#add-interest-modal">Request Pending</button>
-                        {{else}}
-                            <button class= 'btn bg-white text-primary px-5 py-4 w-100' data-bs-toggle="modal" data-bs-target="#add-interest-modal" data-type="resend">Resubmit Request</button>
-                        {{/if}}
-                    {{/unless}}
-                {{else}}
-                    <button class= 'btn bg-white text-primary px-5 py-4 w-100' data-bs-toggle="modal" data-bs-target="#add-interest-modal">Collaborate</button>
+                {{#if can_join}}
+                    {{#if idea.myInterest}}
+                        {{#unless (is_prop_match idea.myInterest "status" "approved")}}
+                            {{#if (is_prop_match idea.myInterest "status" "pending")}}
+                                <button class= 'btn bg-white text-primary px-5 py-4 w-100' data-bs-toggle="modal" data-bs-target="#add-interest-modal">Request Pending</button>
+                            {{else}}
+                                <button class= 'btn bg-white text-primary px-5 py-4 w-100' data-bs-toggle="modal" data-bs-target="#add-interest-modal" data-type="resend">Resubmit Request</button>
+                            {{/if}}
+                        {{/unless}}
+                    {{else}}
+                        <button class= 'btn bg-white text-primary px-5 py-4 w-100' data-bs-toggle="modal" data-bs-target="#add-interest-modal">Collaborate<br/><span style="font-size:.8em">({{spots_left}} spaces left)</span></button>
+                    {{/if}}
                 {{/if}}
             </div>
         </div>
@@ -48,8 +54,8 @@
         {{/if}}
     </div>
 </div>
-
-{{#unless (is_prop_in idea.interests_status user_id)}}
+{{#if can_join}}
+{{#unless idea.myInterest}}
 <div class="card card-body bg-secondary border-0 my-4" style="--bs-bg-opacity: 0.2">
     <div class="d-md-flex justify-content-between align-items-center">
         <div>
@@ -62,6 +68,7 @@
     </div>
 </div>
 {{/unless}}
+{{/if}}
 
     <div class=" bg-primary text-white my-4">
         <h3 class='card-header justify-content-start'>Resources</h3>
@@ -141,16 +148,15 @@
         </form>
     </div>
 </div>
-</div>
+{{#if can_join}}
+    {{> modals/interest myInterest=idea.myInterest}}
+{{/if}}
 
-
-{{> modals/interest interests_status=idea.interests_status}}
 {{#if is_owner}}
-{{> modals/interestManage interests=idea.interests owner_id=idea.user_id}}
+    {{> modals/interestManage interests=idea.interests owner_id=idea.user_id}}
 {{/if}}
 
 <script src="/js/addComment.js"></script>
-<script src="/js/interest.js"></script>
 <script src = "/js/ideaUpvote.js"></script>
 
 {{!-- highlight.js for any code block formatting client-side --}}

@@ -3,6 +3,34 @@ const sequelize = require('../config/connection');
 
 class Idea extends Model {}
 
+Idea.literalInterestUserHasNoApprovalsInOtherIdeas = function() {
+  return sequelize.literal(`(SELECT COUNT(*) from interest i2 WHERE status = "approved" AND user_id = interests.user_id AND idea_id IN (SELECT id FROM idea i2 WHERE space_id = idea.space_id AND id <> idea.id)) < 1`);
+};
+
+Idea.getStatus = async function( idea_id ) {
+
+  const result = (await this.findByPk( idea_id, {
+    attributes: [
+      'user_id',
+      'members',
+      [
+        // Use plain SQL to get a count of all short books
+        sequelize.literal(
+          '(SELECT COUNT(*) FROM interest WHERE interest.idea_id = idea.id AND interest.status = "approved")'
+        ),
+        'approved_count',
+      ]
+    ],
+  } )).toJSON();
+
+  return {
+    owner: result.user_id,
+    spots_left: result.members ? result.members - result.approved_count : 0,
+    is_accepting: result.members && result.members > result.approved_count
+  };
+
+};
+
 Idea.init(
   {
     id: {
