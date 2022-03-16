@@ -11,6 +11,13 @@
   color: rgba(255, 255, 255, 0.95);
 }
 
+.nav-pills .nav-link.active {
+  background-color: var(--bs-primary);
+}
+.nav-pills .nav-link {
+  color: var(--bs-primary);
+}
+
 /** ##### Modal ##### **/
 .modal[aria-modal='true'] {
   display: flex !important;
