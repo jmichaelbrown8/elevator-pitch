@@ -14,7 +14,6 @@ router.post(
   upload.single('image-file'),
   async (req, res) => {
     try {
-      console.log(req.body.name, req.body.type, req.file);
       const { space_id, idea_id } = req.params;
 
       await Resource.create({
@@ -24,6 +23,7 @@ router.post(
         content: `<img style="height:60vh; width:auto" src = "/${space_id}/${idea_id}/${req.file.filename}"/>`,
       });
 
+      localStorage.setItem('toast', 'Successful upload!');
       res.redirect(`/space/${space_id}/idea/${idea_id}`);
     } catch (err) {
       console.log(err);
@@ -49,11 +49,10 @@ router.post(
 
       const resourceData = await Resource.create({
         idea_id,
-        ...req.body
+        ...req.body,
       });
       const resource = resourceData.toJSON();
       res.status(200).res.json(resource);
-
     } catch (err) {
       console.log(err);
       res.status(400).json({

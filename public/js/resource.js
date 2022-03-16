@@ -3,7 +3,7 @@ const uploadItem = async (event) => {
   const { space_id, idea_id } = getContext();
   console.log(body);
   // markdown or link data sent through.
-  const response = await fetch(`/api/space/${space_id}/idea/${idea_id}/file`, {
+  const response = await fetch(`/api/space/${space_id}/idea/${idea_id}/resource/file`, {
     method: 'POST',
     body: JSON.stringify({ body }),
     headers: { 'Content-Type': 'application/json' },
@@ -21,20 +21,21 @@ const uploadItem = async (event) => {
   }
 };
 
+// markdown type and query selector different than link
 const markdownUpload = () => {
   const body = {
-    name: 'markdown',
+    name: 'markdown' + '-' + Date.now(),
     type: 'markdown',
-    content: $('#markdown-content').innerHTML,
+    content: $('#markdown-content').val(),
   };
   uploadItem(body);
 };
-
+//  link type and query selector different place than markdown
 const linkUpload = () => {
   const body = {
-    name: 'link',
+    name: 'link' + '-' + Date.now(),
     type: 'link',
-    content: $('#link-content').innerHTML,
+    content: $('#link-content').val(),
   };
   uploadItem(body);
 };
