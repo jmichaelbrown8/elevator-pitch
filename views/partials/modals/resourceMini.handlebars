@@ -1,100 +1,87 @@
+<div class="modal fade fs-6" id="resource-modal" tabindex="-1" role="dialog" aria-labelledby="addresource-modal"
+  aria-hidden="true">
 
-<div class="modal fade fs-6"  id="resource-modal" tabindex="-1" role="dialog" aria-labelledby="addresource-modal" aria-hidden="true">
-
-  <div class="modal-dialog" style='height:80vh;width:70vw'>
-    <div class="modal-content">    
-         <div class="modal-header">
-                <h5 class="modal-title">Help collaborators visualize and explore your idea</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Help collaborators visualize and explore your idea</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
       <div class="modal-body">
 
+        {{!-- Nav bar with tabs --}}
+        <ul class="nav nav-pills nav-fill mb-3 flex-column flex-sm-row" id="pills-tab" role="tablist">
+          <li class="nav-item" role="presentation">
+            <button class="nav-link active" id="pills-home-tab" data-bs-toggle="pill" data-bs-target="#pills-home"
+              type="button" role="tab" aria-controls="pills-home" aria-selected="true">Add Images</button>
+          </li>
+          <li class="nav-item" role="presentation">
+            <button class="nav-link" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-profile"
+              type="button" role="tab" aria-controls="pills-profile" aria-selected="false">Add Docs</button>
+          </li>
+          <li class="nav-item" role="presentation">
+            <button class="nav-link" id="pills-contact-tab" data-bs-toggle="pill" data-bs-target="#pills-contact"
+              type="button" role="tab" aria-controls="pills-contact" aria-selected="false">Add Links</button>
+          </li>
+        </ul>
 
-  <div class='card'>
-    <div class='card-body'>
-{{!-- Upload images --}}
-      <form action='/api/space/{{space_id}}/idea/{{idea_id}}{{id}}/resource/image' enctype="multipart/form-data" method="post" id="image-upload">
-        <div class='form-group'>
-          <div class='card-title'>
-            <label for='addImages' class='fs-4 fw-bold mb-2'>Add images</label>
+        <div class="tab-content" id="pills-tabContent">
+          {{!-- Upload images --}}
+          <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
+            <hr>
+            <form action='/api/space/{{space_id}}/idea/{{idea_id}}{{id}}/resource/image' enctype="multipart/form-data"
+              method="post" id="image-upload">
+              <div class='form-group'>
+                <div class='card-title'>
+                  <label for='addImages' class='fs-4 fw-bold mb-3'>Add images</label>
+                </div>
+                <label for='image'><input class='form-control-file' type='file' name='image-file' accept='image/*'
+                    id='image' /></label>
+              </div>
+              <br>
+              <input type='submit' value="Upload image" class='btn btn-primary'></input>
+            </form>
           </div>
 
-          <label for='image'><input
-              class='form-control-file'
-              type='file'
-              name='image-file'
-              accept='image/*'
-              id='image'
-           
-            /></label>
-            </div>
-            <br>
-           <input
-            type='submit'
-            value="Upload image"
-            class='btn btn-primary'
-          ></input>
-    
-      </form>
- <hr>
-{{!-- Upload docs --}}
-      <form action='/api/space/{{space_id}}/idea/{{idea_id}}{{id}}/resource/doc' enctype="multipart/form-data" method="post" id="doc-upload">
-        <div class='form-group'>
-          <div class='card-title'>
-            <label for='addDocs' class='fs-4 fw-bold mb-2'>Add Docs (markdown)</label>
+          {{!-- Upload docs --}}
+          <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
+            <hr>
+            <form>
+              <div class='form-group'>
+                <div class='card-title'>
+                  <label for='addDocs' class='fs-4 fw-bold mb-2'>Add Docs (markdown)</label>
+                </div>
+                <textarea maxlength='5000' class='form-control' style="height: 200px" id='markdown-content'
+                  name='markdown-content' placeholder='Add Markdown'></textarea>
+              </div>
+              <br>
+              <input type='button' id="markdown-upload" value="Upload doc" class='btn btn-primary'></input>
+            </form>
           </div>
 
-          <label for='doc'><input
-              class='form-control-file'
-              type='file'
-              name='doc-file'
-              accept='markdown/*'
-              id='doc'
-             
-            /></label>
-            </div>
-            <br>
-          <input
-            type='submit'
-            value="Upload doc"
-            class='btn btn-primary'
-          ></input>
-     
-      </form>
+          {{! Upload links }}
+          <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab">
+            <hr>
+            <form>
+              <div class='form-group'>
+                <div class='card-title'>
+                  <label for='link' class='fs-4 fw-bold mb-2'>Add links</label>
+                </div>
 
-  {{! Upload links }}
-<hr>
-      <form enctype='multipart/form-data' method="post"
-            action='/api/space/{{space_id}}/idea/{{idea_id}}{{id}}/resource/link'>
-        <div class='form-group'>
-          <div class='card-title'>
-            <label for='link' class='fs-4 fw-bold mb-2'>Add links</label>
+                <label for='link'><input class='form-control' type='link' name='link' accept='url'
+                    id='link-content' /></label>
+              </div>
+              <br>
+              <input type='submit' id="link-upload" value="Upload link" class='btn btn-primary '></input>
           </div>
-
-          <label for='link'><input
-              class='form-control'
-              type='link'
-              name='link'
-              accept='url'
-              id='link'
-            /></label>
+          </form>
         </div>
-    <br>
-          <input
-            type='submit'
-            value="Upload link"
-            class='btn btn-primary '
-          ></input>
-        </div>
-      </form>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            </div>
+      </div>
+      {{!-- Footer --}}
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
     </div>
-
+  </div>
 </div>
-</div>
-</div>
-</div>
-
-
+<script src='/js/resource.js'></script>
