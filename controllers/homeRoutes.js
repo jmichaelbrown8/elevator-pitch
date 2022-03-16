@@ -91,15 +91,14 @@ router.get(
           },
         ],
       });
-      const approvedInsterest = await Interest.findUserApprovalInSpace(
-        user_id,
-        space_id
-      );
+      const approvedInterest = (
+        await Interest.findUserApprovalInSpace(user_id, space_id)
+      )?.toJSON();
       const space = spaceData.toJSON();
       // console.log('String', space);
       res.render('space', {
         space,
-        approvedInsterest,
+        approvedInterest,
       });
     } catch (err) {
       res.status(400).json(err);
@@ -230,6 +229,8 @@ router.get(
         0
       );
 
+      const is_owner = req.session.user_id === idea.user_id;
+
       res.render('idea', {
         can_join: can_join && spots_left,
         idea,
@@ -238,7 +239,8 @@ router.get(
         space_id,
         approved_count,
         spots_left,
-        is_owner: req.session.user_id === idea.user_id,
+        is_owner,
+        is_member: is_owner || idea.myInterest?.status === 'approved',
       });
     } catch (err) {
       console.log(err);

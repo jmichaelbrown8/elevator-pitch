@@ -1,7 +1,12 @@
 <div class="card card-body my-3">
   <div class="row g-3 align-items-center">
     <div class="col">
-        <h3 class="fs-4 m-0"><a class="text-decoration-none" href='/space/{{space_id}}/idea/{{id}}'>{{name}}</a></h3>
+        <h3 class="fs-4 m-0">
+          <a class="text-decoration-none" href='/space/{{space_id}}/idea/{{id}}'>
+            {{name}}
+          </a>
+          {{#if (is_match id approvedInterest.idea_id)}}<span class="ms-3 badge bg-primary">Collaborator</span>{{/if}}
+        </h3>
     </div>
     <div class="col-auto">
       <button class='btn btn-primary like vote-{{is_liked upvoter logged_in_user_id}}' value="{{id}}">{{upvoter.length}} Like</button>

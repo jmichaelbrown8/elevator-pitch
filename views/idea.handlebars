@@ -1,13 +1,15 @@
-{{#if is_owner}}
-<div class="mb-4">
-    <button class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#manage-interest-modal">Manage Members</button>
-</div>
-{{/if}}
-
 {{#if can_join}}
     {{#if idea.myInterest}}
         {{> notifications/userInterestRequest myInterest=idea.myInterest }}
     {{/if}}
+{{/if}}
+{{#if is_member}}
+<div class="card card-body bg-secondary border-0 mb-4 p-4" style="--bs-bg-opacity: 0.2">
+    <h3>You're collaborating on this idea</h3>
+    <p class="mb-3 mb-md-0">
+        You can see who you're working with by clicking the <strong>View Members</strong> button below, or head further down the page to add additional <strong>Resources</strong>.
+    </p>
+</div>
 {{/if}}
 
 <div id="ideas" class="card">
@@ -18,17 +20,26 @@
                 <button class='btn btn-light mt-2 like vote-{{is_liked idea.upvoter user_id}}' value="{{idea.id}}">{{idea.upvoter.length}} Like</button>
             </h3>
             <div class="p-3">
-                {{#if can_join}}
-                    {{#if idea.myInterest}}
-                        {{#unless (is_prop_match idea.myInterest "status" "approved")}}
+                {{#if is_member}}
+                <button class= 'btn bg-white text-primary px-5 py-4 w-100' data-bs-toggle="modal" data-bs-target="#manage-interest-modal">
+                    {{#if is_owner}}
+                        Manage
+                    {{else}}
+                        View
+                    {{/if}}
+                    Members
+                </button>
+                {{else}}
+                    {{#if can_join}}
+                        {{#if idea.myInterest}}
                             {{#if (is_prop_match idea.myInterest "status" "pending")}}
                                 <button class= 'btn bg-white text-primary px-5 py-4 w-100' data-bs-toggle="modal" data-bs-target="#add-interest-modal">Request Pending</button>
                             {{else}}
                                 <button class= 'btn bg-white text-primary px-5 py-4 w-100' data-bs-toggle="modal" data-bs-target="#add-interest-modal" data-type="resend">Resubmit Request</button>
                             {{/if}}
-                        {{/unless}}
-                    {{else}}
-                        <button class= 'btn bg-white text-primary px-5 py-4 w-100' data-bs-toggle="modal" data-bs-target="#add-interest-modal">Collaborate<br/><span style="font-size:.8em">({{spots_left}} spaces left)</span></button>
+                        {{else}}
+                            <button class= 'btn bg-white text-primary px-5 py-4 w-100' data-bs-toggle="modal" data-bs-target="#add-interest-modal">Collaborate<br/><span style="font-size:.8em">({{spots_left}} spaces left)</span></button>
+                        {{/if}}
                     {{/if}}
                 {{/if}}
             </div>
@@ -152,8 +163,8 @@
     {{> modals/interest myInterest=idea.myInterest}}
 {{/if}}
 
-{{#if is_owner}}
-    {{> modals/interestManage interests=idea.interests owner_id=idea.user_id}}
+{{#if is_member}}
+    {{> modals/interestedUsers interests=idea.interests is_owner=is_owner owner_id=idea.user_id}}
 {{/if}}
 
 <script src="/js/addComment.js"></script>
