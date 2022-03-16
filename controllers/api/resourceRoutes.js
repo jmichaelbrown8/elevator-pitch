@@ -2,7 +2,6 @@ const router = require('express').Router();
 const { Resource } = require('../../models');
 const { withApprovedMembership, withAuth } = require('../../utils/auth');
 const upload = require('../../config/upload');
-const { response } = require('express');
 // uploads go to the public/upload directory. Included in gitIgnore
 
 const basePath = '/:space_id/idea/:idea_id/resource';
@@ -13,9 +12,8 @@ router.post(
   withAuth,
   upload.single('image-file'),
   async (req, res) => {
+    const { space_id, idea_id } = req.params;
     try {
-      const { space_id, idea_id } = req.params;
-
       await Resource.create({
         idea_id,
         name: req.file.filename,
@@ -23,17 +21,15 @@ router.post(
         content: `<img style="height:60vh; width:auto" src = "/${space_id}/${idea_id}/${req.file.filename}"/>`,
       });
 
-      localStorage.setItem('toast', 'Successful upload!');
-      res.redirect(`/space/${space_id}/idea/${idea_id}`);
+      res.redirect(
+        `/space/${space_id}/idea/${idea_id}?success=Resource created.`
+      );
     } catch (err) {
       console.log(err);
-      res.status(400).json({
-        message: 'Resource not created!',
-      });
-      const errorObj = await response.json();
-      localStorage.setItem('toast', errorObj.message);
-      toastIt(true);
       // ...err
+      res.redirect(
+        `/space/${space_id}/idea/${idea_id}?error=Resource not created.`
+      );
     }
   }
 );
