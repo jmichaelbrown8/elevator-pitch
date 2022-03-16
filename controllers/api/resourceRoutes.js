@@ -38,7 +38,7 @@ router.post(
   }
 );
 
-// insert mardown post and link post routes here
+// insert markdown post and link post routes here
 router.post(
   `${basePath}/file`,
   withApprovedMembership,
@@ -46,13 +46,11 @@ router.post(
   async (req, res) => {
     try {
       const { idea_id } = req.params;
-
       const resourceData = await Resource.create({
         idea_id,
         ...req.body,
       });
       const resource = resourceData.toJSON();
-      console.log(resource);
       res.status(200).json(resource);
     } catch (err) {
       console.log(err);

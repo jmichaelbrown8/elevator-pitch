@@ -240,7 +240,6 @@ router.get(
       });
 
       const resource = resourceData.toJSON();
-      console.log(resource);
       // TODO Get specific resource and provide to view.
       const { space_id, idea_id } = req.params;
       res.render('resource', {
