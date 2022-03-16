@@ -67,12 +67,22 @@
                 <div class='card-title'>
                   <label for='link' class='fs-4 fw-bold mb-2'>Add links</label>
                 </div>
+                                 
+                  <label for='link-name'>Text</label>
+                <div class="input-group mb-3">
+                  <input class='form-control' type='link-name' name='link-name' 
+                      id='link-name'/>
+                </div>
 
-                <label for='link'><input class='form-control' type='link' name='link' accept='url'
-                    id='link-content' /></label>
+                <label for='link'>Link</label>
+                  <div class="input-group mb-3">
+                <input class='form-control' type='link' name='link' 
+                    id='link-content'/>
+                  </div>
+
               </div>
               <br>
-              <input type='submit' id="link-upload" value="Upload link" class='btn btn-primary '></input>
+              <input type='submit' id="link-upload" value="Add link" class='btn btn-primary '></input>
           </div>
           </form>
         </div>

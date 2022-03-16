@@ -230,7 +230,6 @@ router.get(
         0
       );
 
-
       res.render('idea', {
         can_join: can_join && spots_left,
         idea,
@@ -244,20 +243,6 @@ router.get(
     } catch (err) {
       console.log(err);
     }
-  }
-);
-
-// Create a new resource
-router.get(
-  '/space/:space_id/idea/:idea_id/resource/create',
-  withApprovedMembership,
-  withAuth,
-  async (req, res) => {
-    const { space_id, idea_id } = req.params;
-    res.render('resourceCreate', {
-      space_id,
-      idea_id,
-    });
   }
 );
 
@@ -278,7 +263,6 @@ router.get(
       });
 
       const resource = resourceData.toJSON();
-      console.log(resource);
       // TODO Get specific resource and provide to view.
       const { space_id, idea_id } = req.params;
       res.render('resource', {

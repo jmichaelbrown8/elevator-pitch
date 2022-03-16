@@ -28,7 +28,7 @@
          {{/if}}
 
          {{#if (is_match resource.type 'link')}}
-         <div class="fw-bold fs-5">{{{sanitize_html resource.content}}}</div>
+         <div class="fw-bold fs-5"><a href ="{{resource.content}}" target="_blank">{{resource.name}}</a></div>
          {{/if}}
     </div>
   </div>  
@@ -52,3 +52,10 @@
 
 {{!-- modal for inserting a resource --}}
 {{> modals/resourceMini}}
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/styles/default.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/highlight.min.js"></script>
+<script>
+    hljs.highlightAll();
+</script>
