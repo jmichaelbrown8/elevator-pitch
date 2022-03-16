@@ -1,0 +1,48 @@
+[
+    {
+        "idea_id": 1,
+        "user_id": 3,
+        "status": "approved"
+    },
+    {
+        "idea_id": 2,
+        "user_id": 4,
+        "status": "approved"
+    },
+    {
+        "idea_id": 1,
+        "user_id": 4,
+        "status": "pending",
+        "details": "I want to focus on front end and design!"
+    },
+    {
+        "idea_id": 2,
+        "user_id": 3,
+        "status": "pending",
+        "details": "Can contribute to the backend organizing models and routes."
+    },
+    {
+        "idea_id": 1,
+        "user_id": 5,
+        "status": "pending",
+        "details": "Can contribute to the backend organizing models and routes."
+    },
+    {
+        "idea_id": 2,
+        "user_id": 5,
+        "status": "pending",
+        "details": "Can contribute to the backend organizing models and routes."
+    },
+    {
+        "idea_id": 1,
+        "user_id": 6,
+        "status": "pending",
+        "details": "I love the idea! I really want to get in on this. Will help however I can."
+    },
+    {
+        "idea_id": 2,
+        "user_id": 6,
+        "status": "pending",
+        "details": "I love the idea! I really want to get in on this. Will help however I can."
+    }
+]

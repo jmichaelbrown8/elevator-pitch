@@ -1,14 +1,38 @@
 [
     {
         "id": 1,
-        "name": "JohnDoe",
+        "name": "John Doe",
         "email": "johndoe@gmail.com",
         "password": "password"
     },
     {
         "id": 2,
-        "name": "JaneSmith",
+        "name": "Jane Smith",
         "email": "janesmith@gmail.com",
+        "password": "password"
+    },
+    {
+        "id": 3,
+        "name": "Judo Sam",
+        "email": "judosam@test.com",
+        "password": "password"
+    },
+    {
+        "id": 4,
+        "name": "Poppy Penny",
+        "email": "poppypenny@test.com",
+        "password": "password"
+    },
+    {
+        "id": 5,
+        "name": "Billy Bob",
+        "email": "billybob@test.com",
+        "password": "password"
+    },
+    {
+        "id": 6,
+        "name": "Bat Man",
+        "email": "batman@test.com",
         "password": "password"
     }
 ]
