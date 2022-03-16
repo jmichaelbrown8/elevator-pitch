@@ -93,7 +93,7 @@ router.get(
       });
       const approvedInterest = (
         await Interest.findUserApprovalInSpace(user_id, space_id)
-      ).toJSON();
+      )?.toJSON();
       const space = spaceData.toJSON();
       // console.log('String', space);
       res.render('space', {
