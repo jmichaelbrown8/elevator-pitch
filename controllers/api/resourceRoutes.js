@@ -12,10 +12,8 @@ router.post(
   withAuth,
   upload.single('image-file'),
   async (req, res) => {
+    const { space_id, idea_id } = req.params;
     try {
-      console.log(req.body.name, req.body.type, req.file);
-      const { space_id, idea_id } = req.params;
-
       await Resource.create({
         idea_id,
         name: req.file.filename,
@@ -23,18 +21,41 @@ router.post(
         content: `<img style="height:60vh; width:auto" src = "/${space_id}/${idea_id}/${req.file.filename}"/>`,
       });
 
-      res.redirect(`/space/${space_id}/idea/${idea_id}`);
+      res.redirect(
+        `/space/${space_id}/idea/${idea_id}?success=Resource created.`
+      );
     } catch (err) {
       console.log(err);
-      res.status(400).json({
-        message: 'Resource not created!',
-        // ...err
-      });
+      // ...err
+      res.redirect(
+        `/space/${space_id}/idea/${idea_id}?error=Resource not created.`
+      );
     }
   }
 );
 
-// insert mardown post and link post routes here
+// insert markdown post and link post routes here
+router.post(
+  `${basePath}/file`,
+  withApprovedMembership,
+  withAuth,
+  async (req, res) => {
+    try {
+      const { idea_id } = req.params;
+      const resourceData = await Resource.create({
+        idea_id,
+        ...req.body,
+      });
+      const resource = resourceData.toJSON();
+      res.status(200).json(resource);
+    } catch (err) {
+      console.log(err);
+      res.status(400).json({
+        message: 'Resource not created!',
+      });
+    }
+  }
+);
 
 router.put(
   `${basePath}/:resource_id`,

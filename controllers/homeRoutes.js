@@ -228,6 +228,7 @@ router.get(
         (count, { status }) => (status === 'approved' ? count + 1 : count),
         0
       );
+
       const is_owner = req.session.user_id === idea.user_id;
 
       res.render('idea', {
@@ -244,20 +245,6 @@ router.get(
     } catch (err) {
       console.log(err);
     }
-  }
-);
-
-// Create a new resource
-router.get(
-  '/space/:space_id/idea/:idea_id/resource/create',
-  withApprovedMembership,
-  withAuth,
-  async (req, res) => {
-    const { space_id, idea_id } = req.params;
-    res.render('resourceCreate', {
-      space_id,
-      idea_id,
-    });
   }
 );
 
@@ -278,7 +265,6 @@ router.get(
       });
 
       const resource = resourceData.toJSON();
-      console.log(resource);
       // TODO Get specific resource and provide to view.
       const { space_id, idea_id } = req.params;
       res.render('resource', {

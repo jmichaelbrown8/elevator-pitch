@@ -6,18 +6,15 @@ const uploadItem = async (body) => {
     `/api/space/${space_id}/idea/${idea_id}/resource/file`,
     {
       method: 'POST',
-      body: JSON.stringify({ body }),
+      body: JSON.stringify(body),
       headers: { 'Content-Type': 'application/json' },
     }
   );
-  console.log(body);
+
   if (response.ok) {
     localStorage.setItem('toast', `Created new resource!`);
-
-    const item = await response.json();
-    console.log(item);
     // re-route back to create another resource
-    document.location.href = `/space/${item.space_id}/idea/${item.id}`;
+    document.location.href = `/space/${space_id}/idea/${idea_id}`;
   } else {
     const errorObj = await response.json();
     console.log(errorObj, 'This is the error obj in client side js');
@@ -37,7 +34,7 @@ const markdownUpload = () => {
 
 const linkUpload = () => {
   const body = {
-    name: 'link' + '-' + Date.now(),
+    name: $('#link-name').val(),
     type: 'link',
     content: $('#link-content').val(),
   };

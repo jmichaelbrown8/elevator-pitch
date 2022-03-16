@@ -68,4 +68,5 @@ module.exports = {
   },
   /** This helper will take out any unsafe html that could allow javascript injection on the page */
   sanitize_html: (html) => sanitizeHtml(html),
+
 };
