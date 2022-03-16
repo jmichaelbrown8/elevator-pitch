@@ -230,6 +230,7 @@ router.get(
         0
       );
 
+
       res.render('idea', {
         can_join: can_join && spots_left,
         idea,
@@ -252,7 +253,11 @@ router.get(
   withApprovedMembership,
   withAuth,
   async (req, res) => {
-    res.render('resourceCreate');
+    const { space_id, idea_id } = req.params;
+    res.render('resourceCreate', {
+      space_id,
+      idea_id,
+    });
   }
 );
 
@@ -262,8 +267,29 @@ router.get(
   withApprovedMembership,
   withAuth,
   async (req, res) => {
-    // TODO Get specific resource and provide to view.
-    res.render('resource');
+    try {
+      const resourceData = await Resource.findByPk(req.params.id_resource, {
+        include: [
+          {
+            model: Idea,
+            where: { id: req.params.idea_id },
+          },
+        ],
+      });
+
+      const resource = resourceData.toJSON();
+      console.log(resource);
+      // TODO Get specific resource and provide to view.
+      const { space_id, idea_id } = req.params;
+      res.render('resource', {
+        resource,
+        space_id,
+        idea_id,
+      });
+    } catch (err) {
+      res.status(400).json(err);
+      console.log(err);
+    }
   }
 );
 

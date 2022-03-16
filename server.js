@@ -45,8 +45,9 @@ app.use(
   })
 );
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'uploads')));
 
-app.use( fetchSessionUser );
+app.use(fetchSessionUser);
 app.use(routes);
 
 sequelize
@@ -54,5 +55,7 @@ sequelize
     force: false,
   })
   .then(() => {
-    app.listen(PORT, () => console.log(`Now listening: http://localhost:${PORT}`));
+    app.listen(PORT, () =>
+      console.log(`Now listening: http://localhost:${PORT}`)
+    );
   });

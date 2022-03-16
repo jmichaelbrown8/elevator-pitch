@@ -70,22 +70,23 @@
 {{/unless}}
 {{!-- {{/if}} --}}
 
-{{#if resources.length}}
     <div class=" bg-primary text-white my-4">
         <h3 class='card-header justify-content-start'>Resources</h3>
     </div>
-    {{!-- Sample card data inserted for aesthetics. No resource table available at this time --}}
+   
     <div class="row gy-4">
         <div class="col-md-6 col-xl-4 col-xxl-3">
-            <div class="card card-body card-tile bg-light shadow-sm">
-                <a href="/space/{{idea.space_id}}/idea/{{idea.id}}/resource/create" class="overlay-hover inner-down-hover bg-success text-white shadow" style="--bs-bg-opacity: 0.85">
-                    <span class="d-block px-4 py-3 fs-4 fw-bold text-center">
-                        <span></span>
-                        Create a New<br/>
+            <div class="card card-body card-tile bg-light shadow-sm" data-bs-toggle="modal" data-bs-target="#resource-modal" >
+                {{!-- <a href="/space/{{idea.space_id}}/idea/{{idea.id}}/resource/create"  --}}
+                <a class="overlay-hover inner-down-hover bg-success text-white shadow"  style="--bs-bg-opacity: 0.85">
+                    <span class="d-block px-4 py-3 fs-4 fw-bold text-center" >
+                        <span>
+                        Create a New<br/></span>
                         <span class="fw-normal fs-5">Resource</span>
                     </span>
                 </a>
-                <p class="m-0 overlay-hover--hide inner-down-hover--also fs-4 d-block text-center">
+                {{!-- </a> --}}
+                <p class="m-0 overlay-hover--hide inner-down-hover--also fs-4 d-block text-center" data-bs-toggle="modal" data-bs-target="#resource-modal" >
                     <span class="badge fs-5 bg-success bi-plus-circle"> Add New</span>
                     <span class="d-block mt-2">
                         Resource
@@ -93,7 +94,13 @@
                 </p>
             </div>
         </div>
-        {{#each resources}}
+
+{{!-- modal for inserting a resource --}}
+{{> modals/resourceMini idea}}
+
+{{!-- current resources --}}
+           
+ {{#each resources}}
         <div class="col-md-6 col-xl-4 col-xxl-3">
             <div class="card card-body card-tile bg-light shadow-sm">
                 <a href="/space/{{../idea.space_id}}/idea/{{../idea.id}}/resource/{{id}}" class="overlay-hover inner-down-hover bg-primary text-white shadow" style="--bs-bg-opacity: 0.85">
@@ -112,8 +119,10 @@
         </div>
         {{/each}}
     </div>
-    </section>
- {{/if}}
+    
+    
+
+
 
 <div class="mt-4 bg-primary text-white"> 
     <h3 class="card-header justify-content-start">Comments</h3>
@@ -139,9 +148,10 @@
         </form>
     </div>
 </div>
-{{!-- {{#if can_join}} --}}
+{{#if can_join}}
     {{> modals/interest myInterest=idea.myInterest}}
-{{!-- {{/if}} --}}
+{{/if}}
+
 {{#if is_owner}}
     {{> modals/interestManage interests=idea.interests owner_id=idea.user_id}}
 {{/if}}

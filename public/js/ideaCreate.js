@@ -27,7 +27,7 @@ const createIdea = async (event) => {
 
       localStorage.setItem('toast', `Created new idea - ${myIdea.name}`);
       //    place to re-route after idea creation
-      document.location.href = `/space/${myIdea.space_id}`;
+      document.location.href = `/space/${myIdea.space_id}/idea/${myIdea.id}`;
     } else {
       const errorObj = await response.json();
       localStorage.setItem('toast', errorObj.message);

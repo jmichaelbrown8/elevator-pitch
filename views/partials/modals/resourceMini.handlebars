@@ -1,0 +1,100 @@
+
+<div class="modal fade fs-6"  id="resource-modal" tabindex="-1" role="dialog" aria-labelledby="addresource-modal" aria-hidden="true">
+
+  <div class="modal-dialog" style='height:80vh;width:70vw'>
+    <div class="modal-content">    
+         <div class="modal-header">
+                <h5 class="modal-title">Help collaborators visualize and explore your idea</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+      <div class="modal-body">
+
+
+  <div class='card'>
+    <div class='card-body'>
+{{!-- Upload images --}}
+      <form action='/api/space/{{space_id}}/idea/{{idea_id}}{{id}}/resource/image' enctype="multipart/form-data" method="post" id="image-upload">
+        <div class='form-group'>
+          <div class='card-title'>
+            <label for='addImages' class='fs-4 fw-bold mb-2'>Add images</label>
+          </div>
+
+          <label for='image'><input
+              class='form-control-file'
+              type='file'
+              name='image-file'
+              accept='image/*'
+              id='image'
+           
+            /></label>
+            </div>
+            <br>
+           <input
+            type='submit'
+            value="Upload image"
+            class='btn btn-primary'
+          ></input>
+    
+      </form>
+ <hr>
+{{!-- Upload docs --}}
+      <form action='/api/space/{{space_id}}/idea/{{idea_id}}{{id}}/resource/doc' enctype="multipart/form-data" method="post" id="doc-upload">
+        <div class='form-group'>
+          <div class='card-title'>
+            <label for='addDocs' class='fs-4 fw-bold mb-2'>Add Docs (markdown)</label>
+          </div>
+
+          <label for='doc'><input
+              class='form-control-file'
+              type='file'
+              name='doc-file'
+              accept='markdown/*'
+              id='doc'
+             
+            /></label>
+            </div>
+            <br>
+          <input
+            type='submit'
+            value="Upload doc"
+            class='btn btn-primary'
+          ></input>
+     
+      </form>
+
+  {{! Upload links }}
+<hr>
+      <form enctype='multipart/form-data' method="post"
+            action='/api/space/{{space_id}}/idea/{{idea_id}}{{id}}/resource/link'>
+        <div class='form-group'>
+          <div class='card-title'>
+            <label for='link' class='fs-4 fw-bold mb-2'>Add links</label>
+          </div>
+
+          <label for='link'><input
+              class='form-control'
+              type='link'
+              name='link'
+              accept='url'
+              id='link'
+            /></label>
+        </div>
+    <br>
+          <input
+            type='submit'
+            value="Upload link"
+            class='btn btn-primary '
+          ></input>
+        </div>
+      </form>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+    </div>
+
+</div>
+</div>
+</div>
+</div>
+
+

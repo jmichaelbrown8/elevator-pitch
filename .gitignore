@@ -105,3 +105,6 @@ dist
 
 # sequelize-cli config
 /config/config.json
+
+# this is where multer is uploading stuff
+/uploads/*
