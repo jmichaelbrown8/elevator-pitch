@@ -19,7 +19,8 @@ const signupFormHandler = async (event) => {
 
     if (response.ok) {
       localStorage.setItem('toast', `Welcome ${name}! Let's create.`);
-      document.location.replace('/');
+      const { redirect } = await response.json();
+      document.location.replace(redirect || '/');
     } else {
       localStorage.setItem('toast', 'Failed to sign up.');
       toastIt(true);
