@@ -1,0 +1,53 @@
+<div
+  class='modal fade fs-6'
+  id='enter-space-modal'
+  tabindex='-1'
+  role='dialog'
+  aria-labelledby='enter-space-modal'
+  aria-hidden='true'
+>
+
+  <div class='modal-dialog'>
+    <div class='modal-content'>
+      <div class='modal-header'>
+        <h5 class='modal-title'>Enter your space id</h5>
+        <button
+          type='button'
+          class='btn-close'
+          data-bs-dismiss='modal'
+          aria-label='Close'
+        ></button>
+      </div>
+      <div class='modal-body'>
+
+        {{! enter space-id }}
+
+        <form class='row g-3 align-items-end form-enter-space'>
+          <div class='col-auto'>
+            <input
+              type='text'
+              class='form-control'
+              id='myspace-id'
+              placeholder='Space ID'
+            />
+          </div>
+          <div class='col-auto'>
+            <button
+              type='submit'
+              class='btn btn-primary shadow-sm'
+            >Enter</button>
+          </div>
+        </form>
+
+        {{! Footer }}
+        <div class='modal-footer'>
+          <button
+            type='button'
+            class='btn btn-secondary'
+            data-bs-dismiss='modal'
+          >Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,22 +1,33 @@
+
 {{#if (is_match status 'approved')}}
-<div class='card card-body my-3 text-primary'>
+<div class='col-md-6 col-xl-4 col-xxl-3 text-primary'>
 {{else}}
-<div class='card card-body my-3 border-danger text-danger'>
+<div class='col-md-6 col-xl-4 col-xxl-3 border-danger text-danger'>
 {{/if}}
-  <div class='row g-3 align-items-center'>
-    <div class='col'>
-      <h3 class='fs-4 m-0'>
-        {{#if (is_match status 'approved')}}
-        <a class='text-decoration-none' href='/space/{{space.id}}'>
-        {{/if}}
-          {{space.name}}
-        {{#if (is_match status 'approved')}}
-        </a>
-        {{else}}
-        (status: {{status}})
-        {{/if}}
-        </h3>
-      
-    </div>
+<div class="card card-body card-tile bg-light shadow-sm text-wrap">
+                {{#if (is_match status 'approved')}}
+                <a href='/space/{{space.id}}' 
+                {{else}}
+                <a 
+                {{/if}}
+                class="overlay-hover inner-down-hover bg-primary text-white shadow " style="--bs-bg-opacity: 0.85">
+
+                    <span class="d-block px-4 py-3 fs-4 fw-bold text-center">
+                        View Space<br/>
+                        <span class="fw-normal fs-5">{{space.name}}</span>
+                    </span>
+                </a>
+                <p class="m-0 overlay-hover--hide inner-down-hover--also fs-4 d-block text-center">
+                  {{#if (is_match status 'approved')}}
+                    <span class="badge text-wrap fs-5 bg-primary bi-person-workspace">  {{space.name}}</span>
+                    {{else}}
+                     <span class="badge text-wrap fs-5 bg-danger bi-person-workspace">  {{space.name}}</span>
+                    <span class="d-block mt-2">
+                        Status: {{status}}
+                    </span>
+                    {{/if}}
+                </p>
   </div>
 </div>
+
+

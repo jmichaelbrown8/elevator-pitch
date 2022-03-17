@@ -24,14 +24,16 @@
 <h4 class="bi bi-plus-circle" style="color:#009ecc; cursor:pointer"><a class="text-decoration-none" style="color:#009ecc" href="/space/{{space.id}}/ideas"> Add idea</a></h4>
 {{/if}}
 
-<div id="ideas" class="mt-4">
+<div id="ideas"  class="mt-3 row gy-4">
 {{#each space.ideas}}
   {{> ideaMini  logged_in_user_id=../user_id approvedInterest=../approvedInterest}}
 {{/each}}
+
 </div>
 
 {{#if is_owner}}
-<div id="memberList" data-space-id={{space-id}}>
+<div id="memberList" class="mt-2" data-space-id={{space-id}}>
+
   <div class="card" style="width: 18rem;">
     <div class="card-body">
       <h5 class="card-title">Members</h5>

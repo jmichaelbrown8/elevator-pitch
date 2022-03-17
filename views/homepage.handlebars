@@ -1,39 +1,58 @@
 {{! TODO: List out spaces }}
+    <div class=" bg-primary text-white my-4">
+        <h3 class='card-header justify-content-start'>Space dashboard</h3>
+    </div>
+
+ <div class="row gy-4">
 {{#each memberships as |membership|}}
   {{>spaceMini}}
 {{/each}}
-<div class='card card-body'>
-  <form class='row g-3 align-items-end form-enter-space'>
-    <div class='col-auto'>
-      <label for='myspace-name'>Enter a Space</label>
-      <input
-        type='text'
-        class='form-control'
-        id='myspace-id'
-        placeholder='Space ID'
-      />
-    </div>
-    <div class='col-auto'>
-      <button type='submit' class='btn btn-primary shadow-sm'>Enter</button>
-    </div>
-  </form>
-</div>
 
-<div class='card card-body mt-3'>
-  <form class='row g-3 align-items-end form-create-space'>
-    <div class='col-auto'>
-      <label for='myspace-name'>Create a Space</label>
-      <input
-        type='text'
-        class='form-control'
-        id='myspace-name'
-        placeholder='Space Name'
-      />
-    </div>
-    <div class='col-auto'>
-      <button type='submit' class='btn btn-primary shadow-sm'>Create</button>
-    </div>
-  </form>
-</div>
+        <div class="col-md-6 col-xl-4 col-xxl-3">
+            <div class="card card-body card-tile bg-light shadow-sm" data-bs-toggle="modal" data-bs-target="#enter-space-modal" >
+          
+                <a class="overlay-hover inner-down-hover bg-success text-white shadow"  style="--bs-bg-opacity: 0.85">
+                    <span class="d-block px-4 py-3 fs-4 fw-bold text-center" >
+                        <span>
+                        Access a <br/></span>
+                        <span class="fw-normal fs-5">Space</span>
+                    </span>
+                </a>
+                {{!-- </a> --}}
+                <p class="m-0 overlay-hover--hide inner-down-hover--also fs-4 d-block text-center" data-bs-toggle="modal" data-bs-target="#enter-space-modal" > 
+                    <span class="badge text-wrap fs-5 bg-success bi-box-arrow-in-right">  Enter a </span>
+                    <span class="d-block mt-2">
+                        Space ID
+                    </span>
+                </p>
+            </div>
+        </div>
+
+{{!-- modal for entering space id--}}
+{{> modals/enterSpace}}
+
+  <div class="col-md-6 col-xl-4 col-xxl-3">
+            <div class="card card-body card-tile bg-light shadow-sm" data-bs-toggle="modal" data-bs-target="#create-space-modal" >
+          
+                <a class="overlay-hover inner-down-hover bg-black text-white shadow"  style="--bs-bg-opacity: 0.85">
+                    <span class="d-block px-4 py-3 fs-4 fw-bold text-center" >
+                        <span>
+                        Create a New<br/></span>
+                        <span class="fw-normal fs-5">Space</span>
+                    </span>
+                </a>
+                {{!-- </a> --}}
+                <p class="m-0 overlay-hover--hide inner-down-hover--also fs-4 d-block text-center" data-bs-toggle="modal" data-bs-target="#enter-space-modal" > 
+                    <span class="badge text-wrap fs-5 bg-black bi-plus-circle">  Add New</span>
+                    <span class="d-block mt-2">
+                        Space
+                    </span>
+                </p>
+            </div>
+        </div>
+      </div>
+
+{{> modals/createSpace}}
+
 
 <script src='/js/homepage.js'></script>
