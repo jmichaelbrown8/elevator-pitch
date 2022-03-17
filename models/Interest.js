@@ -18,9 +18,9 @@ Interest.findUserApprovalInSpace = async function (user_id, space_id) {
         where: {
           id: space_id,
         },
-        require: true
+        require: true,
       },
-      require: true
+      require: true,
     },
   });
 
@@ -36,7 +36,7 @@ Interest.init(
         isIn: [['removed', 'dismissed', 'pending', 'approved']],
       },
       defaultValue: 'pending',
-    }
+    },
   },
   {
     sequelize,
