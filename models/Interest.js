@@ -24,7 +24,7 @@ Interest.findUserApprovalInSpace = async function (user_id, space_id) {
     },
   });
 
-  return result.idea ? result : undefined;
+  return result?.idea ? result : undefined;
 };
 
 Interest.init(

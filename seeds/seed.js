@@ -14,18 +14,18 @@ const seedDatabase = async () => {
     force: true,
   });
 
-  await User.bulkCreate(userData, {
-    individualHooks: true,
-    returning: true,
-  });
+  // await User.bulkCreate(userData, {
+  //   individualHooks: true,
+  //   returning: true,
+  // });
 
-  await Space.bulkCreate(spaceData);
-  await SpaceMember.bulkCreate(spaceMemberData);
+  // await Space.bulkCreate(spaceData);
+  // await SpaceMember.bulkCreate(spaceMemberData);
 
-  await Idea.bulkCreate(ideaData);
-  await Resource.bulkCreate(resourceData);
-  await Comment.bulkCreate(commentData);
-  await Interest.bulkCreate(interestData);
+  // await Idea.bulkCreate(ideaData);
+  // await Resource.bulkCreate(resourceData);
+  // await Comment.bulkCreate(commentData);
+  // await Interest.bulkCreate(interestData);
 
   process.exit(0);
 };
