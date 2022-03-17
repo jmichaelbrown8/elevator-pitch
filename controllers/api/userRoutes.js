@@ -1,15 +1,28 @@
 const router = require('express').Router();
 const { User } = require('../../models');
 
+const popSessionRedirectUrl = (req) => {
+  const redirect = req.session.authRedirectedFrom;
+
+  if (redirect) {
+    delete req.session.authRedirectedFrom;
+  }
+
+  return redirect;
+};
+
 router.post('/', async (req, res) => {
   try {
     const userData = await User.create(req.body);
+
+    const redirect = popSessionRedirectUrl(req);
 
     req.session.user_id = userData.id;
     req.session.loggedIn = true;
 
     req.session.save(() => {
       res.status(200).json({
+        redirect,
         message: `User ${userData.name} created`,
       });
     });
@@ -43,6 +56,8 @@ router.post('/login', async (req, res) => {
       };
     }
 
+    const redirect = popSessionRedirectUrl(req);
+
     req.session.user_id = userData.id;
     req.session.loggedIn = true;
 
@@ -50,6 +65,7 @@ router.post('/login', async (req, res) => {
       res.json({
         // user: userData,
         message: `You are now logged in!`,
+        redirect,
       });
     });
   } catch (err) {

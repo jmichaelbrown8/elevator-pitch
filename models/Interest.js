@@ -6,7 +6,7 @@ class Interest extends Model {}
 Interest.findUserApprovalInSpace = async function (user_id, space_id) {
   const { interest, idea, space } = sequelize.models;
 
-  return await interest.findOne({
+  const result = await interest.findOne({
     where: {
       user_id,
       status: 'approved',
@@ -18,9 +18,13 @@ Interest.findUserApprovalInSpace = async function (user_id, space_id) {
         where: {
           id: space_id,
         },
+        require: true
       },
+      require: true
     },
   });
+
+  return result.idea ? result : undefined;
 };
 
 Interest.init(

@@ -30,10 +30,10 @@
 {{/each}}
 
 </div>
-<script src="/js/interest.js"></script>
-<script src ="/js/ideaUpvote.js"></script>
-{{name}}
+
+{{#if is_owner}}
 <div id="memberList" class="mt-2" data-space-id={{space-id}}>
+
   <div class="card" style="width: 18rem;">
     <div class="card-body">
       <h5 class="card-title">Members</h5>
@@ -44,4 +44,7 @@
   {{/each}}
 </div>
 <script src="/js/memberList.js"></script>
+{{/if}}
+
+<script src ="/js/ideaUpvote.js"></script>
 

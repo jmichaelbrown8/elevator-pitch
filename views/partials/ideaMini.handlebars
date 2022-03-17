@@ -23,14 +23,15 @@
       {{#if (is_match id approvedInterest.idea_id)}}
         <span class='d-block mt-2'>Collaborator</span>
       {{/if}}
-      <br />
+    </p>
+    <div class="position-absolute bottom-0 start-50 translate-middle-x" style="z-index:100">
       <button
-        class='col mt-2 btn btn-success disabled like vote-{{is_liked
+        class='mb-3 btn btn-success like vote-{{is_liked
             upvoter
             logged_in_user_id
           }}'
         value='{{id}}'
       >{{upvoter.length}} Like</button>
-    </p>
+    </div>
   </div>
 </div>

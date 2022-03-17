@@ -95,10 +95,12 @@ router.get(
         await Interest.findUserApprovalInSpace(user_id, space_id)
       )?.toJSON();
       const space = spaceData.toJSON();
+      const is_owner = req.session.user_id === space.user_id;
       // console.log('String', space);
       res.render('space', {
         space,
         approvedInterest,
+        is_owner
       });
     } catch (err) {
       res.status(400).json(err);
