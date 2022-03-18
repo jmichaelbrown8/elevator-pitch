@@ -26,13 +26,13 @@ Idea.getStatus = async function( idea_id ) {
         'approved_count',
       ]
     ],
-  } )).toJSON();
+  } ))?.toJSON();
 
-  return {
+  return result ? {
     owner: result.user_id,
     spots_left: result.members ? result.members - result.approved_count : 0,
     is_accepting: result.members && result.members > result.approved_count
-  };
+  } : false;
 
 };
 
