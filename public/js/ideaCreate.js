@@ -1,14 +1,15 @@
 const createIdea = async (event) => {
   event.preventDefault();
 
-  const space_id = document.querySelector('.space-id').getAttribute('data-id');
-  const name = document.querySelector('#idea-name').value;
-  const pitch = document.querySelector('#idea-content').value.trim();
-  const members = parseInt(document.querySelector('#member-number').value);
-  const skills = document.querySelector('#skills').value.trim();
+
+  const { space_id } = getContext();
+  const name = $('#idea-name').val();
+  const pitch = $('#idea-content').val().trim();
+  const members = parseInt($('#member-number').val());
+  const skills = $('#skills').val().trim();
 
   if (space_id && name && pitch) {
-    const response = await fetch(`/api/idea/${space_id}`, {
+    const response = await fetch(`/api/space/${space_id}/idea`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -18,7 +19,6 @@ const createIdea = async (event) => {
         pitch,
         members,
         skills,
-        space_id,
       }),
     });
 

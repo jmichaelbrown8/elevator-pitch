@@ -16,11 +16,14 @@ router.post(
   withNoIdeaApprovals,
   withAuthJson,
   async (req, res) => {
-    const { user_id } = req.session;
     try {
+      const { user_id } = req.session;
+      const { space_id } = req.params;
+
       const idea = await Idea.create({
-        user_id,
         ...req.body,
+        user_id,
+        space_id,
       });
       const myIdea = idea.toJSON();
       res.status(200).json(myIdea);
