@@ -4,33 +4,14 @@ const {
   withApprovedMembership,
   withAuthJson,
   withNoIdeaApprovals,
+  withIdeaOwnership,
 } = require('../../utils/auth');
 
-// Input:   id (idea id)
-// Output:  JSON Object containing idea data
-router.get('/:id', async (req, res) => {
-  try {
-    const ideaData = await Idea.findOne({
-      where: {
-        id: req.params.id,
-      },
-    });
+const basePath = '/:space_id/idea';
 
-    res.status(200).json({ ideaData });
-  } catch (err) {
-    let message = 'Something went wrong.';
-    console.log(err);
-    res.status(400).json({
-      message,
-      err,
-    });
-  }
-});
-
-// Input:   name (creator), user_id, space_id (UUID optional), pitch (text)
 // Creates a new idea
 router.post(
-  '/:space_id',
+  basePath,
   withApprovedMembership,
   withNoIdeaApprovals,
   withAuthJson,
@@ -43,6 +24,35 @@ router.post(
       });
       const myIdea = idea.toJSON();
       res.status(200).json(myIdea);
+    } catch (err) {
+      let message = 'Something went wrong.';
+      console.log(err);
+      res.status(400).json({
+        message,
+        err,
+      });
+    }
+  }
+);
+
+// Creates a new idea
+router.delete(
+  `${basePath}/:idea_id`,
+  withApprovedMembership,
+  withIdeaOwnership,
+  withAuthJson,
+  async (req, res) => {
+    const { user_id } = req.session;
+    const { idea_id } = req.params;
+    try {
+      await Idea.destroy({
+        where: {
+          id: idea_id,
+          user_id
+        },
+        individualHooks: true
+      });
+      res.status(200).json({ message: 'Idea deleted' });
     } catch (err) {
       let message = 'Something went wrong.';
       console.log(err);
