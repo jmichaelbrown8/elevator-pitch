@@ -34,7 +34,7 @@ router.post(
   }
 );
 
-// insert markdown post and link post routes here
+// For posting non-images
 router.post(
   `${basePath}/file`,
   withApprovedMembership,
@@ -57,6 +57,7 @@ router.post(
   }
 );
 
+// Update a resource (non-image)
 router.put(
   `${basePath}/:resource_id`,
   withApprovedMembership,
@@ -91,6 +92,7 @@ router.put(
   }
 );
 
+// delete any resource
 router.delete(
   `${basePath}/:resource_id`,
   withApprovedMembership,
@@ -98,14 +100,15 @@ router.delete(
   async (req, res) => {
     try {
       const { resource_id } = req.params;
-      const resource = await Resource.findByPk(resource_id);
-
+      const resource = await Resource.findOne({
+        where: {
+          id: resource_id,
+        },
+      });
       if (!resource) {
         return res.status(404).json({ message: 'Resource not found.' });
       }
-
       await resource.destroy();
-
       res.status(200).json(resource);
     } catch (err) {
       res.status(400).json(err);

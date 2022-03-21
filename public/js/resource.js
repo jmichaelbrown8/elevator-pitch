@@ -17,7 +17,6 @@ const uploadItem = async (body) => {
     document.location.href = `/space/${space_id}/idea/${idea_id}`;
   } else {
     const errorObj = await response.json();
-    console.log(errorObj, 'This is the error obj in client side js');
     localStorage.setItem('toast', errorObj.message);
     toastIt(true);
   }
@@ -41,6 +40,30 @@ const linkUpload = () => {
   uploadItem(body);
 };
 
+const deleteResource = async (event) => {
+  event.preventDefault();
+  const { space_id, idea_id } = getContext();
+  const resource_id = $('.delete-resource').attr('data-id');
+
+  // markdown, image, or link data sent through.
+  const response = await fetch(
+    `/api/space/${space_id}/idea/${idea_id}/resource/${resource_id}`,
+    {
+      method: 'DELETE',
+      headers: { 'Content-Type': 'application/json' },
+    }
+  );
+
+  if (response.ok) {
+    localStorage.setItem('toast', `Resource removed`);
+    document.location.href = `/space/${space_id}/idea/${idea_id}`;
+  } else {
+    localStorage.setItem('toast', `Unable to delete this :().`);
+    toastIt(true);
+  }
+};
+
 // html tags for each form (add, update, or delete)
 $('#markdown-upload').on('click', markdownUpload);
 $('#link-upload').on('click', linkUpload);
+$('.delete-resource').on('click', deleteResource);

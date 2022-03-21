@@ -125,6 +125,24 @@
                     <span class="d-block mt-2">
                         {{name}}
                     </span>
+
+                    {{#if ../is_owner}}
+                    <div class="position-absolute bottom-0 start-50 translate-middle-x" style="z-index:100">
+                         <button
+                            class='mb-3 btn btn-danger delete-resource'
+                            value='{{id}}'
+                            data-id='{{id}}'
+                        >Delete</button>
+                   
+                        {{#unless (is_match type 'image')}}
+                        <button
+                            class='mb-3 btn btn-success edit-resource'
+                            value='{{id}}'
+                        >Edit</button>
+                        {{/unless}}
+                        </div>
+
+                    {{/if}}
                 </p>
             </div>
         </div>
@@ -169,6 +187,7 @@
 
 <script src="/js/addComment.js"></script>
 <script src = "/js/ideaUpvote.js"></script>
+<script src = "/js/resource.js"></script>
 
 {{!-- highlight.js for any code block formatting client-side --}}
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/styles/default.min.css">
