@@ -58,12 +58,12 @@
                 </div>
                       <label for='markdown-name'>Name</label>
                 <div class="input-group mb-3">
-                  <input class='form-control markdown-name' default='{{../name}}'type='markdown' name='markdown' 
+                  <input class='form-control markdown-name' value='{{../name}}'type='markdown' name='markdown' 
                   />
                 </div>
 
                 <textarea maxlength='5000' class='form-control markdown-content' style="height: 200px"
-                  name='markdown-content' default='{{../content}}'></textarea>
+                  name='markdown-content' value='{{../content}}'></textarea>
               </div>
               <br>
               <input type='button' data-id="{{this.id}}" value="Update doc" class='btn btn-primary markdown-update'></input>
@@ -84,13 +84,13 @@
                                  
                   <label for='link-name'>Text</label>
                 <div class="input-group mb-3">
-                  <input class='form-control link-name' default='{{../name}}'type='link-name' name='link-name' 
+                  <input class='form-control link-name'value='{{../name}}'type='link-name' name='link-name' 
                   />
                 </div>
 
                 <label for='link'>Link</label>
                   <div class="input-group mb-3">
-                <input class='form-control link-content' default='{{../content}}' type='link' name='link' 
+                <input class='form-control link-content' value='{{../content}}' type='link' name='link' 
                     />
                   </div>
 
