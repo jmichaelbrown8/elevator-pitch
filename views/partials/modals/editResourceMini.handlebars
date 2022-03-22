@@ -1,0 +1,113 @@
+<div class="modal fade fs-6" id="edit-resource-modal" tabindex="-1" role="dialog" aria-labelledby="edit-resource-modal"
+  aria-hidden="true">
+
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Help collaborators visualize and explore your idea</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+
+        {{!-- Nav bar with tabs
+        <ul class="nav nav-pills nav-fill mb-3 flex-column flex-sm-row" id="pills-tab" role="tablist">
+        
+          <li class="nav-item" role="presentation">
+            <button class="nav-link" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-profile"
+              type="button" role="tab" aria-controls="pills-profile" aria-selected="false">Docs</button>
+          </li>
+         
+          <li class="nav-item" role="presentation">
+            <button class="nav-link" id="pills-contact-tab" data-bs-toggle="pill" data-bs-target="#pills-contact"
+              type="button" role="tab" aria-controls="pills-contact" aria-selected="false">Add Links</button>
+          </li>
+          --}}
+
+           {{!-- <li class="nav-item" role="presentation">
+            <button class="nav-link active" id="pills-home-tab" data-bs-toggle="pill" data-bs-target="#pills-home"
+              type="button" role="tab" aria-controls="pills-home" aria-selected="true">Add Images</button>
+          </li> --}}
+        {{!-- </ul> --}}
+
+        {{!-- <div class="tab-content" id="pills-tabContent"> --}}
+          {{!-- Upload images --}}
+          {{!-- <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
+            <hr>
+            <form action='/api/space/{{space_id}}/idea/{{idea_id}}{{id}}/resource/image' enctype="multipart/form-data"
+              method="post" id="image-upload">
+              <div class='form-group'>
+                <div class='card-title'>
+                  <label for='addImages' class='fs-4 fw-bold mb-3'>Add images</label>
+                </div>
+                <label for='image'><input class='form-control-file' type='file' name='image-file' accept='image/*'
+                    id='image' /></label>
+              </div>
+              <br>
+              <input type='submit' value="Upload image" class='btn btn-primary'></input>
+            </form>
+          </div> --}}
+
+          {{!-- Upload docs --}}
+          {{!-- <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
+            <hr> --}}
+             {{#if (is_match type 'markdown')}}
+            <form>
+              <div class='form-group'>
+                <div class='card-title'>
+                  <label for='addDocs' class='fs-4 fw-bold mb-2'>Edit Docs (markdown)</label>
+                </div>
+                      <label for='markdown-name'>Name</label>
+                <div class="input-group mb-3">
+                  <input class='form-control markdown-name' default='{{../name}}'type='markdown' name='markdown' 
+                  />
+                </div>
+
+                <textarea maxlength='5000' class='form-control markdown-content' style="height: 200px"
+                  name='markdown-content' default='{{../content}}'></textarea>
+              </div>
+              <br>
+              <input type='button' data-id="{{this.id}}" value="Update doc" class='btn btn-primary markdown-update'></input>
+            </form>
+          </div>
+         {{/if}}
+
+          {{! Upload links }}
+          {{!-- <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab">
+            <hr> --}}
+
+             {{#if (is_match this.type 'link')}}
+            <form>
+              <div class='form-group'>
+                <div class='card-title'>
+                  <label for='link' class='fs-4 fw-bold mb-2'>Edit links</label>
+                </div>
+                                 
+                  <label for='link-name'>Text</label>
+                <div class="input-group mb-3">
+                  <input class='form-control link-name' default='{{../name}}'type='link-name' name='link-name' 
+                  />
+                </div>
+
+                <label for='link'>Link</label>
+                  <div class="input-group mb-3">
+                <input class='form-control link-content' default='{{../content}}' type='link' name='link' 
+                    />
+                  </div>
+
+              </div>
+              <br>
+              <input type='submit' data-id="{{../id}}" value="Edit link" class='btn btn-primary link-update '></input>
+          </div>
+          </form>
+           {{/if}}
+        </div>
+      </div>
+
+      {{!-- Footer --}}
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+

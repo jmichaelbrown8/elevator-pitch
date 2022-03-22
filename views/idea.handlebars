@@ -136,22 +136,23 @@
                    
                         {{#unless (is_match type 'image')}}
                         <button
-                            class='mb-3 btn btn-success edit-resource'
+                            class='mb-3 btn btn-success'
                             value='{{id}}'
+                            type="{{type}}"
+                            data-bs-toggle="modal" data-bs-target="#edit-resource-modal"
                         >Edit</button>
                         {{/unless}}
                         </div>
-
                     {{/if}}
                 </p>
             </div>
         </div>
         {{/each}}
     </div>
-    
-    
 
+{{> modals/editResourceMini}}
 
+    
 
 <div class="mt-4 bg-primary text-white"> 
     <h3 class="card-header justify-content-start">Comments</h3>
