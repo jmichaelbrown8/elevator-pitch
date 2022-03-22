@@ -4,18 +4,16 @@
 {{! Current resource information }}
 
 <div class=" bg-primary text-white my-4">
-  <h3 class='card-header justify-content-start'>Resource for {{resource.idea.name}}</h3>
+  <h3 class='card-header justify-content-start'>{{resource.name}}
+  </h3>
 </div>
 
 
 <div class="card">
   <div class="card-body">
-    <span class="fs-6 fw-normal">
-      name:</span>
-    <span class="fw-bold fs-5">{{resource.name}}</span>
-    <span class="fs-6 fw-normal"><br>
-      type:</span>
-    <span class="fw-bold fs-5">{{resource.type}}</span><br>
+    <span class="fs-5 fw-bold">
+      Here's your {{resource.type}}!</span>
+  <br>
 
     {{#if (is_match resource.type 'image')}}
     <div class="fs-5">{{{resource.content}}}</div>
