@@ -9,7 +9,7 @@
       </div>
       <div class="modal-body">
 
-             {{#if (is_match type 'markdown')}}
+             {{#if (is_match resource.type 'markdown')}}
             <form>
               <div class='form-group'>
                 <div class='card-title'>
@@ -17,20 +17,20 @@
                 </div>
                       <label for='markdown-name'>Name</label>
                 <div class="input-group mb-3">
-                  <input class='form-control markdown-name' value='{{name}}'type='markdown' name='markdown' 
+                  <input class='form-control markdown-name' value='{{resource.name}}'type='markdown' name='markdown' 
                   />
                 </div>
 
                 <textarea maxlength='5000' class='form-control markdown-content' style="height: 200px"
-                  name='markdown-content'>{{content}}</textarea>
+                  name='markdown-content'>{{resource.content}}</textarea>
               </div>
               <br>
-              <input type='button' value="Update doc" class='btn btn-primary markdown-update' data-id="{{id}}" ></input>
+              <input type='button' value="Update doc" class='btn btn-primary markdown-update' data-id="{{resource.id}}" ></input>
             </form>
           </div>
          {{/if}}
 
-             {{#if (is_match type 'link')}}
+             {{#if (is_match resource.type 'link')}}
             <form>
               <div class='form-group'>
                 <div class='card-title'>
@@ -39,19 +39,19 @@
                                  
                   <label for='link-name'>Text</label>
                 <div class="input-group mb-3">
-                  <input class='form-control link-name'value='{{name}}'type='link-name' name='link-name' 
+                  <input class='form-control link-name'value='{{resource.name}}'type='link-name' name='link-name' 
                   />
                 </div>
 
                 <label for='link'>Link</label>
                   <div class="input-group mb-3">
-                <input class='form-control link-content' type='link' name='link' 
-                    />{{content}}
+                <input class='form-control link-content' type='link' name='link' value="{{resource.content}}"
+                    />
                   </div>
 
               </div>
               <br>
-              <input type='submit' data-id="{{id}}" value="Edit link" class='btn btn-primary link-update '></input>
+              <input type='submit' data-id="{{resource.id}}" value="Edit link" class='btn btn-primary link-update '></input>
         </div>
           </form>
            {{/if}}

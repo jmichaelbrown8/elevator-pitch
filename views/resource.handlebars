@@ -1,57 +1,72 @@
-<button
-  type='submit'
-  onclick="window.location.href='/space/{{space_id}}/idea/{{idea_id}}'"
-  class='btn btn-primary mb-3'
-> Back to idea</button>
+<button type='submit' onclick="window.location.href='/space/{{space_id}}/idea/{{idea_id}}'"
+  class='btn btn-primary mb-3'> Back to idea</button>
 
 {{! Current resource information }}
 
-  <div class=" bg-primary text-white my-4">
-        <h3 class='card-header justify-content-start'>Resource for {{resource.idea.name}}</h3>
-    </div>
+<div class=" bg-primary text-white my-4">
+  <h3 class='card-header justify-content-start'>Resource for {{resource.idea.name}}</h3>
+</div>
 
 
-  <div class="card">
-    <div class="card-body">
-      <span class="fs-6 fw-normal">
-          name:</span>
-                        <span class="fw-bold fs-5">{{resource.name}}</span>
-          <span class="fs-6 fw-normal"><br>
-          type:</span>
-                        <span class="fw-bold fs-5">{{resource.type}}</span><br>
-      {{#if (is_match resource.type 'markdown')}}
-          <div class="fs-5">{{{format_markdown resource.content}}}</div>
-        {{/if}}
+<div class="card">
+  <div class="card-body">
+    <span class="fs-6 fw-normal">
+      name:</span>
+    <span class="fw-bold fs-5">{{resource.name}}</span>
+    <span class="fs-6 fw-normal"><br>
+      type:</span>
+    <span class="fw-bold fs-5">{{resource.type}}</span><br>
 
-        {{#if (is_match resource.type 'image')}}
-         <div class="fs-5">{{{resource.content}}}</div>
-         {{/if}}
-
-         {{#if (is_match resource.type 'link')}}
-         <div class="fs-5"><a href ="{{resource.content}}" target="_blank">{{resource.name}}</a></div>
-         {{/if}}
-    </div>
-  </div>  
-      
-  <div class="card card-body bg-light shadow-sm mt-3" data-bs-toggle="modal" data-bs-target="#resource-modal" >
-                <a class="overlay-hover inner-down-hover bg-success text-white shadow"  style="--bs-bg-opacity: 0.85">
-                    <span class="d-block px-4 py-3 fs-4 fw-bold text-center" >
-                        <span>
-                        Create a New<br/></span>
-                        <span class="fw-normal fs-5">Resource</span>
-                    </span>
-                </a>
-                <p class="m-0 overlay-hover--hide inner-down-hover--also fs-4 d-block text-center" data-bs-toggle="modal" data-bs-target="#resource-modal" >
-                    <span class="badge fs-5 bg-success bi-plus-circle"> Add New</span>
-                    <span class="d-block mt-2">
-                        Resource
-                    </span>
-                </p>
-       
-  </div>
-    {{#if is_owner}}
-               <input type='submit' data-id="{{id}}" value="Edit link" class='btn btn-primary link-update '></input>
+    {{#if (is_match resource.type 'image')}}
+    <div class="fs-5">{{{resource.content}}}</div>
     {{/if}}
+
+
+    {{#if (is_match resource.type 'markdown')}}
+    <div class="fs-5">{{{format_markdown resource.content}}}</div>
+     {{!-- show edit and delete markdown button if idea owner --}}
+    {{#if is_owner}}
+    <br>
+    <button class='mb-3 btn btn-success text-decoration-none' type="{{resource.type}}" data-bs-toggle="modal"
+      data-bs-target="#edit-resource-modal">Edit</button>
+    <button class='mb-3 btn btn-danger delete-resource' value='{{resource.id}}' data-id='{{resource.id}}'>Delete</button>
+    {{/if}}
+    {{/if}}
+
+    {{#if (is_match resource.type 'link')}}
+    <div class="fs-5"><a href="{{resource.content}}" target="_blank">{{resource.name}}</a></div>
+    {{!-- show edit and delete link button if idea owner --}}
+    {{#if is_owner}}
+    <br>
+    <button class='mb-3 btn btn-success text-decoration-none' type="{{resource.type}}" data-bs-toggle="modal"
+      data-bs-target="#edit-resource-modal">Edit</button>
+    <button class='mb-3 btn btn-danger delete-resource' value='{{resource.id}}' data-id='{{resource.id}}'>Delete</button>
+    {{/if}}
+    {{/if}}
+  </div>
+</div>
+
+
+<div class="card card-body bg-light shadow-sm mt-3" data-bs-toggle="modal" data-bs-target="#resource-modal">
+  <a class="overlay-hover inner-down-hover bg-success text-white shadow" style="--bs-bg-opacity: 0.85">
+    <span class="d-block px-4 py-3 fs-4 fw-bold text-center">
+      <span>
+        Create a New<br /></span>
+      <span class="fw-normal fs-5">Resource</span>
+    </span>
+  </a>
+  <p class="m-0 overlay-hover--hide inner-down-hover--also fs-4 d-block text-center" data-bs-toggle="modal"
+    data-bs-target="#resource-modal">
+    <span class="badge fs-5 bg-success bi-plus-circle"> Add New</span>
+    <span class="d-block mt-2">
+      Resource
+    </span>
+  </p>
+</div>
+
+{{!-- modal for editing a resource --}}
+{{> modals/editResourceMini}}
+
 {{!-- modal for inserting a resource --}}
 {{> modals/resourceMini}}
 
@@ -59,5 +74,6 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/styles/default.min.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/highlight.min.js"></script>
 <script>
-    hljs.highlightAll();
+  hljs.highlightAll();
 </script>
+<script src="/js/resource.js"></script>
