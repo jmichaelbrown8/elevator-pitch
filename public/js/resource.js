@@ -69,7 +69,7 @@ const editLink = async (event) => {
   const resource_id = $('.link-update').attr('data-id');
   const body = {
     id: resource_id,
-    name: $('link-name').val(),
+    name: $('.link-name').val(),
     type: 'link',
     content: $('.link-content').val(),
   };
@@ -99,7 +99,7 @@ const editMarkdown = async (event) => {
 
   const body = {
     id: resource_id,
-    name: $('markdown-name').val(),
+    name: $('.markdown-name').val(),
     type: 'markdown',
     content: $('.markdown-content').val(),
   };
