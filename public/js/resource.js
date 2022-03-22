@@ -95,16 +95,17 @@ const editLink = async (event) => {
 const editMarkdown = async (event) => {
   event.preventDefault();
   const { space_id, idea_id } = getContext();
+  const resource_id = $('.markdown-update').attr('data-id');
 
   const body = {
-    id: $('.markdown-update').attr('data-id'),
+    id: resource_id,
     name: $('markdown-name').val(),
     type: 'markdown',
     content: $('.markdown-content').val(),
   };
   // markdown, image, or link data sent through.
   const response = await fetch(
-    `/api/space/${space_id}/idea/${idea_id}/resource/${id}`,
+    `/api/space/${space_id}/idea/${idea_id}/resource/${resource_id}`,
     {
       method: 'PUT',
       body: JSON.stringify(body),

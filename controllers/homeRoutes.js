@@ -100,7 +100,7 @@ router.get(
       res.render('space', {
         space,
         approvedInterest,
-        is_owner
+        is_owner,
       });
     } catch (err) {
       res.status(400).json(err);
@@ -266,13 +266,17 @@ router.get(
         ],
       });
 
-      const resource = resourceData.toJSON();
+      const resources = resourceData.toJSON();
+      const { idea, ...resource } = resources;
+      const is_owner = req.session.user_id === idea.user_id;
       // TODO Get specific resource and provide to view.
       const { space_id, idea_id } = req.params;
+
       res.render('resource', {
         resource,
         space_id,
         idea_id,
+        is_owner,
       });
     } catch (err) {
       res.status(400).json(err);

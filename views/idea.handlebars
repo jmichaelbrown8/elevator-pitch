@@ -81,6 +81,7 @@
 {{/unless}}
 {{/if}}
 
+<div>
     <div class=" bg-primary text-white my-4">
         <h3 class='card-header justify-content-start'>Resources</h3>
     </div>
@@ -106,12 +107,12 @@
             </div>
         </div>
 
-{{!-- modal for inserting a resource --}}
-{{> modals/resourceMini idea}}
+
 
 {{!-- current resources --}}
            
  {{#each resources}}
+    
         <div class="col-md-6 col-xl-4 col-xxl-3">
             <div class="card card-body card-tile bg-light shadow-sm">
                 <a href="/space/{{../idea.space_id}}/idea/{{../idea.id}}/resource/{{id}}" class="overlay-hover inner-down-hover bg-primary text-white shadow" style="--bs-bg-opacity: 0.85">
@@ -120,44 +121,44 @@
                         <span class="fw-normal fs-5">{{name}}</span>
                     </span>
                 </a>
+           
                 <p class="m-0 overlay-hover--hide inner-down-hover--also fs-4 d-block text-center">
                     <span class="badge fs-5 bg-primary">{{type}}</span>
                     <span class="d-block mt-2">
                         {{name}}
                     </span>
-
-                    {{#if ../is_owner}}
+                    {{#if ../is_owner}}     
                     <div class="position-absolute bottom-0 start-50 translate-middle-x" style="z-index:100">
+                     
                          <button
                             class='mb-3 btn btn-danger delete-resource'
                             value='{{id}}'
                             data-id='{{id}}'
                         >Delete</button>
-                   
+                           
                         {{#unless (is_match type 'image')}}
+                         <a href="/space/{{../idea.space_id}}/idea/{{../idea.id}}/resource/{{id}}">
                         <button
-                            class='mb-3 btn btn-success'
+                            class='mb-3 btn btn-success text-decoration-none'
+                        
                             value='{{id}}'
                             type="{{type}}"
-                            data-bs-toggle="modal" data-bs-target="#edit-resource-modal"
-                        >Edit</button>
+                        >Edit</button> </a>
                         {{/unless}}
                         </div>
-                    {{/if}}
+                    {{/if}}                    
                 </p>
             </div>
-        </div>
+        </div> 
         {{/each}}
     </div>
+</div>
 
-{{> modals/editResourceMini}}
-
-    
 
 <div class="mt-4 bg-primary text-white"> 
     <h3 class="card-header justify-content-start">Comments</h3>
 </div>
-{{!-- Awaiting comment styling and functionality from pr#50 --}}
+
 {{#each comments}}
 <br>
 {{> comment }}
@@ -178,9 +179,16 @@
         </form>
     </div>
 </div>
+{{!-- modal for inserting a resource --}}
+{{> modals/resourceMini idea}}
+{{!-- modal to edit a resource --}}
+<div>
+    {{> modals/editResourceMini}}
+</div>
 {{#if can_join}}
     {{> modals/interest myInterest=idea.myInterest}}
 {{/if}}
+
 
 {{#if is_member}}
     {{> modals/interestedUsers interests=idea.interests is_owner=is_owner owner_id=idea.user_id}}
