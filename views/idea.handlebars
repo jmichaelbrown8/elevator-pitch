@@ -107,43 +107,45 @@
             </div>
         </div>
 
-
-
 {{!-- current resources --}}
            
  {{#each resources}}
     
         <div class="col-md-6 col-xl-4 col-xxl-3">
             <div class="card card-body card-tile bg-light shadow-sm">
-                <a href="/space/{{../idea.space_id}}/idea/{{../idea.id}}/resource/{{id}}" class="overlay-hover inner-down-hover bg-primary text-white shadow" style="--bs-bg-opacity: 0.85">
+                {{#unless (is_match type 'link')}}
+                <a href="/space/{{../idea.space_id}}/idea/{{../idea.id}}/resource/{{id}}" 
+                    {{/unless}}
+                {{#if (is_match type 'link')}}
+                 <a href='{{content}}' target="_blank" 
+                {{/if}}
+                    class="overlay-hover inner-down-hover bg-primary text-white shadow" style="--bs-bg-opacity: 0.85">
                     <span class="d-block px-4 py-3 fs-4 fw-bold text-center">
                         View Resource<br/>
-                        <span class="fw-normal fs-5">{{name}}</span>
+                        <span class="fw-normal fs-5 resource-content">{{content}}</span>
                     </span>
                 </a>
-           
+
                 <p class="m-0 overlay-hover--hide inner-down-hover--also fs-4 d-block text-center">
-                    <span class="badge fs-5 bg-primary">{{type}}</span>
-                    <span class="d-block mt-2">
+                    <span class="badge fs-5 bg-primary resource-type">{{type}}</span>
+                    <span class="d-block mt-2 resource-name">
                         {{name}}
                     </span>
                     {{#if ../is_owner}}     
-                    <div class="position-absolute bottom-0 start-50 translate-middle-x" style="z-index:100">
-                     
+                    <div class="position-absolute bottom-0 start-50 translate-middle-x editing-buttons" data-id="{{id}}" style="z-index:100">
+            
                          <button
                             class='mb-3 btn btn-danger delete-resource'
-                            value='{{id}}'
                             data-id='{{id}}'
                         >Delete</button>
                            
                         {{#unless (is_match type 'image')}}
-                         <a href="/space/{{../idea.space_id}}/idea/{{../idea.id}}/resource/{{id}}">
                         <button
-                            class='mb-3 btn btn-success text-decoration-none'
-                        
-                            value='{{id}}'
-                            type="{{type}}"
-                        >Edit</button> </a>
+                            class='mb-3 btn btn-success text-decoration-none current-resource' 
+                            data-bs-target="#edit-{{type}}"
+                            data-bs-toggle='modal'
+                        >Edit</button> 
+                        {{!-- </a> --}}
                         {{/unless}}
                         </div>
                     {{/if}}                    
@@ -181,6 +183,10 @@
 </div>
 {{!-- modal for inserting a resource --}}
 {{> modals/resourceMini idea}}
+
+{{!-- modal for editing a resource --}}
+{{> modals/editLink}}
+{{> modals/editMarkdown}}
 
 {{#if can_join}}
     {{> modals/interest myInterest=idea.myInterest}}

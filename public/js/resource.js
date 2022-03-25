@@ -121,9 +121,52 @@ const editMarkdown = async (event) => {
     toastIt(true);
   }
 };
-// html tags for each form (add, update, or delete)
+
+const currentResource = async (event) => {
+  event.preventDefault();
+  event.target;
+
+  const { space_id, idea_id } = getContext();
+  const resource_id = $('.editing-buttons').attr('data-id');
+  // having problems with this. Every resource_id is coming back with the first, no matter what happens with the click event. How do I target just the one I want here.
+
+  console.log(space_id, idea_id, resource_id);
+  const response = await fetch(
+    `/api/space/${space_id}/idea/${idea_id}/resource/${resource_id}`,
+    {
+      method: 'GET',
+      headers: { 'Content-Type': 'application/json' },
+    }
+  );
+  if (response.ok) {
+    const resourceRes = await response.json();
+    console.log(resourceRes);
+    // link name and content is coming through fine.
+    $('.markdown-name').val(resourceRes.name);
+    $('.markdown-content').val(resourceRes.content);
+    $('.link-name').val(resourceRes.name);
+    $('.link-content').val(resourceRes.content);
+    $('.link-update').attr('data-id', resourceRes.id);
+  } else {
+    localStorage.setItem('toast', `Unable to update this :().`);
+    toastIt(true);
+  }
+};
+
+// // Select the container which holds our buttons that we want to add our event listener too.
+// const containerEl = document.getElementById('container');
+
+// const clickHandler = function (event) {
+//   const thisResource = event.target;
+//   currentResource(thisResource);
+// };
+
+// Add the click handler to the container that holds our buttons.
+// containerEl.addEventListener('click', clickHandler);
+// html click events for each form (add, update, or delete)
 $('#markdown-upload').on('click', markdownUpload);
 $('#link-upload').on('click', linkUpload);
 $('.delete-resource').on('click', deleteResource);
+$('.current-resource').on('click', currentResource);
 $('.link-update').on('click', editLink);
 $('.markdown-update').on('click', editMarkdown);

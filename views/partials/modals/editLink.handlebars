@@ -1,0 +1,46 @@
+<div class="modal fade fs-6" id="edit-link" tabindex="-1" role="dialog" aria-labelledby="edit-link"
+  aria-hidden="true">
+
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Help collaborators visualize and explore your idea</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+
+            <form>
+              <div class='form-group'>
+                <div class='card-title'>
+                  <label for='link' class='fs-4 fw-bold mb-2'>Edit links</label>
+                </div>
+                                 
+                  <label for='link-name'>Name</label>
+                <div class="input-group mb-3">
+                  <input class='form-control link-name' value='{{resource.name}}' type='link-name' name='link-name' 
+                  />
+                </div>
+
+                <label for='link'>Link</label>
+                  <div class="input-group mb-3">
+                <input class='form-control link-content' type='link' name='link'
+                    />
+                  </div>
+
+              </div>
+              <br>
+              <input type='submit' class='btn btn-primary link-update resource-id '>Update!</input>
+        </div>
+          </form>
+        
+      {{!-- Footer --}}
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+  </div>
+     
+
+  
+ </div>
+
+
