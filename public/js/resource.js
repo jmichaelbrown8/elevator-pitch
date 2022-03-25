@@ -124,7 +124,7 @@ const editMarkdown = async (event) => {
 
 const currentResource = async (event) => {
   event.preventDefault();
-  event.target;
+  event.currentTarget;
 
   const { space_id, idea_id } = getContext();
   const resource_id = $('.editing-buttons').attr('data-id');
@@ -153,16 +153,6 @@ const currentResource = async (event) => {
   }
 };
 
-// // Select the container which holds our buttons that we want to add our event listener too.
-// const containerEl = document.getElementById('container');
-
-// const clickHandler = function (event) {
-//   const thisResource = event.target;
-//   currentResource(thisResource);
-// };
-
-// Add the click handler to the container that holds our buttons.
-// containerEl.addEventListener('click', clickHandler);
 // html click events for each form (add, update, or delete)
 $('#markdown-upload').on('click', markdownUpload);
 $('#link-upload').on('click', linkUpload);
