@@ -25,7 +25,7 @@ const uploadItem = async (body) => {
 
 const markdownUpload = () => {
   const body = {
-    name: 'markdown' + '-' + Date.now(),
+    name: $('#markdown-name').val(),
     type: 'markdown',
     content: $('#markdown-content').val(),
   };
