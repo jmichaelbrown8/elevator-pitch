@@ -132,11 +132,11 @@
                         {{name}}
                     </span>
                     {{#if ../is_owner}}     
-                    <div class="position-absolute bottom-0 start-50 translate-middle-x editing-buttons" data-id="{{id}}" style="z-index:100">
+                    <div class="position-absolute bottom-0 start-50 translate-middle-x" style="z-index:100">
             
                          <button
                             class='mb-3 btn btn-danger delete-resource'
-                            data-id='{{id}}'
+                            onclick="(deleteResource(event,{{id}}))"
                         >Delete</button>
                            
                         {{#unless (is_match type 'image')}}
@@ -144,10 +144,11 @@
                             class='mb-3 btn btn-success text-decoration-none current-resource' 
                             data-bs-target="#edit-{{type}}"
                             data-bs-toggle='modal'
+                            onclick="(currentResource(event,{{id}}))"
                         >Edit</button> 
                         {{!-- </a> --}}
                         {{/unless}}
-                        </div>
+                    </div>
                     {{/if}}                    
                 </p>
             </div>

@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 const uploadItem = async (body) => {
   const { space_id, idea_id } = getContext();
 
@@ -24,7 +25,7 @@ const uploadItem = async (body) => {
 
 const markdownUpload = () => {
   const body = {
-    name: 'markdown' + '-' + Date.now(),
+    name: $('#markdown-name').val(),
     type: 'markdown',
     content: $('#markdown-content').val(),
   };
@@ -40,11 +41,15 @@ const linkUpload = () => {
   uploadItem(body);
 };
 
-const deleteResource = async (event) => {
+const deleteResource = async (event, id) => {
   event.preventDefault();
-  const { space_id, idea_id } = getContext();
-  const resource_id = $('.delete-resource').attr('data-id');
+  const resource_id = id;
+  let deleteConfirm = window.confirm('Are you sure you want to delete this?');
 
+  if (!deleteConfirm) {
+    return;
+  }
+  const { space_id, idea_id } = getContext();
   // markdown, image, or link data sent through.
   const response = await fetch(
     `/api/space/${space_id}/idea/${idea_id}/resource/${resource_id}`,
@@ -122,15 +127,12 @@ const editMarkdown = async (event) => {
   }
 };
 
-const currentResource = async (event) => {
+// eslint-disable-next-line no-unused-vars
+const currentResource = async (event, id) => {
   event.preventDefault();
-  event.currentTarget;
-
+  const resource_id = id;
   const { space_id, idea_id } = getContext();
-  const resource_id = $('.editing-buttons').attr('data-id');
-  // having problems with this. Every resource_id is coming back with the first, no matter what happens with the click event. How do I target just the one I want here.
 
-  console.log(space_id, idea_id, resource_id);
   const response = await fetch(
     `/api/space/${space_id}/idea/${idea_id}/resource/${resource_id}`,
     {
@@ -140,10 +142,11 @@ const currentResource = async (event) => {
   );
   if (response.ok) {
     const resourceRes = await response.json();
-    console.log(resourceRes);
+
     // link name and content is coming through fine.
     $('.markdown-name').val(resourceRes.name);
     $('.markdown-content').val(resourceRes.content);
+    $('.markdown-update').attr('data-id', resourceRes.id);
     $('.link-name').val(resourceRes.name);
     $('.link-content').val(resourceRes.content);
     $('.link-update').attr('data-id', resourceRes.id);
@@ -155,8 +158,6 @@ const currentResource = async (event) => {
 
 // html click events for each form (add, update, or delete)
 $('#markdown-upload').on('click', markdownUpload);
-$('#link-upload').on('click', linkUpload);
-$('.delete-resource').on('click', deleteResource);
-$('.current-resource').on('click', currentResource);
-$('.link-update').on('click', editLink);
 $('.markdown-update').on('click', editMarkdown);
+$('#link-upload').on('click', linkUpload);
+$('.link-update').on('click', editLink);

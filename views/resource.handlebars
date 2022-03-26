@@ -19,7 +19,7 @@
        {{!-- show delete markdown button if idea owner --}}
         {{#if is_owner}}
         <br>
-        <button class='mb-3 btn btn-danger delete-resource' value='{{resource.id}}' data-id='{{resource.id}}'>Delete</button>
+        <button class='mb-3 btn btn-danger delete-resource' value='{{resource.id}}' onclick='(deleteResource(event,{{resource.id}}))'>Delete</button>
         {{/if}}
     <div class="fs-5">{{{resource.content}}}</div>
     {{/if}}
@@ -31,7 +31,7 @@
     <br>
     <button class='mb-3 btn btn-success text-decoration-none' type="{{resource.type}}" data-bs-toggle="modal"
       data-bs-target="#edit-resource-modal">Edit</button>
-    <button class='mb-3 btn btn-danger delete-resource' value='{{resource.id}}' data-id='{{resource.id}}'>Delete</button>
+    <button class='mb-3 btn btn-danger delete-resource' value='{{resource.id}}' onclick='(deleteResource(event,{{resource.id}}))'>Delete</button>
     {{/if}}
     <div class="fs-5">{{{format_markdown resource.content}}}</div>
     {{/if}}
@@ -43,7 +43,7 @@
     <br>
     <button class='mb-3 btn btn-success text-decoration-none show-modal' type="{{resource.type}}" data-bs-toggle="modal"
       data-bs-target="#edit-resource-modal">Edit</button>
-    <button class='mb-3 btn btn-danger delete-resource' value='{{resource.id}}' data-id='{{resource.id}}'>Delete</button>
+    <button class='mb-3 btn btn-danger delete-resource' value='{{resource.id}}' onclick='(deleteResource(event,{{resource.id}}))'>Delete</button>
     {{/if}}
     {{/if}}
   </div>
