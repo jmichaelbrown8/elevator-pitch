@@ -85,6 +85,7 @@ router.put(
           where: {
             id: idea_id,
           },
+          individualHooks: true,
         }
       );
       res.status(200).json({ message: 'Idea abandoned' });
@@ -121,6 +122,7 @@ router.put(
           where: {
             id: idea_id,
           },
+          individualHooks: true,
         }
       );
       res.status(200).json({ message: 'Idea claimed' });
