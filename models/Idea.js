@@ -1,5 +1,10 @@
 const { Model, DataTypes, Sequelize } = require('sequelize');
 const sequelize = require('../config/connection');
+const fs = require('fs');
+const path = require('path');
+const { promisify } = require('util');
+
+const asyncRm = promisify(fs.rm);
 
 class Idea extends Model {}
 
@@ -21,13 +26,13 @@ Idea.getStatus = async function( idea_id ) {
         'approved_count',
       ]
     ],
-  } )).toJSON();
+  } ))?.toJSON();
 
-  return {
+  return result ? {
     owner: result.user_id,
     spots_left: result.members ? result.members - result.approved_count : 0,
     is_accepting: result.members && result.members > result.approved_count
-  };
+  } : false;
 
 };
 
@@ -94,6 +99,11 @@ Idea.init(
         await interest.bulkCreate(interestRequests);
         return ideas;
       },
+      afterDestroy: async (idea) => {
+        const myPath = path.join(__dirname, `../uploads/${idea.space_id}/${idea.id}/`);
+        await asyncRm( myPath, { recursive: true, force: true } );
+        return idea;
+      }
     },
     sequelize,
     timestamps: true,
