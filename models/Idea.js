@@ -121,7 +121,7 @@ Idea.init(
 
         // if the previous user_id was null, add the new owner to the interest table
         if (!previousOwnerId) {
-          await interest.create({
+          await interest.upsert({
             user_id: idea.user_id,
             idea_id: idea.id,
             status: 'approved',

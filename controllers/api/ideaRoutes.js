@@ -4,6 +4,7 @@ const {
   withApprovedMembership,
   withAuthJson,
   withNoIdeaApprovals,
+  withNoOtherIdeaApprovals,
   withIdeaOwnership,
 } = require('../../utils/auth');
 
@@ -102,7 +103,7 @@ router.put(
 router.put(
   `${basePath}/:idea_id/claim`,
   withApprovedMembership, // must be a space member
-  withNoIdeaApprovals, // must not be approved for another idea
+  withNoOtherIdeaApprovals, // must not be approved for another idea
   withAuthJson, // must be logged in
   async (req, res) => {
     const { user_id } = req.session;
