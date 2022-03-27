@@ -48,7 +48,15 @@
     
     <div class="card-body">
         <h5>Created by:</h5>
+        {{#if idea.creator}}
         <p>{{idea.creator.name}}</p>
+        {{else}}
+        <p>This idea is unclaimed.</p> 
+        <p>If you would like to make it a reality 
+            (and are not already approved for another idea)...</p> 
+        <button type="button" class="btn btn-success d-block mb-3" id="claim-idea">Claim it!</button>
+        <script src = "/js/claimIdea.js"></script>
+        {{/if}}
         <h5>Last updated:</h5>
         <p>{{format_date idea.updatedAt}}</p>
         <h5>Elevator Pitch:</h5>
