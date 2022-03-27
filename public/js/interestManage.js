@@ -47,4 +47,23 @@
       handleError('Unable to delete Idea.');
     }
   });
+  $('#abandon-idea').on('click', async () => {
+    try {
+      const { space_id, idea_id } = getContext();
+      const response = await fetch(
+        `/api/space/${space_id}/idea/${idea_id}/abandon`,
+        {
+          method: 'PUT',
+        }
+      );
+      if (response.ok) {
+        handleSuccess(response.message, `/space/${space_id}`);
+      } else {
+        const { message } = await response.json();
+        handleError(message || 'Unable to abandon Idea.');
+      }
+    } catch (err) {
+      handleError('Unable to abandon Idea.');
+    }
+  });
 })(jQuery);

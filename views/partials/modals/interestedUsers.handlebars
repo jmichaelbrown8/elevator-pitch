@@ -9,6 +9,7 @@
             <div class="mb-2">
               {{#if is_owner}}
                 <button class="btn btn-danger w-100" data-bs-toggle="modal" data-bs-target="#approve-idea-delete">Delete Idea</button>
+                <button class="btn btn-danger w-100 mt-1" data-bs-toggle="modal" data-bs-target="#approve-idea-abandon">Abandon Idea</button>
               {{/if}}
             </div>
             {{#each (filter_by_prop interests "status" "approved" "pending")}}
@@ -60,6 +61,24 @@
       </div>
       <div class="modal-footer d-flex flex-column flex-md-row align-items-stretch justify-content-between">
           <button type="button" class="btn btn-danger d-block order-md-1 mb-2 mb-md-0" id="delete-idea">Yes! Delete the Idea</button>
+          <button type="button" class="btn btn-secondary d-block" data-bs-toggle="modal" data-bs-target="#manage-interest-modal">Return to Members</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal" tabindex="-1" id="approve-idea-abandon" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+          <h5 class="modal-title">Are you sure?</h5>
+          <button type="button" class="btn-close" data-bs-toggle="modal" data-bs-target="#manage-interest-modal" aria-label="Return to "></button>
+      </div>
+      <div class="modal-body">
+          <p class="m-0">This action will abandon the idea, and make it available for another member of the space to claim as their own.</p>
+      </div>
+      <div class="modal-footer d-flex flex-column flex-md-row align-items-stretch justify-content-between">
+          <button type="button" class="btn btn-danger d-block order-md-1 mb-2 mb-md-0" id="abandon-idea">Yes! Abandon the Idea</button>
           <button type="button" class="btn btn-secondary d-block" data-bs-toggle="modal" data-bs-target="#manage-interest-modal">Return to Members</button>
       </div>
     </div>
