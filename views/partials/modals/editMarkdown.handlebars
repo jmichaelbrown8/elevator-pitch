@@ -1,0 +1,40 @@
+<div class="modal fade fs-6" id="edit-markdown" tabindex="-1" role="dialog" aria-labelledby="edit-markdown"
+  aria-hidden="true">
+
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Help collaborators visualize and explore your idea</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+
+            <form>
+              <div class='form-group'>
+                <div class='card-title'>
+                  <label for='addDocs' class='fs-4 fw-bold mb-2'>Edit Docs (markdown)</label>
+                </div>
+                      <label for='markdown-name'>Name</label>
+                <div class="input-group mb-3">
+                  <input class='form-control markdown-name'  type='markdown' name='markdown' 
+                  />
+                </div>
+
+                <textarea maxlength='5000' class='form-control markdown-content' style="height: 200px" 
+                  name='markdown-content'></textarea>
+              </div>
+              <br>
+              <input type='button' value="Update!" class='btn btn-primary markdown-update resource-id'></input>
+            </form>
+          </div>
+      
+
+        
+      {{!-- Footer --}}
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+  </div>
+ </div>
+</div>  
+

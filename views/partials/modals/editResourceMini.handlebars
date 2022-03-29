@@ -1,0 +1,68 @@
+<div class="modal fade fs-6" id="edit-resource-modal" tabindex="-1" role="dialog" aria-labelledby="edit-resource-modal"
+  aria-hidden="true">
+
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Help collaborators visualize and explore your idea</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+
+             {{#if (is_match resource.type 'markdown')}}
+            <form>
+              <div class='form-group'>
+                <div class='card-title'>
+                  <label for='addDocs' class='fs-4 fw-bold mb-2'>Edit Docs (markdown)</label>
+                </div>
+                      <label for='markdown-name'>Name</label>
+                <div class="input-group mb-3">
+                  <input class='form-control markdown-name' value='{{resource.name}}'type='markdown' name='markdown' 
+                  />
+                </div>
+
+                <textarea maxlength='5000' class='form-control markdown-content' style="height: 200px"
+                  name='markdown-content'>{{resource.content}}</textarea>
+              </div>
+              <br>
+              <input type='button' value="Update doc" class='btn btn-primary markdown-update' data-id="{{resource.id}}" ></input>
+            </form>
+          </div>
+         {{/if}}
+
+             {{#if (is_match resource.type 'link')}}
+            <form>
+              <div class='form-group'>
+                <div class='card-title'>
+                  <label for='link' class='fs-4 fw-bold mb-2'>Edit links</label>
+                </div>
+                                 
+                  <label for='link-name'>Name</label>
+                <div class="input-group mb-3">
+                  <input class='form-control link-name' value='{{resource.name}}' type='link-name' name='link-name' 
+                  />
+                </div>
+
+                <label for='link'>Link</label>
+                  <div class="input-group mb-3">
+                <input class='form-control link-content' type='link' name='link' value="{{resource.content}}"
+                    />
+                  </div>
+
+              </div>
+              <br>
+              <input type='submit' data-id="{{resource.id}}" value="Edit link" class='btn btn-primary link-update '></input>
+        </div>
+          </form>
+           {{/if}}
+      {{!-- Footer --}}
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+  </div>
+     
+
+  
+ </div>
+
+

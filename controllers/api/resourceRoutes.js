@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { Resource } = require('../../models');
+const { Resource, Idea } = require('../../models');
 const { withApprovedMembership, withAuth } = require('../../utils/auth');
 const upload = require('../../config/upload');
 // uploads go to the public/upload directory. Included in gitIgnore
@@ -34,7 +34,7 @@ router.post(
   }
 );
 
-// insert markdown post and link post routes here
+// For posting non-images
 router.post(
   `${basePath}/file`,
   withApprovedMembership,
@@ -57,6 +57,45 @@ router.post(
   }
 );
 
+// render existing markdown or link resource for a user to edit
+
+router.get(
+  '/:space_id/idea/:idea_id/resource/:id',
+  withApprovedMembership,
+  withAuth,
+  async (req, res) => {
+    // const { space_id, idea_id } = req.params;
+    try {
+      const resourceData = await Resource.findByPk(req.params.id, {
+        include: [
+          {
+            model: Idea,
+            where: { id: req.params.idea_id },
+          },
+        ],
+      });
+
+      const resource = resourceData.toJSON();
+      res.status(200).json(resource);
+      // const { idea, ...resource } = resources;
+      // const is_owner = req.session.user_id === idea.user_id;
+      // // TODO Get specific resource and provide to view.
+      // const { space_id, idea_id } = req.params;
+
+      // res.render('idea', {
+      //   resource,
+      //   space_id,
+      //   idea_id,
+      //   is_owner,
+      // });
+    } catch (err) {
+      res.status(400).json(err);
+      console.log(err);
+    }
+  }
+);
+
+// Update a resource (non-image)
 router.put(
   `${basePath}/:resource_id`,
   withApprovedMembership,
@@ -91,6 +130,7 @@ router.put(
   }
 );
 
+// delete any resource
 router.delete(
   `${basePath}/:resource_id`,
   withApprovedMembership,
@@ -98,14 +138,15 @@ router.delete(
   async (req, res) => {
     try {
       const { resource_id } = req.params;
-      const resource = await Resource.findByPk(resource_id);
-
+      const resource = await Resource.findOne({
+        where: {
+          id: resource_id,
+        },
+      });
       if (!resource) {
         return res.status(404).json({ message: 'Resource not found.' });
       }
-
       await resource.destroy();
-
       res.status(200).json(resource);
     } catch (err) {
       res.status(400).json(err);
