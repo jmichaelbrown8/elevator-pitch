@@ -1,0 +1,80 @@
+openapi: 3.0.0
+info:
+  title: Elevator Pitch API
+  description: API Description for the Elevator Pitch API endpoints
+  version: 1.0.0
+servers:
+  - url: http://localhost:3001
+    description: Local development server. Clone, install, and serve the code to test.
+  - url: https://elevator-pitch-space.herokuapp.com
+    description: Live deployed production server running on heroku, connected to JawsDB.
+paths:
+  /api/user/login:
+    post:
+      tags:
+        - User
+      description: POST to log in to the site
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  example: johndoe@gmail.com
+                password:
+                  type: string
+                  example: password
+      responses:
+        '200':
+          description: OK
+        '400':
+          description: Error
+  /api/space/{space_id}/idea/{idea_id}/abandon:
+    put:
+      tags:
+        - Ideas
+      description: PUT to abandon an owned idea
+      parameters:
+        - name: space_id
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: idea_id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+            minimum: 1
+      responses:
+        '200':
+          description: OK
+        '400':
+          description: Error
+  /api/space/{space_id}/idea/{idea_id}/claim:
+    put:
+      tags:
+        - Ideas
+      description: PUT to claim an abandoned idea
+      parameters:
+        - name: space_id
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: idea_id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+            minimum: 1
+      responses:
+        '200':
+          description: OK
+        '400':
+          description: Error

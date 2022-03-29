@@ -103,7 +103,33 @@ Idea.init(
         const myPath = path.join(__dirname, `../uploads/${idea.space_id}/${idea.id}/`);
         await asyncRm( myPath, { recursive: true, force: true } );
         return idea;
-      }
+      },
+      afterUpdate: async (idea) => {
+        const ownerId = idea.dataValues.user_id;
+        const previousOwnerId = idea._previousDataValues.user_id;
+        const { interest } = sequelize.models;
+
+        // if the user_id is null, remove the previous owner from the interest table
+        if (!ownerId) {
+          await interest.destroy({
+            where: {
+              user_id: previousOwnerId,
+              idea_id: idea.id,
+            }
+          });
+        }
+
+        // if the previous user_id was null, add the new owner to the interest table
+        if (!previousOwnerId) {
+          await interest.upsert({
+            user_id: idea.user_id,
+            idea_id: idea.id,
+            status: 'approved',
+          });
+        }
+
+        return idea;
+      },
     },
     sequelize,
     timestamps: true,

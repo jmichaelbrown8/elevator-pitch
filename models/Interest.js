@@ -1,4 +1,4 @@
-const { Model, DataTypes } = require('sequelize');
+const { Model, DataTypes, Op } = require('sequelize');
 const sequelize = require('../config/connection');
 
 class Interest extends Model {}
@@ -9,6 +9,35 @@ Interest.findUserApprovalInSpace = async function (user_id, space_id) {
   const result = await interest.findOne({
     where: {
       user_id,
+      status: 'approved',
+    },
+    include: {
+      model: idea,
+      include: {
+        model: space,
+        where: {
+          id: space_id,
+        },
+        require: true,
+      },
+      require: true,
+    },
+  });
+
+  return result?.idea ? result : undefined;
+};
+
+Interest.findUserApprovalInOtherIdea = async function (
+  user_id,
+  space_id,
+  idea_id
+) {
+  const { interest, idea, space } = sequelize.models;
+
+  const result = await interest.findOne({
+    where: {
+      user_id,
+      idea_id: { [Op.ne]: idea_id },
       status: 'approved',
     },
     include: {
