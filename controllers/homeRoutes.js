@@ -154,11 +154,19 @@ router.get(
     try {
       const { user_id } = req.session;
       const { space_id, idea_id } = req.params;
+
+      const ideaStatus = await Idea.getStatus(idea_id);
+
+      if( !ideaStatus ) {
+        return res.status(404).render('404');
+      }
+
+      const { is_accepting, spots_left } = await Idea.getStatus(idea_id);
+
       const can_join = !(await Interest.findUserApprovalInSpace(
         user_id,
         space_id
       ));
-      const { is_accepting, spots_left } = await Idea.getStatus(idea_id);
 
       // Restricts Interest records to 'approved' only.
       const getNotAcceptingInterestWhere = () => [
@@ -214,6 +222,7 @@ router.get(
           },
         ],
       });
+
       const commentData = await Comment.findAll({
         where: {
           idea_id: ideaData.id,

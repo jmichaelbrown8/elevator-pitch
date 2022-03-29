@@ -175,6 +175,28 @@ const withNoIdeaApprovals = async (req, res, next) => {
   next();
 };
 
+// For the case of a current member claiming an idea
+/** This checks that the user is not approved for any other ideas than the given one */
+const withNoOtherIdeaApprovals = async (req, res, next) => {
+  const { space_id, idea_id } = req.params;
+
+  const errorRedirect = `/space/${space_id}/idea/${idea_id}`;
+  const errorMessage =
+    'You are already approved for another idea in this space.';
+
+  // Validate the authUser was loaded correctly
+  if (validateAuthUser(req, errorRedirect, errorMessage)) {
+    const { user_id } = req.session;
+
+    // Invalidate the request if they don't have a membership for the space or it's not approved.
+    if (await Interest.findUserApprovalInOtherIdea(user_id, space_id, idea_id)) {
+      invalidateAuth(req, errorRedirect, errorMessage);
+    }
+  }
+
+  next();
+};
+
 const withNoMembership = (req, res, next) => {
   const { space_id } = req.params;
 
@@ -232,6 +254,7 @@ module.exports = {
   withIdeaOwnership,
   withIdeaApproval,
   withNoIdeaApprovals,
+  withNoOtherIdeaApprovals,
   withApprovedMembership,
   withNoMembership,
   withAuth,

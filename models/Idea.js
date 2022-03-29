@@ -1,5 +1,10 @@
 const { Model, DataTypes, Sequelize } = require('sequelize');
 const sequelize = require('../config/connection');
+const fs = require('fs');
+const path = require('path');
+const { promisify } = require('util');
+
+const asyncRm = promisify(fs.rm);
 
 class Idea extends Model {}
 
@@ -21,13 +26,13 @@ Idea.getStatus = async function( idea_id ) {
         'approved_count',
       ]
     ],
-  } )).toJSON();
+  } ))?.toJSON();
 
-  return {
+  return result ? {
     owner: result.user_id,
     spots_left: result.members ? result.members - result.approved_count : 0,
     is_accepting: result.members && result.members > result.approved_count
-  };
+  } : false;
 
 };
 
@@ -93,6 +98,37 @@ Idea.init(
         const { interest } = sequelize.models;
         await interest.bulkCreate(interestRequests);
         return ideas;
+      },
+      afterDestroy: async (idea) => {
+        const myPath = path.join(__dirname, `../uploads/${idea.space_id}/${idea.id}/`);
+        await asyncRm( myPath, { recursive: true, force: true } );
+        return idea;
+      },
+      afterUpdate: async (idea) => {
+        const ownerId = idea.dataValues.user_id;
+        const previousOwnerId = idea._previousDataValues.user_id;
+        const { interest } = sequelize.models;
+
+        // if the user_id is null, remove the previous owner from the interest table
+        if (!ownerId) {
+          await interest.destroy({
+            where: {
+              user_id: previousOwnerId,
+              idea_id: idea.id,
+            }
+          });
+        }
+
+        // if the previous user_id was null, add the new owner to the interest table
+        if (!previousOwnerId) {
+          await interest.upsert({
+            user_id: idea.user_id,
+            idea_id: idea.id,
+            status: 'approved',
+          });
+        }
+
+        return idea;
       },
     },
     sequelize,

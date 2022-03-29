@@ -6,40 +6,83 @@
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body" id="idea-members">
-             {{#each (filter_by_prop interests "status" "approved" "pending")}}
-             <div class="card {{#if @index}}mt-2{{/if}}" data-user-id="{{user_id}}">
-                <div class="card-body">
-                  {{#if (is_match ../owner_id user_id)}}
-                    <span class="badge bg-primary">Owner</span>
-                    <h2 class="fs-4 mb-0 mt-3">{{user.name}}</h2>
-                  {{else}}
-                    {{#if (is_match status "approved")}}
-                      <span class="badge bg-success">Approved</span>
-                      <h2 class="fs-4 mb-0 mt-3">{{user.name}}</h2>
-                    {{/if}}
-                    {{#if (is_match status "pending")}}
-                      <span class="badge bg-warning">Pending</span>
-                      <p class="fs-5 mb-0 mt-3">{{details}}</p>
-                    {{/if}}
-                  {{/if}}
-                </div>
-                {{#if ../is_owner}}
-                {{#unless (is_match ../owner_id user_id)}}
-                <div class="card-footer d-flex justify-content-between">
+            <div class="mb-2">
+              {{#if is_owner}}
+                <button class="btn btn-danger w-100" data-bs-toggle="modal" data-bs-target="#approve-idea-delete">Delete Idea</button>
+                <button class="btn btn-danger w-100 mt-1" data-bs-toggle="modal" data-bs-target="#approve-idea-abandon">Abandon Idea</button>
+              {{/if}}
+            </div>
+            {{#each (filter_by_prop interests "status" "approved" "pending")}}
+            <div class="card {{#if @index}}mt-2{{/if}}" data-user-id="{{user_id}}">
+              <div class="card-body">
+                {{#if (is_match ../owner_id user_id)}}
+                  <span class="badge bg-primary">Owner</span>
+                  <h2 class="fs-4 mb-0 mt-3">{{user.name}}</h2>
+                {{else}}
                   {{#if (is_match status "approved")}}
-                    <button class="btn btn-danger btn-sm" data-status="removed">Remove</button>
+                    <span class="badge bg-success">Approved</span>
+                    <h2 class="fs-4 mb-0 mt-3">{{user.name}}</h2>
                   {{/if}}
                   {{#if (is_match status "pending")}}
-                    <button class="btn btn-danger btn-sm" data-status="dismissed">Dismiss</button>
-                    <button class="btn btn-success btn-sm" data-status="approved">Approve</button>
+                    <span class="badge bg-warning">Pending</span>
+                    <p class="fs-5 mb-0 mt-3">{{details}}</p>
                   {{/if}}
-                </div>
-                {{/unless}}
                 {{/if}}
-             </div>
-             {{/each}}
+              </div>
+              {{#if ../is_owner}}
+              {{#unless (is_match ../owner_id user_id)}}
+              <div class="card-footer d-flex justify-content-between">
+                {{#if (is_match status "approved")}}
+                  <button class="btn btn-danger btn-sm" data-status="removed">Remove</button>
+                {{/if}}
+                {{#if (is_match status "pending")}}
+                  <button class="btn btn-danger btn-sm" data-status="dismissed">Dismiss</button>
+                  <button class="btn btn-success btn-sm" data-status="approved">Approve</button>
+                {{/if}}
+              </div>
+              {{/unless}}
+              {{/if}}
+            </div>
+            {{/each}}
         </div>
     </div>
   </div>
 </div>
+{{#if is_owner}}
+<div class="modal" tabindex="-1" id="approve-idea-delete" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+          <h5 class="modal-title">Are you sure?</h5>
+          <button type="button" class="btn-close" data-bs-toggle="modal" data-bs-target="#manage-interest-modal" aria-label="Return to "></button>
+      </div>
+      <div class="modal-body">
+          <p class="m-0">This action will permanently delete the idea, and all of it's resources.</p>
+      </div>
+      <div class="modal-footer d-flex flex-column flex-md-row align-items-stretch justify-content-between">
+          <button type="button" class="btn btn-danger d-block order-md-1 mb-2 mb-md-0" id="delete-idea">Yes! Delete the Idea</button>
+          <button type="button" class="btn btn-secondary d-block" data-bs-toggle="modal" data-bs-target="#manage-interest-modal">Return to Members</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal" tabindex="-1" id="approve-idea-abandon" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+          <h5 class="modal-title">Are you sure?</h5>
+          <button type="button" class="btn-close" data-bs-toggle="modal" data-bs-target="#manage-interest-modal" aria-label="Return to "></button>
+      </div>
+      <div class="modal-body">
+          <p class="m-0">This action will abandon the idea, and make it available for another member of the space to claim as their own.</p>
+      </div>
+      <div class="modal-footer d-flex flex-column flex-md-row align-items-stretch justify-content-between">
+          <button type="button" class="btn btn-danger d-block order-md-1 mb-2 mb-md-0" id="abandon-idea">Yes! Abandon the Idea</button>
+          <button type="button" class="btn btn-secondary d-block" data-bs-toggle="modal" data-bs-target="#manage-interest-modal">Return to Members</button>
+      </div>
+    </div>
+  </div>
+</div>
+{{/if}}
 <script src="/js/interestManage.js"></script>
