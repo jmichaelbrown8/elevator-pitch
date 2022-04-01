@@ -49,9 +49,9 @@
   </div>
 </div>
 
-
+{{#if is_owner}}
 <div class="card card-body bg-light shadow-sm mt-3" data-bs-toggle="modal" data-bs-target="#resource-modal">
-  <a class="overlay-hover inner-down-hover bg-success text-white shadow" style="--bs-bg-opacity: 0.85">
+  <a class="overlay-hover inner-down-hover bg-success text-white shadow" style="--bs-bg-opacity: 0.85; cursor:pointer">
     <span class="d-block px-4 py-3 fs-4 fw-bold text-center">
       <span>
         Create a New<br /></span>
@@ -66,10 +66,10 @@
     </span>
   </p>
 </div>
+{{/if}}
 
 {{!-- modal for inserting a resource --}}
 {{> modals/resourceMini}}
-
 
 {{!-- modal for editing a resource --}}
 {{> modals/editResourceMini}}
