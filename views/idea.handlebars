@@ -95,10 +95,11 @@
     </div>
    
     <div class="row gy-4">
+          {{#if is_owner}}    
         <div class="col-md-6 col-xl-4 col-xxl-3">
             <div class="card card-body card-tile bg-light shadow-sm" data-bs-toggle="modal" data-bs-target="#resource-modal" >
           
-                <a class="overlay-hover inner-down-hover bg-success text-white shadow"  style="--bs-bg-opacity: 0.85">
+                <a class="overlay-hover inner-down-hover bg-success text-white shadow"  style="--bs-bg-opacity: 0.85; cursor:pointer">
                     <span class="d-block px-4 py-3 fs-4 fw-bold text-center" >
                         <span>
                         Create a New<br/></span>
@@ -106,6 +107,7 @@
                     </span>
                 </a>
                 {{!-- </a> --}}
+              
                 <p class="m-0 overlay-hover--hide inner-down-hover--also fs-4 d-block text-center" data-bs-toggle="modal" data-bs-target="#resource-modal" >
                     <span class="badge fs-5 bg-success bi-plus-circle"> Add New</span>
                     <span class="d-block mt-2">
@@ -114,13 +116,14 @@
                 </p>
             </div>
         </div>
+                {{/if}}
 
 {{!-- current resources --}}
            
  {{#each resources}}
     
-        <div class="col-md-6 col-xl-4 col-xxl-3">
-            <div class="card card-body card-tile bg-light shadow-sm">
+        <div class="col-md-6 col-xl-4 col-xxl-3 ">
+            <div class="card card-body card-tile bg-light shadow-sm text-wrap">
                 {{#unless (is_match type 'link')}}
                 <a href="/space/{{../idea.space_id}}/idea/{{../idea.id}}/resource/{{id}}" 
                     {{/unless}}
@@ -128,9 +131,11 @@
                  <a href='{{content}}' target="_blank" 
                 {{/if}}
                     class="overlay-hover inner-down-hover bg-primary text-white shadow" style="--bs-bg-opacity: 0.85">
-                    <span class="d-block px-4 py-3 fs-4 fw-bold text-center">
+                    <span class="d-block px-4 py-3 fs-4 fw-bold text-center text-wrap">
                         View Resource<br/>
-                        <span class="fw-normal fs-5 resource-content">{{content}}</span>
+                        {{#if (is_match type 'link')}}
+                        <span class="fw-normal badge text-wrap fs-6 resource-content w-75 lh-sm" >{{content}}</span>
+                        {{/if}}
                     </span>
                 </a>
 
